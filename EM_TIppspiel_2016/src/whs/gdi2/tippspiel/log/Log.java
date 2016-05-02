@@ -1,15 +1,30 @@
 package whs.gdi2.tippspiel.log;
 
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import miller.philipp.Datum;
-import miller.philipp.Variables;
+import com.mysql.fabric.xmlrpc.base.Data;
+
+/**
+ * 
+ * This class contains the logging functionality. By executing the add function
+ * ('Log.add') it try to write a new line into the newest log file.
+ * (e.g. /log_02-05-2016.log)
+ * 
+ * @author Philipp Miller
+ * @version 1.0
+ *
+ */
 
 public class Log {
+	
+	public static void main(String [] args) {
+		System.out.println(date());
+	}
 
 	public static void add(String logZeile, LogLevel logLevel) {
 		boolean exist = true;
@@ -37,9 +52,10 @@ public class Log {
 				}
 			}
 
-			fw = new FileWriter(logFile,true);
+			fw = new FileWriter(logFile, true);
 			bw = new BufferedWriter(fw);
-			bw.write("[" + logLevel.getType() + "]\t[" + Datum.tagUndZeitDatum + "]  "+ logZeile + System.lineSeparator());
+			bw.write("[" + logLevel.getType() + "]\t[" + Datum.tagUndZeitDatum + "]  " + logZeile
+					+ System.lineSeparator());
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -66,6 +82,12 @@ public class Log {
 			break;
 		}
 	}
+	
+	private static String date() {
+		Date date = new Date();
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-YYYY");
+		return df.format(date);
+	}
 
 	private static void exit(int value) {
 		// EVTL DATEN SPEICHERN?! MYSQL ODER SO?
@@ -83,7 +105,7 @@ public class Log {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		System.exit(0);
 	}
 
