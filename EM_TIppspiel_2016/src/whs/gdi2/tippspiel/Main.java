@@ -1,3 +1,5 @@
+package whs.gdi2.tippspiel;
+
 
 public class Main {
 

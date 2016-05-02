@@ -1,4 +1,4 @@
-package whs.gdi2.tippspiel.methods.jmm;
+package whs.gdi2.tippspiel.methods;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
