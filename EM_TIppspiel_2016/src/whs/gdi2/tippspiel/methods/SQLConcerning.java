@@ -167,27 +167,37 @@ public class SQLConcerning {
 			while (true) {
 				String tempString = br.readLine();
 				if (tempString == null) {
+					fr.close();
+					br.close();
+					break;
+				}
+				String[] tempStringArray = tempString.split(";");
+				int tempInt = Integer.parseInt(tempStringArray[9]);
+				statement.executeUpdate(
+						"INSERT INTO " + s[0] + " (IP, sessionID, nickname, passwort, gruppenname, email, show_Email) " + "VALUES ('"
+								+ tempStringArray[3] + "','" + tempStringArray[4] + "','" + tempStringArray[5] + "','"
+								+ tempStringArray[6] + "','" + tempStringArray[7] + "','" + tempStringArray[8] + "'," + tempInt + ")");
+			}
+			FileReader fr2 = new FileReader("data\\tipps.txt");
+			BufferedReader br2 = new BufferedReader(fr2);
+			while (true) {
+				String tempString = br2.readLine();
+				if (tempString == null) {
+					fr.close();
+					br.close();
 					break;
 				}
 				String[] tempStringArray = tempString.split(";");
 				statement.executeUpdate(
-						"INSERT INTO " + s[0] + " (IP, sessionID, nickname, passwort, gruppenname, email) " + "VALUES ('"
-								+ tempStringArray[3] + "','" + tempStringArray[4] + "','" + tempStringArray[5] + "','"
-								+ tempStringArray[6] + "','" + tempStringArray[7] + "','" + tempStringArray[8] + "')");
-				updSql = connection.prepareStatement("INSERT INTO (show_Email) VALUES (?)");
-				String tempSplitString = tempStringArray[9];
-				int tempInt = Integer.parseInt(tempSplitString);
-				if (tempInt == 1) {
-					tempBool = true;
-				}
-				if (tempInt == 0) {
-					tempBool = false;
-				}
-				updSql.setBoolean(1, tempBool);
-				updSql.executeUpdate();
+						"INSERT INTO " + s[1] + " (tippid, benutzerid, spieleid, tippdatum, tippheimhz, tippgasthz, tippheimende, tippgastende, tippheimverl, tippgastverl, "
+								+ "tippheimelf, tippgastelf, tippgelbeheim, tippgelbegast, tipproteheim, tipprotegast) " + "VALUES ('"
+								+ tempStringArray[0] + "','" + tempStringArray[1] + "','" + tempStringArray[2] + "','"
+								+ tempStringArray[3] + "','" + tempStringArray[4] + "','" + tempStringArray[5] + "'," + tempStringArray[6]
+								+ "','" + tempStringArray[7] + "','" + tempStringArray[8] + "','" + tempStringArray[9] + "','"
+								+ tempStringArray[10] + "','" + tempStringArray[11] + "','" + tempStringArray[12] + "','" + tempStringArray[13]
+										+ "','" + tempStringArray[14] + "','" + tempStringArray[15] + "')");
 			}
 			statement.close();
-			updSql.close();
 			return "Inserted test datas.";
 		} catch (Exception e) {
 			e.printStackTrace();
