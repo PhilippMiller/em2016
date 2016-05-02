@@ -13,10 +13,10 @@ public class Config {
 	
 	
 	
-	public static String getHomedir() {
+	public static String getHomeDir() {
 		return homeDir;
 	}
-	public static String getLogdir() {
+	public static String getLogDir() {
 		return logDir;
 	}
 	
