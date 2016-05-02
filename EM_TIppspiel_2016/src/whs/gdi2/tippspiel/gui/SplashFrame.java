@@ -16,6 +16,14 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.JLabel;
 
+/**
+ * 
+ * @version 1.0
+ * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
+ * @author Jan-Markus Momper <jan-markus.momper@studmail.w-hs.de>
+ * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
+ *
+ */
 public class SplashFrame extends JFrame {
 
 	private JPanel contentPane;
@@ -82,32 +90,32 @@ public class SplashFrame extends JFrame {
 		label.setBackground(UIManager.getColor("Button.disabledShadow"));
 		label.setBounds(125, 15, 250, 250);
 		contentPane.add(label);
-		
+
 		JLabel versionLabel = new JLabel("New label");
 		versionLabel.setBounds(10, 255, 70, 14);
 		versionLabel.setText("Version: " + Config.getVersion());
 		contentPane.add(versionLabel);
-		
+
 		JLabel autorTopLabel = new JLabel("Autoren:");
 		autorTopLabel.setBounds(360, 183, 105, 22);
 		contentPane.add(autorTopLabel);
-		
+
 		JLabel autorLabel = new JLabel("");
 		autorLabel.setBounds(360, 203, 127, 22);
 		autorLabel.setText(Config.getAutor()[0]);
 		contentPane.add(autorLabel);
-		
+
 		JLabel autor2Label = new JLabel("");
 		autor2Label.setBounds(360, 223, 105, 22);
 		autor2Label.setText(Config.getAutor()[1]);
 		contentPane.add(autor2Label);
-		
+
 		JLabel autor3Label = new JLabel("");
 		autor3Label.setBounds(360, 243, 105, 22);
 		autor3Label.setText(Config.getAutor()[2]);
 		contentPane.add(autor3Label);
 	}
-	
+
 	public static void finish() {
 		frame.dispose();
 	}
