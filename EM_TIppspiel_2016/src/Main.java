@@ -1,4 +1,4 @@
-import whs.gdi2.tippspiel.methods.jmm.*;
+import whs.gdi2.tippspiel.methods.*;
 
 public class Main {
 
