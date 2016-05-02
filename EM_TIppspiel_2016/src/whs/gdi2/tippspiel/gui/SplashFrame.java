@@ -1,9 +1,7 @@
 package whs.gdi2.tippspiel.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,10 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import javax.swing.JLabel;
 
@@ -37,17 +32,17 @@ public class SplashFrame extends JFrame {
 			}
 		});
 	}
-	
+
 	/** Returns an ImageIcon, or null if the path was invalid. */
 	protected ImageIcon createImageIcon(String path, String description) {
-	    java.net.URL imgURL = getClass().getResource(path);
-	    System.out.println(imgURL);
-	    if (imgURL != null) {
-	        return new ImageIcon(imgURL, description);
-	    } else {
-	        System.err.println("Couldn't find file: " + path);
-	        return null;
-	    }
+		java.net.URL imgURL = getClass().getResource(path);
+		System.out.println(imgURL);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL, description);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
 	}
 
 	/**
@@ -56,12 +51,16 @@ public class SplashFrame extends JFrame {
 	private BufferedImage image;
 
 	public SplashFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		setType(Type.UTILITY);
+		setUndecorated(true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 
 		JTextPane txtpnEmTippspiel = new JTextPane();
 		txtpnEmTippspiel.setEditable(false);
@@ -70,7 +69,7 @@ public class SplashFrame extends JFrame {
 		txtpnEmTippspiel.setText("EM 2016 Tippspiel");
 		txtpnEmTippspiel.setBounds(165, 28, 170, 30);
 		contentPane.add(txtpnEmTippspiel);
-		
+
 		URL imageResource = SplashFrame.class.getResource("/whs/gdi2/tippspiel/data/EMLogo.png");
 		ImageIcon emLogo = new ImageIcon(imageResource, "The EM2016 WHS-selfmade-Logo");
 		JLabel label = new JLabel("", emLogo, JLabel.CENTER);
