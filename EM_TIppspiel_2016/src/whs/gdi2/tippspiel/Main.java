@@ -33,13 +33,26 @@ public class Main {
 		
 		// EVERYTHING HAS TO INITIALIZED!
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(500);
+			
+			SplashFrame.setWorkOnIt(SQLConcerning.loadDriver());
+			SplashFrame.setWorkOnIt(SQLConcerning.connectToLiveDB());
+			SplashFrame.setWorkOnIt(SQLConcerning.connectToTestDB());
+			SplashFrame.setWorkOnIt(SQLConcerning.createDB());
+			SplashFrame.setWorkOnIt(SQLConcerning.createTables());
+			SplashFrame.setWorkOnIt(SQLConcerning.addTestData());
+			SplashFrame.setWorkOnIt(SQLConcerning.addSpieleTestData());
+			SplashFrame.setWorkOnIt(SQLConcerning.disconnect());
+			
+			Thread thread1 = new Thread();
+			thread1.sleep(5000);
+			SplashFrame.finish();
+			MainFrame.main(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		SplashFrame.finish();
-		MainFrame.main(null);
 		
+		/*
 		System.out.println(SQLConcerning.loadDriver());
 		System.out.println(SQLConcerning.connectToLiveDB());
 		System.out.println(SQLConcerning.connectToTestDB());
@@ -48,6 +61,7 @@ public class Main {
 		System.out.println(SQLConcerning.addTestData());
 		System.out.println(SQLConcerning.addSpieleTestData());
 		System.out.println(SQLConcerning.disconnect());
+		*/
 		
 		Log.info("Application has reached its end");
 	}

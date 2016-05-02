@@ -61,6 +61,7 @@ public class SplashFrame extends JFrame {
 	 * Create the frame.
 	 */
 	private BufferedImage image;
+	private static JLabel workOnIt;
 
 	public SplashFrame() {
 		setBackground(UIManager.getColor("Button.disabledShadow"));
@@ -75,6 +76,10 @@ public class SplashFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		
+		workOnIt = new JLabel("Work in progress...");
+		workOnIt.setBounds(10, 235, 163, 14);
+		contentPane.add(workOnIt);
 
 		JTextPane txtpnEmTippspiel = new JTextPane();
 		txtpnEmTippspiel.setEditable(false);
@@ -84,6 +89,8 @@ public class SplashFrame extends JFrame {
 		txtpnEmTippspiel.setBounds(10, 11, 170, 30);
 		contentPane.add(txtpnEmTippspiel);
 
+		// MYJavaFile.class.getResource("/package/packageb/packagebb/packagebbb/../File.typ")
+		// Loads a file out which contains to the Project
 		URL imageResource = SplashFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png");
 		ImageIcon emLogo = new ImageIcon(imageResource, "The EM2016 WHS-selfmade-Logo");
 		JLabel label = new JLabel("", emLogo, JLabel.CENTER);
@@ -115,7 +122,14 @@ public class SplashFrame extends JFrame {
 		autor3Label.setText(Config.getAutor()[2]);
 		contentPane.add(autor3Label);
 	}
+	
+	public static void setWorkOnIt(String progress) {
+		workOnIt.setText(progress);
+	}
 
+	/**
+	 * Dispose / Close the frame
+	 */
 	public static void finish() {
 		frame.dispose();
 	}
