@@ -2,6 +2,8 @@ package whs.gdi2.tippspiel;
 
 import java.io.File;
 
+import whs.gdi2.tippspiel.gui.MainFrame;
+import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
 import whs.gdi2.tippspiel.methods.*;
 /**
@@ -25,7 +27,17 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Log.info("Application started");
+		SplashFrame.main(null);
 		Main.Initialize();
+		
+		// EVERYTHING HAVE TO INITIALIZED!
+		try {
+			Thread.sleep(3000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		SplashFrame.finish();
+		MainFrame.main(null);
 		
 		System.out.println(SQLConcerning.loadDriver());
 		System.out.println(SQLConcerning.connectToLiveDB());
