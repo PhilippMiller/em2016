@@ -1,5 +1,7 @@
 package whs.gdi2.tippspiel;
 
+import java.io.File;
+
 import whs.gdi2.tippspiel.log.Log;
 import whs.gdi2.tippspiel.methods.*;
 /**
@@ -23,6 +25,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Log.info("Application started");
+		Main.Initialize();
 		
 		System.out.println(SQLConcerning.loadDriver());
 		System.out.println(SQLConcerning.connectToLiveDB());
@@ -32,5 +35,14 @@ public class Main {
 		System.out.println(SQLConcerning.addTestData());
 		System.out.println(SQLConcerning.disconnect());
 		Log.info("Application has reached its end");
+	}
+	
+	public static void Initialize() {
+		File homeDir = new File(Config.getHomeDir());
+		
+		if(!homeDir.exists()) {
+			homeDir.mkdirs();
+		}	
+		
 	}
 }
