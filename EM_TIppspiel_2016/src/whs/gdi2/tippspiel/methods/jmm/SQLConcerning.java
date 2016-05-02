@@ -9,7 +9,7 @@ import java.sql.*;
  * database
  * 
  * @author Jan-Markus Momper
- * @version 1.0
+ * @version 1.1
  */
 
 public class SQLConcerning {
@@ -156,38 +156,37 @@ public class SQLConcerning {
 	}
 
 	/** Method for reading and adding all the test datas to the database */
-	public static String addTestData() 
-	{	
-		final String[] s = new String[] {"benutzer", "tipps"};
-		boolean tempBool;
-		
-		try 
-		{	
+	public static String addTestData() {
+		final String[] s = new String[] { "benutzer", "tipps" };
+		boolean tempBool = false;
+
+		try {
 			statement = connection.createStatement();
 			FileReader fr = new FileReader("benutzer.txt");
 			BufferedReader br = new BufferedReader(fr);
-			while (true) 
-			{
-			String tempString = br.readLine();
-			if (tempString == null) {
-				break;
+			while (true) {
+				String tempString = br.readLine();
+				if (tempString == null) {
+					break;
+				}
+				String[] tempStringArray = tempString.split(";");
+				statement.executeUpdate(
+						"INSERT INTO " + s[0] + " (IP, sessionID, nickname, passwort, gruppenname, email) " + "VALUES '"
+								+ tempStringArray[3] + "','" + tempStringArray[4] + "','" + tempStringArray[5] + "','"
+								+ tempStringArray[6] + "','" + tempStringArray[7] + "','" + tempStringArray[8] + "'");
+
+				updSql = connection.prepareStatement("INSERT INTO (show_Email) VALUES (?)");
+				String tempSplitString = tempStringArray[9];
+				int tempInt = Integer.parseInt(tempSplitString);
+				if (tempInt == 1) {
+					tempBool = true;
+				}
+				if (tempInt == 0) {
+					tempBool = false;
+				}
+				updSql.setBoolean(0, tempBool);
+				updSql.executeUpdate();
 			}
-			String[] tempStringArray = tempString.split(";");
-			statement.executeUpdate("INSERT INTO " + s[0] + " (IP, sessionID, nickname, passwort, gruppenname, email) "
-					+ "VALUES '" + tempStringArray[3] + "','" + tempStringArray[4] + "','" + tempStringArray[5] + "','" + tempStringArray[6] + "','"
-					+ tempStringArray[7] + "','" + tempStringArray[8] + "'");
-			}
-			updSql = connection.prepareStatement("INSERT INTO (show_Email) VALUES (?)");
-			String tempSplitString = tempStringArray[9];
-			int tempInt = Integer.parseInt(tempSplitString);
-			if (tempInt == 1) {
-				tempBool = true; 
-			}
-			if (tempInt == 0) {
-				tempBool = false;
-			}
-			updSql.setBoolean(0, tempBool);
-			updSql.executeUpdate();
 			statement.close();
 			updSql.close();
 			return "Inserted test datas.";
