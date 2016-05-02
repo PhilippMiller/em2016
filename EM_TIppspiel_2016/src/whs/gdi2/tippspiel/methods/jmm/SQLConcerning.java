@@ -162,7 +162,8 @@ public class SQLConcerning {
 
 		try {
 			statement = connection.createStatement();
-			FileReader fr = new FileReader("benutzer.txt");
+			String userdir = System.getProperty("user.dir");
+			FileReader fr = new FileReader(userdir + "\\data\\benutzer.txt");
 			BufferedReader br = new BufferedReader(fr);
 			while (true) {
 				String tempString = br.readLine();

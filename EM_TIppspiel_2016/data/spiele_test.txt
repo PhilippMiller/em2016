@@ -1,0 +1,51 @@
+;Gruppe A;Saint-Denis;2016-04-10 21:00:00;Frankreich;Rumänien;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe A;Lens;2016-04-11 15:00:00;Albanien;Schweiz;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe A;Paris;2016-04-15 18:00:00;Rumänien;Schweiz;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe A;Marseille;2016-04-15 21:00:00;Frankreich;Albanien;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe A;Lille;2016-04-19 21:00:00;Schweiz;Frankreich;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe A;Lyon;2016-04-19 21:00:00;Rumänien;AlbanienendOfLine
+;Gruppe B;Bordeaux;2016-04-11 18:00:00;Wales;Slowakei;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe B;Marseille;2016-04-11 21:00:00;England;RusslandendOfLine
+;Gruppe B;Lille;2016-04-15 15:00:00;Russland;SlowakeiendOfLine
+;Gruppe B;Lens;2016-04-16 15:00:00;England;Wales;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe B;Saint-Étienne;2016-04-20 21:00:00;Slowakei;England;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe B;Toulouse;2016-04-20 21:00:00;Russland;Wales;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe C;Nizza;2016-04-12 18:00:00;Polen;Nordirland;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe C;Lille;2016-04-12 21:00:00;Deutschland;UkraineendOfLine
+;Gruppe C;Lyon;2016-04-16 18:00:00;Ukraine;Nordirland;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe C;Saint-Denis;2016-04-16 21:00:00;Deutschland;Polen;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe C;Marseille;2016-04-21 18:00:00;Ukraine;Polen;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe C;Paris;2016-04-21 18:00:00;Nordirland;DeutschlandendOfLine
+;Gruppe D;Paris;2016-04-12 15:00:00;Türkei;Kroatien;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe D;Toulouse;2016-04-13 15:00:00;Spanien;Tschechien;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe D;Saint-Étienne;2016-04-17 18:00:00;Tschechien;Kroatien;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe D;Nizza;2016-04-17 21:00:00;Spanien;Türkei;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe D;Bordeaux;2016-04-21 21:00:00;Kroatien;Spanien;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe D;Lens;2016-04-21 21:00:00;Tschechien;TürkeiendOfLine
+;Gruppe E;Saint-Denis;2016-04-13 18:00:00;Irland;Schweden;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe E;Lyon;2016-04-13 21:00:00;Belgien;Italien;1;1;1;2;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe E;Toulouse;2016-04-17 15:00:00;Italien;SchwedenendOfLine
+;Gruppe E;Bordeaux;2016-04-18 15:00:00;Belgien;Irland;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe E;Lille;2016-04-22 21:00:00;Italien;Irland;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe E;Nizza;2016-04-22 21:00:00;Schweden;Belgien;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe F;Bordeaux;2016-04-14 18:00:00;Österreich;UngarnendOfLine
+;Gruppe F;Saint-Étienne;2016-04-14 21:00:00;Portugal;Island;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe F;Marseille;2016-04-18 18:00:00;Island;Ungarn;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe F;Paris;2016-04-18 21:00:00;Portugal;Österreich;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe F;Lyon;2016-04-22 18:00:00;Ungarn;Portugal;1;1;2;1;;\N;\N;;\N;\N;1;1;0;0endOfLine
+;Gruppe F;Saint-Denis;2016-04-22 18:00:00;Island;ÖsterreichendOfLine
+;Achtelfinale;Saint-Étienne;2016-04-25 15:00:00;Zweiter Gruppe A;Zweiter Gruppe CendOfLine
+;Achtelfinale;Paris;2016-04-25 18:00:00;Sieger Gruppe B;Dritter Gruppe A/C/DendOfLine
+;Achtelfinale;Lens;2016-04-25 21:00:00;Sieger Gruppe D;Dritter Gruppe B/E/FendOfLine
+;Achtelfinale;Lyon;2016-04-26 15:00:00;Sieger Gruppe A;Dritter Gruppe C/D/EendOfLine
+;Achtelfinale;Lille;2016-04-26 18:00:00;Sieger Gruppe C;Dritter Gruppe A/B/FendOfLine
+;Achtelfinale;Toulouse;2016-04-26 21:00:00;Sieger Gruppe F;Zweiter Gruppe EendOfLine
+;Achtelfinale;Saint-Denis;2016-04-27 18:00:00;Sieger Gruppe E;Zweiter Gruppe DendOfLine
+;Achtelfinale;Nizza;2016-04-27 21:00:00;Zweiter Gruppe B;Zweiter Gruppe FendOfLine
+;Viertelfinale;Marseille;2016-04-30 21:00:00;Sieger AF 1;Sieger AF 3endOfLine
+;Viertelfinale;Lille;2016-05-01 21:00:00;Sieger AF 2;Sieger AF 6endOfLine
+;Viertelfinale;Bordeaux;2016-05-02 21:00:00;Sieger AF 5;Sieger AF 7endOfLine
+;Viertelfinale;Saint-Denis;2016-05-03 21:00:00;Sieger AF 4;Sieger AF 8endOfLine
+;Halbfinale;Lyon;2016-05-06 21:00:00;Sieger VF 1;Sieger VF 2endOfLine
+;Halbfinale;Marseille;2016-05-07 21:00:00;Sieger VF 3;Sieger VF 4endOfLine
+;Finale   ;Saint-Denis;2016-05-10 21:00:00;Sieger HF 1;Sieger HF 2endOfLine
