@@ -6,6 +6,7 @@ import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
 import whs.gdi2.tippspiel.methods.*;
+
 /**
  * Haupteinstiegspunkt unserer Applikation.
  * 
@@ -30,7 +31,7 @@ public class Main {
 		SplashFrame.main(null);
 		Main.Initialize();
 		
-		// EVERYTHING HAVE TO INITIALIZED!
+		// EVERYTHING HAS TO INITIALIZED!
 		try {
 			Thread.sleep(3000);
 		} catch (Exception e) {
@@ -45,7 +46,9 @@ public class Main {
 		System.out.println(SQLConcerning.createDB());
 		System.out.println(SQLConcerning.createTables());
 		System.out.println(SQLConcerning.addTestData());
+		System.out.println(SQLConcerning.addSpieleTestData());
 		System.out.println(SQLConcerning.disconnect());
+		
 		Log.info("Application has reached its end");
 	}
 	

@@ -2,7 +2,7 @@ package whs.gdi2.tippspiel.log;
 
 
 public enum LogLevel {
-	INFO ,
+	INFO,
 	STOP,
 	DEBUG,
 	MYSQL,

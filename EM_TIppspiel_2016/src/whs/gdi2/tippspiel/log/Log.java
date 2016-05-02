@@ -11,7 +11,7 @@ import whs.gdi2.tippspiel.*;
 /**
  * 
  * This class contains the logging functionality. By executing the add function
- * ('Log.add') it try to write a new line into the newest log file.
+ * ('Log.add') tries to write a new line into the newest log file.
  * (e.g. /log_02-05-2016.log)
  * 
  * @author Philipp Miller
@@ -113,7 +113,7 @@ public class Log {
 			Log.log(LogLevel.CRITICAL,"Critical error occurs!" + System.lineSeparator() + "Application will be terminated...");
 			break;
 		case STOP:
-			Log.log(LogLevel.STOP, "Received stop signal!" + System.lineSeparator() + "Application will be terminated...");
+			Log.log(LogLevel.STOP, "Received stop-signal!" + System.lineSeparator() + "Application will be terminated...");
 			break;
 		}
 		System.exit(0);
