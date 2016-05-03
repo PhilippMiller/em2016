@@ -2,6 +2,12 @@ package whs.gdi2.tippspiel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import whs.gdi2.tippspiel.log.Log;
@@ -169,7 +175,7 @@ public class Config {
 		try {
 			pt = new Properties();
 			pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
-			Log.info("Succesfully load config File.");
+			Log.info("Successfully load config File.");
 			return pt;
 		} catch (Exception e) {
 			Log.error("Can't load config file from [" + Config.getConfigfile() + "] Exception: " + e.getMessage());
@@ -219,41 +225,61 @@ public class Config {
 	 * @return false if something went wrong by writing to the configuration
 	 *         file
 	 */
-	public static boolean write() {
+	public static boolean write(HashMap<String, String> map) {
 		try {
+			File cfgFile = new File(Config.getHomeDir() + "/" + Config.getConfigfile());
+			if (!cfgFile.exists()) {
+				cfgFile.createNewFile();
+				Log.info("Successfully create config file.");
+			}
+			
 			if (pt == null) {
 				pt = new Properties();
 				pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
 				Log.info("Succesfully load config File.");
 			}
-			File cfgFile = new File(Config.getHomeDir() + "/" + Config.getConfigfile());
-			if (cfgFile.exists() == false) {
-				cfgFile.createNewFile();
-				Log.info("Successfully create config file.");
+
+			Iterator it = map.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				pt.setProperty((String) pair.getKey(), (String) pair.getValue());
+				if (!pair.getKey().equals("DBType")) {
+					Method setter = Config.class.getMethod("set" + pair.getKey(), String.class);
+					setter.invoke(null, pair.getValue());
+				} else {
+					if (pair.getValue().equals("true")) {
+						setDBType(true);
+					} else {
+						setDBType(false);
+					}
+				}
+
 			}
-
-			if (isDBType()) {
-				pt.setProperty("DBType", "true");
-			} else {
-				pt.setProperty("DBType", "false");
-			}
-
-			pt.setProperty("DBIP_online", getDBIp_online());
-			pt.setProperty("DBUser_online", getDBUser_online());
-			pt.setProperty("DBPass_online", getDBPass_online());
-			pt.setProperty("DB_online", getDB_online());
-
-			pt.setProperty("DBIP_offline", getDBIp_offline());
-			pt.setProperty("DBUser_offline", getDBUser_offline());
-			pt.setProperty("DBPass_offline", getDBPass_offline());
-			pt.setProperty("DB_offline", getDB_offline());
-
+			pt.store(new FileOutputStream(new File(getHomeDir() + "/" + getConfigfile())), "");
+			
 			Log.info("Successfully write to config file.");
 			return true;
 		} catch (Exception e) {
 			Log.error("Can't write to config file! Exception: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(0);
 			return false;
 		}
 	}
+
+	/*
+	 * pt.setProperty("DBType", "false");
+	 * 
+	 * pt.setProperty("DBIP_online", getDBIp_online());
+	 * pt.setProperty("DBUser_online", getDBUser_online());
+	 * pt.setProperty("DBPass_online", getDBPass_online());
+	 * pt.setProperty("DB_online", getDB_online());
+	 * 
+	 * pt.setProperty("DBIP_offline", getDBIp_offline());
+	 * pt.setProperty("DBUser_offline", getDBUser_offline());
+	 * pt.setProperty("DBPass_offline", getDBPass_offline());
+	 * pt.setProperty("DB_offline", getDB_offline());
+	 * 
+	 */
 
 }
