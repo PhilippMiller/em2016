@@ -1,7 +1,17 @@
 package whs.gdi2.tippspiel;
 
+import java.awt.image.BufferedImageFilter;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import whs.gdi2.tippspiel.log.Log;
@@ -169,7 +179,7 @@ public class Config {
 		try {
 			pt = new Properties();
 			pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
-			Log.info("Succesfully load config File.");
+			Log.info("Successfully load config File.");
 			return pt;
 		} catch (Exception e) {
 			Log.error("Can't load config file from [" + Config.getConfigfile() + "] Exception: " + e.getMessage());
@@ -219,34 +229,37 @@ public class Config {
 	 * @return false if something went wrong by writing to the configuration
 	 *         file
 	 */
-	public static boolean write() {
+	public static boolean write(HashMap<String, String> map) {
 		try {
+			File cfgFile = new File(Config.getHomeDir() + "/" + Config.getConfigfile());
+			if (!cfgFile.exists()) {
+				cfgFile.createNewFile();
+				Log.info("Successfully create config file.");
+			}
+
 			if (pt == null) {
 				pt = new Properties();
 				pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
 				Log.info("Succesfully load config File.");
 			}
-			File cfgFile = new File(Config.getHomeDir() + "/" + Config.getConfigfile());
-			if (cfgFile.exists() == false) {
-				cfgFile.createNewFile();
-				Log.info("Successfully create config file.");
+
+			Iterator it = map.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				pt.setProperty((String) pair.getKey(), (String) pair.getValue());
+				if (!pair.getKey().equals("DBType")) {
+					Method setter = Config.class.getMethod("set" + pair.getKey(), String.class);
+					setter.invoke(null, pair.getValue());
+				} else {
+					if (pair.getValue().equals("true")) {
+						setDBType(true);
+					} else {
+						setDBType(false);
+					}
+				}
+
 			}
-
-			if (isDBType()) {
-				pt.setProperty("DBType", "true");
-			} else {
-				pt.setProperty("DBType", "false");
-			}
-
-			pt.setProperty("DBIP_online", getDBIp_online());
-			pt.setProperty("DBUser_online", getDBUser_online());
-			pt.setProperty("DBPass_online", getDBPass_online());
-			pt.setProperty("DB_online", getDB_online());
-
-			pt.setProperty("DBIP_offline", getDBIp_offline());
-			pt.setProperty("DBUser_offline", getDBUser_offline());
-			pt.setProperty("DBPass_offline", getDBPass_offline());
-			pt.setProperty("DB_offline", getDB_offline());
+			pt.store(new FileOutputStream(new File(getHomeDir() + "/" + getConfigfile())), "");
 
 			Log.info("Successfully write to config file.");
 			return true;
@@ -255,5 +268,46 @@ public class Config {
 			return false;
 		}
 	}
+
+	public static boolean createDefault() {
+		try {
+			File cfgFile = new File(getHomeDir() + "/" + getConfigfile());
+
+			if (!cfgFile.exists()) {
+				BufferedWriter bos = new BufferedWriter(new FileWriter(cfgFile));
+
+				String defaultConfig = "DBType = false" + "\n" + "DBIp_online = " + "\n" + "DBUser_online" + "\n"
+						+ "DBPass_online" + "\n" + "DB_online" + "\n"
+
+						+ "DBIp_offline" + "\n" + "DBUser_offline" + "\n" + "DBPass_offline" + "\n" + "DB_offline";
+
+				bos.write(defaultConfig);
+				bos.close();
+
+				Log.info("Default configuration successfully created.");
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			Log.error("Can't create the default configuration!");
+			return false;
+		}
+	}
+
+	/*
+	 * pt.setProperty("DBType", "false");
+	 * 
+	 * pt.setProperty("DBIP_online", getDBIp_online());
+	 * pt.setProperty("DBUser_online", getDBUser_online());
+	 * pt.setProperty("DBPass_online", getDBPass_online());
+	 * pt.setProperty("DB_online", getDB_online());
+	 * 
+	 * pt.setProperty("DBIP_offline", getDBIp_offline());
+	 * pt.setProperty("DBUser_offline", getDBUser_offline());
+	 * pt.setProperty("DBPass_offline", getDBPass_offline());
+	 * pt.setProperty("DB_offline", getDB_offline());
+	 * 
+	 */
 
 }

@@ -2,8 +2,11 @@ package whs.gdi2.tippspiel;
 
 import java.io.File;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
 import whs.gdi2.tippspiel.database.*;
+import whs.gdi2.tippspiel.gui.DBConfigFrame;
 import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
@@ -22,6 +25,7 @@ import whs.gdi2.tippspiel.log.Log;
  */
 public class Main {
 	public static MySQLConnection mainConnection;
+
 	/**
 	 * Einstiegspunkt unserer Applikation
 	 * 
@@ -31,7 +35,7 @@ public class Main {
 	public static void main(String[] args) {
 		Log.info("Application started");
 		SplashFrame.main(null);
-		
+
 		Main.Initialize();
 
 		// EVERYTHING HAS TO INITIALIZED!
@@ -40,35 +44,64 @@ public class Main {
 			
 			MySQLConnection tmp;
 			
-			// live db
-			if(Config.isDBType()) 
-			{
-				SplashFrame.setWorkOnIt("Connect to test database");
-				tmp = MySQLConnection.getInstance(Config.isDBType());
-				tmp.setDatabaseHost(Config.getDBIp_online());
-				tmp.setDatabaseUser(Config.getDBUser_online());
-				tmp.setDatabasePassword(Config.getDBPass_online());
-				tmp.setDatabase(Config.getDB_online());
+			if (Config.load()) {
+				if (Config.isDBType() && !Config.getDBIp_online().equals("")) {
+					// live db
+					SplashFrame.setWorkOnIt("Connect to test database");
+					tmp = MySQLConnection.getInstance(Config.isDBType());
+					tmp.setDatabaseHost(Config.getDBIp_online());
+					tmp.setDatabaseUser(Config.getDBUser_online());
+					tmp.setDatabasePassword(Config.getDBPass_online());
+					tmp.setDatabase(Config.getDB_online());
+					
+					if (tmp.connectToDatabase()) {
+						Main.mainConnection = tmp;
+						Thread.sleep(2000);
+						SplashFrame.finish();
+						MainFrame.main(null);
+					} else {
+						Thread.sleep(2000);
+						SplashFrame.finish();
+						DBConfigFrame.main(null);
+					}
+					
+				} else if (!Config.isDBType() && !Config.getDBIp_offline().equals("")) {
+					// test db
+					SplashFrame.setWorkOnIt("Connect to live database");
+					tmp = MySQLConnection.getInstance(Config.isDBType());
+					tmp.setDatabaseHost(Config.getDBIp_offline());
+					tmp.setDatabaseUser(Config.getDBUser_offline());
+					tmp.setDatabasePassword(Config.getDBPass_offline());
+					tmp.setDatabase(Config.getDB_offline());
+					
+					if (tmp.connectToDatabase()) {
+						Main.mainConnection = tmp;
+						Thread.sleep(2000);
+						SplashFrame.finish();
+						MainFrame.main(null);
+					} else {
+						Thread.sleep(2000);
+						SplashFrame.finish();
+						DBConfigFrame.main(null);
+					}
+				} else {
+					Thread.sleep(2000);
+					SplashFrame.finish();
+					DBConfigFrame.main(null);
+				}
+			} else {
+				Thread.sleep(2000);
+				SplashFrame.finish();
+				DBConfigFrame.main(null);
 			}
-			else { // test db
-				SplashFrame.setWorkOnIt("Connect to live database");
-				tmp = MySQLConnection.getInstance(Config.isDBType());
 
-				tmp.setDatabaseHost(Config.getDBIp_offline());
-				tmp.setDatabaseUser(Config.getDBUser_offline());
-				tmp.setDatabasePassword(Config.getDBPass_offline());
-				tmp.setDatabase(Config.getDB_offline());
-			}
 			
-			Main.mainConnection = tmp;
-			
+			/*
 			SplashFrame.setWorkOnIt(DatabaseManagement.createTables(Main.mainConnection));
 			SplashFrame.setWorkOnIt(DatabaseManagement.addTestData(Main.mainConnection));
+			*/
 
-			Thread thread1 = new Thread();
-			thread1.sleep(5000);
-			SplashFrame.finish();
-			MainFrame.main(null);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,6 +126,8 @@ public class Main {
 		if (!homeDir.exists()) {
 			homeDir.mkdirs();
 		}
+		
+		Config.createDefault();
 
 	}
 }
