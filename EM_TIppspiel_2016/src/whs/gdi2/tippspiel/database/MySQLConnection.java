@@ -70,11 +70,13 @@ public class MySQLConnection {
 		String dsn = "jdbc:mysql://" + this.getDatabaseHost() + "/" + this.getDatabase();
 		
 		try {
-			Log.info("Connecting to ");
 			connection = DriverManager.getConnection(dsn, this.getDatabaseUser(), this.getDatabasePassword());
+			Log.info("Connected to Database server");
+			Log.debug("ConnectionString: " + dsn);
+			
 			return true;
 		} catch (SQLException ex) {
-			ex.printStackTrace();
+			Log.error("Cannot connect to " + this.getDatabaseHost()+ ". Exception: " + ex.getMessage());
 		}
 		return false;
 	}
@@ -119,7 +121,7 @@ public class MySQLConnection {
 			stmt = this.getConnection().createStatement();
 			stmt.execute("CREATE DATABASE " + this.getDatabase());
 			
-			stmt.execute("use EM2016");
+			stmt.execute("use " + this.getDatabase());
 			return true;
 		} catch (SQLException e) {
 			Log.error(e.getMessage());
