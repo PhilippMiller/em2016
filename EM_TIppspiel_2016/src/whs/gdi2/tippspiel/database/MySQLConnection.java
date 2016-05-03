@@ -71,7 +71,7 @@ public class MySQLConnection {
 		
 		try {
 			connection = DriverManager.getConnection(dsn, this.getDatabaseUser(), this.getDatabasePassword());
-			Log.info("Connected to Database server");
+			Log.info("Connected to database server.");
 			Log.debug("ConnectionString: " + dsn);
 			
 			return true;

@@ -33,7 +33,7 @@ public class Main {
 	 *            Übergebene Startparameter
 	 */
 	public static void main(String[] args) {
-		Log.info("Application started");
+		Log.info("Application started.");
 		SplashFrame.main(null);
 
 		Main.Initialize();
@@ -47,7 +47,7 @@ public class Main {
 			if (Config.load()) {
 				if (Config.isDBType() && !Config.getDBIp_online().equals("")) {
 					// live db
-					SplashFrame.setWorkOnIt("Connect to test database");
+					SplashFrame.setWorkOnIt("Connecting to test database...");
 					tmp = MySQLConnection.getInstance(Config.isDBType());
 					tmp.setDatabaseHost(Config.getDBIp_online());
 					tmp.setDatabaseUser(Config.getDBUser_online());
@@ -67,7 +67,7 @@ public class Main {
 					
 				} else if (!Config.isDBType() && !Config.getDBIp_offline().equals("")) {
 					// test db
-					SplashFrame.setWorkOnIt("Connect to live database");
+					SplashFrame.setWorkOnIt("Connecting to live database...");
 					tmp = MySQLConnection.getInstance(Config.isDBType());
 					tmp.setDatabaseHost(Config.getDBIp_offline());
 					tmp.setDatabaseUser(Config.getDBUser_offline());
@@ -117,7 +117,7 @@ public class Main {
 		 * System.out.println(SQLConcerning.disconnect());
 		 */
 
-		Log.info("Application has reached its end");
+		Log.info("Application has reached its end.");
 	}
 
 	public static void Initialize() {

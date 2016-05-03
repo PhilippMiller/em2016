@@ -14,8 +14,8 @@ import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
 
 /**
- * This class contains all methods we need to describe, read and write our SQL
- * database
+ * This class contains all methods we need to describe, read and write for MySQL
+ * 
  * 
  * @author Jan-Markus Momper
  * @author Mario Kellner
@@ -28,10 +28,10 @@ public class DatabaseManagement {
 	public static String createDB(MySQLConnection connection) {
 		
 		if(connection.createOrRecreateDatabase()) {
-			return "Database created successfully";
+			return "Database created successfully.";
 		}
 
-		return "Creation of the Database failed";
+		return "Database creation failed.";
 	}
 
 	/** Creates necessary tables */
@@ -78,7 +78,7 @@ public class DatabaseManagement {
 						+ "punkte INT(10), "
 						+ "platz INT(10)"
 						+ ")",
-				"CREATE TABLE " + Config.getTableHint() + "("
+				"CREATE TABLE " + Config.getTableBets() + "("
 						+ "tippid INT(10) NOT NULL AUTO_INCREMENT primary key,"
 						+ "benutzerid INT(10),"
 						+ "spieleid INT(10),"
@@ -103,11 +103,11 @@ public class DatabaseManagement {
 			for(String table : tables) {
 				statement.executeUpdate(table);
 			}
-			Log.info("Tables created in " + connection.getDatabase());
-			return "Tables created in " + connection.getDatabase();
+			Log.info("Tables created in " + connection.getDatabase() + ".");
+			return "Tables created in " + connection.getDatabase() + ".";
 		} catch (SQLException e) {
-			Log.error("Error while creating tables for" + connection.getDatabase());
-			return "Error while creating tables for" + connection.getDatabase();
+			Log.error("Error while creating tables for" + connection.getDatabase() + ".");
+			return "Error while creating tables for" + connection.getDatabase() + ".";
 		}
 	}
 
@@ -116,7 +116,6 @@ public class DatabaseManagement {
 	 * to the database
 	 */
 	public static String addTestData(MySQLConnection connection) {
-		boolean tempBool = false;
 
 		try {
 			Statement statement = connection.getConnection().createStatement();
@@ -142,14 +141,14 @@ public class DatabaseManagement {
 			
 			statement.executeUpdate(sql);
 
-			Log.info("User inserted into Database");
+			Log.info("'" + Config.getTableUser() + "' inserted into database.");
 			
 			BufferedReader br2 = new BufferedReader(
 				new InputStreamReader(
 					DatabaseManagement.class.getResourceAsStream("/whs/gdi2/tippspiel/data/tipps.txt")
 				)
 			);
-			sql = "INSERT INTO " + Config.getTableHint() + "(tippid, benutzerid, spieleid, tippdatum, tippheimhz, tippgasthz, tippheimende, tippgastende, tippheimverl, tippgastverl, "
+			sql = "INSERT INTO " + Config.getTableBets() + "(tippid, benutzerid, spieleid, tippdatum, tippheimhz, tippgasthz, tippheimende, tippgastende, tippheimverl, tippgastverl, "
 						+ "tippheimelf, tippgastelf, tippgelbeheim, tippgelbegast, tipproteheim, tipprotegast)"
 					+ "VALUES";
 			
@@ -165,7 +164,7 @@ public class DatabaseManagement {
 			
 			statement.executeUpdate(sql);
 
-			Log.info("Hints inserted into Database");
+			Log.info("'" + Config.getTableBets() + "' inserted into database.");
 			BufferedReader br3 = new BufferedReader(
 				new InputStreamReader(
 					DatabaseManagement.class.getResourceAsStream("/whs/gdi2/tippspiel/data/spiele_test.txt")
@@ -191,7 +190,7 @@ public class DatabaseManagement {
 			}
 			
 			statement.executeUpdate(sql);
-			Log.info("Games inserted into Database");
+			Log.info("'" + Config.getTableGames() + "' inserted into database.");
 			statement.close();
 			return "Inserted test datas.";
 		} catch (Exception e) {

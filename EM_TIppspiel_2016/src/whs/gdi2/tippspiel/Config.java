@@ -36,7 +36,7 @@ public class Config {
 	private static final String table_user = "benutzer";
 	private static final String table_games = "spiele";
 	private static final String table_ranking = "ranking";
-	private static final String table_hint = "tipps";
+	private static final String table_bets = "tipps";
 
 	private static Properties pt;
 
@@ -84,8 +84,8 @@ public class Config {
 		return table_ranking;
 	}
 
-	public static String getTableHint() {
-		return table_hint;
+	public static String getTableBets() {
+		return table_bets;
 	}
 
 	public static Properties getPt() {
@@ -93,7 +93,7 @@ public class Config {
 	}
 
 	/*
-	 * DB Parameter
+	 * db parameters
 	 */
 
 	public static void setDBType(boolean dBType) {
