@@ -2,10 +2,10 @@ package whs.gdi2.tippspiel;
 
 import java.io.File;
 
+import whs.gdi2.tippspiel.database.*;
 import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
-import whs.gdi2.tippspiel.methods.*;
 
 /**
  * Haupteinstiegspunkt unserer Applikation.
