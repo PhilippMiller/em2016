@@ -47,24 +47,14 @@ public class SplashFrame extends JFrame {
 		});
 	}
 
-	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected ImageIcon createImageIcon(String path, String description) {
-		java.net.URL imgURL = getClass().getResource(path);
-		System.out.println(imgURL);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL, description);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
-	}
+	/**
+	 * Content of the following frame
+	 */
+	private static JLabel workOnIt;
 
 	/**
 	 * Create the frame.
 	 */
-	private BufferedImage image;
-	private static JLabel workOnIt;
-
 	public SplashFrame() {
 		setBackground(new Color(248, 248, 255));
 		setResizable(false);
