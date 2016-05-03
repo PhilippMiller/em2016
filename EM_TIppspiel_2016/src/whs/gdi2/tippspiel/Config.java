@@ -77,10 +77,18 @@ public class Config {
 	public static String getTableHint() {
 		return table_hint;
 	}
+	
+	public static Properties getPt() {
+		return pt;
+	}
+	
+	
 
 	/*
 	 * DB Parameter
 	 */
+
+	
 
 	public static void setDBType(String dBType) {
 		DBType = dBType;
