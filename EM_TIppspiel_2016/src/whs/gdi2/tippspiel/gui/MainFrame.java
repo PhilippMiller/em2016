@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 /**
  * 
@@ -42,10 +46,27 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 500);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnDatenbank = new JMenu("Datenbank");
+		menuBar.add(mnDatenbank);
+		
+		JRadioButtonMenuItem rdbtnmntmOffline = new JRadioButtonMenuItem("Offline");
+		mnDatenbank.add(rdbtnmntmOffline);
+		
+		JRadioButtonMenuItem rdbtnmntmOnline = new JRadioButtonMenuItem("Online");
+		mnDatenbank.add(rdbtnmntmOnline);
+		
+		JMenu mnHilfe = new JMenu("Hilfe");
+		menuBar.add(mnHilfe);
+		
+		JMenuItem mntmEinstellungen = new JMenuItem("Einstellungen");
+		mnHilfe.add(mntmEinstellungen);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 	}
-
 }
