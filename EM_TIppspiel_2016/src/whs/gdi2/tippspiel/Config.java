@@ -27,7 +27,9 @@ public class Config {
 	private static final String table_games = "spiele";
 	private static final String table_ranking = "ranking";
 	private static final String table_hint = "tipps";
-	
+
+	private static Properties pt;
+
 	private static String DBType;
 
 	private static String DBIp_online;
@@ -39,7 +41,6 @@ public class Config {
 	private static String DBUser_offline;
 	private static String DBPass_offline;
 	private static String DB_offline;
-
 
 	public static String getConfigfile() {
 		return configFile;
@@ -60,7 +61,7 @@ public class Config {
 	public static String[] getAutor() {
 		return autor;
 	}
-	
+
 	public static String getTableUser() {
 		return table_user;
 	}
@@ -77,6 +78,10 @@ public class Config {
 		return table_hint;
 	}
 
+	/*
+	 * DB Parameter
+	 */
+
 	public static void setDBType(String dBType) {
 		DBType = dBType;
 	}
@@ -84,9 +89,7 @@ public class Config {
 	public static String getDBIp_online() {
 		return DBIp_online;
 	}
-	
-	
-	
+
 	public static String getDBType() {
 		return DBType;
 	}
@@ -160,7 +163,7 @@ public class Config {
 	 */
 	private static Properties loadFile() {
 		try {
-			Properties pt = new Properties();
+			pt = new Properties();
 			pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
 			Log.info("Succesfully load config File.");
 			return pt;
@@ -178,29 +181,66 @@ public class Config {
 	 * @return false if the configuration file can't be loaded
 	 */
 	public static boolean load() {
-		Properties pt = Config.loadFile();
+		pt = Config.loadFile();
 		if (pt != null) {
 
 			Config.setDBType(pt.getProperty("DBType"));
-			
+
 			Config.setDBIp_online(pt.getProperty("DBIp_online"));
 			Config.setDBUser_online(pt.getProperty("DBUser_online"));
 			Config.setDBPass_online(pt.getProperty("DBPass_online"));
 			Config.setDB_online(pt.getProperty("DB_online"));
-			
+
 			Config.setDBIp_offline(pt.getProperty("DBIp_offline"));
 			Config.setDBUser_offline(pt.getProperty("DBUser_offline"));
 			Config.setDBPass_offline(pt.getProperty("DBPass_offline"));
 			Config.setDB_offline(pt.getProperty("DB_offline"));
 
+			Log.info("Config successfully loaded.");
 			return true;
 		} else {
+			Log.error("Can't load config data!");
 			return false;
 		}
 	}
+
 	
+	/**
+	 * Writes to the configuration file, if it exists else its create it
+	 * @return true if configuration was successfully wrote
+	 * @return false if something went wrong by writing to the configuration file
+	 */
 	public static boolean write() {
-		
+		try {
+			if (pt == null) {
+				pt = new Properties();
+				pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
+				Log.info("Succesfully load config File.");
+			}
+			File cfgFile = new File(Config.getHomeDir() + "/" + Config.getConfigfile());
+			if (cfgFile.exists() == false) {
+				cfgFile.createNewFile();
+				Log.info("Successfully create config file.");
+			}
+
+			pt.setProperty("DBType", getDBType());
+
+			pt.setProperty("DBIP_online", getDBIp_online());
+			pt.setProperty("DBUser_online", getDBUser_online());
+			pt.setProperty("DBPass_online", getDBPass_online());
+			pt.setProperty("DB_online", getDB_online());
+
+			pt.setProperty("DBIP_offline", getDBIp_offline());
+			pt.setProperty("DBUser_offline", getDBUser_offline());
+			pt.setProperty("DBPass_offline", getDBPass_offline());
+			pt.setProperty("DB_offline", getDB_offline());
+
+			Log.info("Successfully write to config file.");
+			return true;
+		} catch (Exception e) {
+			Log.error("Can't write to config file! Exception: " + e.getMessage());
+			return false;
+		}
 	}
 
 }
