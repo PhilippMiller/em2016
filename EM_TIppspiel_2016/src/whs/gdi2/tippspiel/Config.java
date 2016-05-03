@@ -22,18 +22,24 @@ public class Config {
 
 	private static final String version = "1.0";
 	private static final String[] autor = { "Jan-Markus Momper", "Mario Kellner", "Philipp Miller" };
+
+	private static final String table_user = "benutzer";
+	private static final String table_games = "spiele";
+	private static final String table_ranking = "ranking";
+	private static final String table_hint = "tipps";
 	
 	private static String DBType;
-	
+
 	private static String DBIp_online;
 	private static String DBUser_online;
 	private static String DBPass_online;
 	private static String DB_online;
-	
+
 	private static String DBIp_offline;
 	private static String DBUser_offline;
 	private static String DBPass_offline;
-	private static String DB_offline; 
+	private static String DB_offline;
+
 
 	public static String getConfigfile() {
 		return configFile;
@@ -55,13 +61,20 @@ public class Config {
 		return autor;
 	}
 	
-	
-	
-	
-	
+	public static String getTableUser() {
+		return table_user;
+	}
 
-	public static String getDBType() {
-		return DBType;
+	public static String getTableGames() {
+		return table_games;
+	}
+
+	public static String getTableRanking() {
+		return table_ranking;
+	}
+
+	public static String getTableHint() {
+		return table_hint;
 	}
 
 	public static void setDBType(String dBType) {
@@ -70,6 +83,12 @@ public class Config {
 
 	public static String getDBIp_online() {
 		return DBIp_online;
+	}
+	
+	
+	
+	public static String getDBType() {
+		return DBType;
 	}
 
 	public static void setDBIp_online(String dBIp_online) {
@@ -131,11 +150,12 @@ public class Config {
 	public static void setDB_offline(String dB_offline) {
 		DB_offline = dB_offline;
 	}
-	
-	
+
 	/**
 	 * Loads the configuration file.
-	 * @return pt (properties file) if the configuration file loaded successfully
+	 * 
+	 * @return pt (properties file) if the configuration file loaded
+	 *         successfully
 	 * @return null if the configuration file can't be loaded
 	 */
 	private static Properties loadFile() {
@@ -153,19 +173,34 @@ public class Config {
 
 	/**
 	 * Loads the configuration step by step out of the .ini file.
+	 * 
 	 * @return true if the configuration file is completely loaded
 	 * @return false if the configuration file can't be loaded
 	 */
 	public static boolean load() {
-		Properties pt =Config.loadFile();
+		Properties pt = Config.loadFile();
 		if (pt != null) {
+
+			Config.setDBType(pt.getProperty("DBType"));
 			
+			Config.setDBIp_online(pt.getProperty("DBIp_online"));
+			Config.setDBUser_online(pt.getProperty("DBUser_online"));
+			Config.setDBPass_online(pt.getProperty("DBPass_online"));
+			Config.setDB_online(pt.getProperty("DB_online"));
 			
-			
+			Config.setDBIp_offline(pt.getProperty("DBIp_offline"));
+			Config.setDBUser_offline(pt.getProperty("DBUser_offline"));
+			Config.setDBPass_offline(pt.getProperty("DBPass_offline"));
+			Config.setDB_offline(pt.getProperty("DB_offline"));
+
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public static boolean write() {
+		
 	}
 
 }
