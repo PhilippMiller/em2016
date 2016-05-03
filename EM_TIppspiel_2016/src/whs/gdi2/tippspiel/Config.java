@@ -30,7 +30,7 @@ public class Config {
 
 	private static Properties pt;
 
-	private static String DBType;
+	private static boolean DBType;
 
 	private static String DBIp_online;
 	private static String DBUser_online;
@@ -77,29 +77,25 @@ public class Config {
 	public static String getTableHint() {
 		return table_hint;
 	}
-	
+
 	public static Properties getPt() {
 		return pt;
 	}
-	
-	
 
 	/*
 	 * DB Parameter
 	 */
 
-	
-
-	public static void setDBType(String dBType) {
+	public static void setDBType(boolean dBType) {
 		DBType = dBType;
+	}
+
+	public static boolean isDBType() {
+		return DBType;
 	}
 
 	public static String getDBIp_online() {
 		return DBIp_online;
-	}
-
-	public static String getDBType() {
-		return DBType;
 	}
 
 	public static void setDBIp_online(String dBIp_online) {
@@ -192,7 +188,11 @@ public class Config {
 		pt = Config.loadFile();
 		if (pt != null) {
 
-			Config.setDBType(pt.getProperty("DBType"));
+			if (pt.getProperty("DBType").equals("true")) {
+				Config.setDBType(true);
+			} else {
+				Config.setDBType(false);
+			}
 
 			Config.setDBIp_online(pt.getProperty("DBIp_online"));
 			Config.setDBUser_online(pt.getProperty("DBUser_online"));
@@ -212,11 +212,12 @@ public class Config {
 		}
 	}
 
-	
 	/**
 	 * Writes to the configuration file, if it exists else its create it
+	 * 
 	 * @return true if configuration was successfully wrote
-	 * @return false if something went wrong by writing to the configuration file
+	 * @return false if something went wrong by writing to the configuration
+	 *         file
 	 */
 	public static boolean write() {
 		try {
@@ -231,7 +232,11 @@ public class Config {
 				Log.info("Successfully create config file.");
 			}
 
-			pt.setProperty("DBType", getDBType());
+			if (isDBType()) {
+				pt.setProperty("DBType", "true");
+			} else {
+				pt.setProperty("DBType", "false");
+			}
 
 			pt.setProperty("DBIP_online", getDBIp_online());
 			pt.setProperty("DBUser_online", getDBUser_online());
