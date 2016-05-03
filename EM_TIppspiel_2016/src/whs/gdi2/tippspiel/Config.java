@@ -1,8 +1,12 @@
 package whs.gdi2.tippspiel;
 
+import java.awt.image.BufferedImageFilter;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -232,7 +236,7 @@ public class Config {
 				cfgFile.createNewFile();
 				Log.info("Successfully create config file.");
 			}
-			
+
 			if (pt == null) {
 				pt = new Properties();
 				pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
@@ -256,13 +260,37 @@ public class Config {
 
 			}
 			pt.store(new FileOutputStream(new File(getHomeDir() + "/" + getConfigfile())), "");
-			
+
 			Log.info("Successfully write to config file.");
 			return true;
 		} catch (Exception e) {
 			Log.error("Can't write to config file! Exception: " + e.getMessage());
-			e.printStackTrace();
-			System.exit(0);
+			return false;
+		}
+	}
+
+	public static boolean createDefault() {
+		try {
+			File cfgFile = new File(getHomeDir() + "/" + getConfigfile());
+
+			if (!cfgFile.exists()) {
+				BufferedWriter bos = new BufferedWriter(new FileWriter(cfgFile));
+
+				String defaultConfig = "DBType = false" + "\n" + "DBIp_online = " + "\n" + "DBUser_online" + "\n"
+						+ "DBPass_online" + "\n" + "DB_online" + "\n"
+
+						+ "DBIp_offline" + "\n" + "DBUser_offline" + "\n" + "DBPass_offline" + "\n" + "DB_offline";
+
+				bos.write(defaultConfig);
+				bos.close();
+
+				Log.info("Default configuration successfully created.");
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			Log.error("Can't create the default configuration!");
 			return false;
 		}
 	}

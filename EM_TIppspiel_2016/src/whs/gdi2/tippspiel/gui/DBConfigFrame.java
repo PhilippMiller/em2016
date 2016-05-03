@@ -150,4 +150,10 @@ public class DBConfigFrame extends JFrame {
 		JButton btnNewButton = new JButton("Einstellungen Speichern");
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 	}
+	
+	/*
+	HashMap<String, String> map = new HashMap<String, String>();
+	map.put("DBUser_online", "test");
+	Config.write(map);
+	*/
 }
