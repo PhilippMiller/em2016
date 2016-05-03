@@ -83,7 +83,6 @@ public class MySQLConnection {
 	
 	public static MySQLConnection getInstance(boolean getLive) {
 		try {
-			
 			if(getLive) {
 				if(MySQLConnection.liveInstance == null) {
 					MySQLConnection.liveInstance = new MySQLConnection();

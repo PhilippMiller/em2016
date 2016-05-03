@@ -126,12 +126,12 @@ public class DatabaseManagement {
 				)
 			);
 			
-			String readedLine = "";
+			String readline = "";
 			String sql = "INSERT INTO " + Config.getTableUser() + " (IP, sessionID, nickname, passwort, gruppenname, email, show_Email) "
 					+ "VALUES";
 			
-			while((readedLine = br.readLine()) != null) {
-				String[] str = readedLine.replaceAll("endOfLine", "").split(";");
+			while((readline = br.readLine()) != null) {
+				String[] str = readline.replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
 				
 				sql += "('";
@@ -153,8 +153,8 @@ public class DatabaseManagement {
 						+ "tippheimelf, tippgastelf, tippgelbeheim, tippgelbegast, tipproteheim, tipprotegast)"
 					+ "VALUES";
 			
-			while((readedLine = br2.readLine()) != null) {
-				String[] str = readedLine.replaceAll("endOfLine", "").split(";");
+			while((readline = br2.readLine()) != null) {
+				String[] str = readline.replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
 				
 				sql += "('";
@@ -172,8 +172,8 @@ public class DatabaseManagement {
 				)
 			);
 			
-			while((readedLine = br2.readLine()) != null) {
-				String[] str = readedLine.replaceAll("endOfLine", "").split(";");
+			while((readline = br2.readLine()) != null) {
+				String[] str = readline.replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
 				if(str.length == 5) {
 					sql = "INSERT INTO " + Config.getTableGames() + "(spielbezeichnung, spielort, datumuhrzeit, heimmannschaft, gastmannschaft)" +
