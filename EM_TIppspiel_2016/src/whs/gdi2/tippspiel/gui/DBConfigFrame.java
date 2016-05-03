@@ -49,9 +49,9 @@ public class DBConfigFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public DBConfigFrame() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DBConfigFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Color.WHITE);
-		setType(Type.UTILITY);
 		setTitle("DB Einstellungen");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 243);
@@ -64,51 +64,6 @@ public class DBConfigFrame extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(Color.WHITE);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
-		
-		JPanel offlineTab = new JPanel();
-		offlineTab.setBackground(Color.white);
-		tabbedPane.addTab("Offline", null, offlineTab, null);
-		offlineTab.setLayout(null);
-		
-		JLabel DBIP_offline = new JLabel("DB offline Host");
-		DBIP_offline.setBounds(70, 11, 130, 14);
-		offlineTab.add(DBIP_offline);
-		
-		DBIP_offline_txtfield = new JTextField();
-		DBIP_offline_txtfield.setText("DBIP_textfield");
-		DBIP_offline_txtfield.setColumns(10);
-		DBIP_offline_txtfield.setBounds(70, 31, 130, 20);
-		offlineTab.add(DBIP_offline_txtfield);
-		
-		JLabel DB_offline = new JLabel("DB offline Name");
-		DB_offline.setBounds(70, 77, 130, 14);
-		offlineTab.add(DB_offline);
-		
-		DB_offline_txtfield = new JTextField();
-		DB_offline_txtfield.setText("DBIP_textfield");
-		DB_offline_txtfield.setColumns(10);
-		DB_offline_txtfield.setBounds(70, 97, 130, 20);
-		offlineTab.add(DB_offline_txtfield);
-		
-		JLabel DBUser_offline = new JLabel("DB offline User");
-		DBUser_offline.setBounds(240, 11, 130, 14);
-		offlineTab.add(DBUser_offline);
-		
-		DBUser_offline_txtfield = new JTextField();
-		DBUser_offline_txtfield.setText("DBIP_textfield");
-		DBUser_offline_txtfield.setColumns(10);
-		DBUser_offline_txtfield.setBounds(240, 31, 130, 20);
-		offlineTab.add(DBUser_offline_txtfield);
-		
-		JLabel DBPass_offline = new JLabel("DB offline Passwort");
-		DBPass_offline.setBounds(240, 77, 130, 14);
-		offlineTab.add(DBPass_offline);
-		
-		DBPass_offline_txtfield = new JTextField();
-		DBPass_offline_txtfield.setText("DBIP_textfield");
-		DBPass_offline_txtfield.setColumns(10);
-		DBPass_offline_txtfield.setBounds(240, 97, 130, 20);
-		offlineTab.add(DBPass_offline_txtfield);
 		
 		JPanel onlineTab = new JPanel();
 		tabbedPane.addTab("Online", null, onlineTab, null);
@@ -154,6 +109,51 @@ public class DBConfigFrame extends JFrame {
 		DBPass_online_txtfield.setColumns(10);
 		DBPass_online_txtfield.setBounds(240, 97, 130, 20);
 		onlineTab.add(DBPass_online_txtfield);
+		
+		JPanel offlineTab = new JPanel();
+		offlineTab.setBackground(Color.white);
+		tabbedPane.addTab("Offline", null, offlineTab, null);
+		offlineTab.setLayout(null);
+		
+		JLabel DBIP_offline = new JLabel("DB offline Host");
+		DBIP_offline.setBounds(70, 11, 130, 14);
+		offlineTab.add(DBIP_offline);
+		
+		DBIP_offline_txtfield = new JTextField();
+		DBIP_offline_txtfield.setText("DBIP_textfield");
+		DBIP_offline_txtfield.setColumns(10);
+		DBIP_offline_txtfield.setBounds(70, 31, 130, 20);
+		offlineTab.add(DBIP_offline_txtfield);
+		
+		JLabel DB_offline = new JLabel("DB offline Name");
+		DB_offline.setBounds(70, 77, 130, 14);
+		offlineTab.add(DB_offline);
+		
+		DB_offline_txtfield = new JTextField();
+		DB_offline_txtfield.setText("DBIP_textfield");
+		DB_offline_txtfield.setColumns(10);
+		DB_offline_txtfield.setBounds(70, 97, 130, 20);
+		offlineTab.add(DB_offline_txtfield);
+		
+		JLabel DBUser_offline = new JLabel("DB offline User");
+		DBUser_offline.setBounds(240, 11, 130, 14);
+		offlineTab.add(DBUser_offline);
+		
+		DBUser_offline_txtfield = new JTextField();
+		DBUser_offline_txtfield.setText("DBIP_textfield");
+		DBUser_offline_txtfield.setColumns(10);
+		DBUser_offline_txtfield.setBounds(240, 31, 130, 20);
+		offlineTab.add(DBUser_offline_txtfield);
+		
+		JLabel DBPass_offline = new JLabel("DB offline Passwort");
+		DBPass_offline.setBounds(240, 77, 130, 14);
+		offlineTab.add(DBPass_offline);
+		
+		DBPass_offline_txtfield = new JTextField();
+		DBPass_offline_txtfield.setText("DBIP_textfield");
+		DBPass_offline_txtfield.setColumns(10);
+		DBPass_offline_txtfield.setBounds(240, 97, 130, 20);
+		offlineTab.add(DBPass_offline_txtfield);
 		
 		JButton btnNewButton = new JButton("Einstellungen Speichern");
 		btnNewButton.setBackground(Color.WHITE);
