@@ -33,10 +33,10 @@ public class SQLConcerning {
 	/** Connect to live - sql */
 	public static String connectToLiveDB() {
 
-		String ip = "jdbc:mysql://192.168.56.101:";
+		String ip = "jdbc:mysql://guessandwin.gamer-point.com:";
 		String port = "3306";
-		String userName = "jmm";
-		String password = "testimctestface";
+		String userName = "guessandwinTeam";
+		String password = "Tdrl85_6";
 		String url = ip + port + "/";
 
 		/** Close possibly existing connections. */
