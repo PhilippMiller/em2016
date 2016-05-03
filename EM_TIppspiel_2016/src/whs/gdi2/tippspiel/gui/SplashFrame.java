@@ -56,7 +56,7 @@ public class SplashFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public SplashFrame() {
-		setBackground(new Color(248, 248, 255));
+		setBackground(UIManager.getColor("Button.disabledShadow"));
 		setResizable(false);
 		setType(Type.UTILITY);
 		setUndecorated(true);
