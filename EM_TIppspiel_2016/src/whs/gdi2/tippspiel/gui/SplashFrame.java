@@ -15,6 +15,8 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.JLabel;
+import java.awt.SystemColor;
+import java.awt.Color;
 
 /**
  * 
@@ -64,7 +66,7 @@ public class SplashFrame extends JFrame {
 	private static JLabel workOnIt;
 
 	public SplashFrame() {
-		setBackground(UIManager.getColor("Button.disabledShadow"));
+		setBackground(new Color(248, 248, 255));
 		setResizable(false);
 		setType(Type.UTILITY);
 		setUndecorated(true);
