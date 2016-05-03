@@ -38,8 +38,7 @@ public class Main {
 
 			SplashFrame.setWorkOnIt(SQLConcerning.loadDriver());
 			SplashFrame.setWorkOnIt(SQLConcerning.connectToLiveDB());
-			SplashFrame.setWorkOnIt(SQLConcerning.connectToTestDB());
-			SplashFrame.setWorkOnIt(SQLConcerning.createDB());
+			//SplashFrame.setWorkOnIt(SQLConcerning.connectToTestDB());
 			SplashFrame.setWorkOnIt(SQLConcerning.createTables());
 			SplashFrame.setWorkOnIt(SQLConcerning.addTestData());
 			SplashFrame.setWorkOnIt(SQLConcerning.addSpieleTestData());
