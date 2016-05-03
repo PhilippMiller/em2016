@@ -1,6 +1,7 @@
 package whs.gdi2.tippspiel;
 
 import java.io.File;
+import java.sql.Connection;
 
 import whs.gdi2.tippspiel.database.*;
 import whs.gdi2.tippspiel.gui.MainFrame;
@@ -20,7 +21,7 @@ import whs.gdi2.tippspiel.log.Log;
  *
  */
 public class Main {
-
+	public static MySQLConnection mainConnection;
 	/**
 	 * Einstiegspunkt unserer Applikation
 	 * 
@@ -30,19 +31,39 @@ public class Main {
 	public static void main(String[] args) {
 		Log.info("Application started");
 		SplashFrame.main(null);
+		
 		Main.Initialize();
 
 		// EVERYTHING HAS TO INITIALIZED!
 		try {
 			Thread.sleep(500);
+			
+			MySQLConnection tmp;
+			
+			// live db
+			if(Config.isDBType()) 
+			{
+				SplashFrame.setWorkOnIt("Connect to test database");
+				tmp = MySQLConnection.getInstance(Config.isDBType());
+				tmp.setDatabaseHost(Config.getDBIp_online());
+				tmp.setDatabaseUser(Config.getDBUser_online());
+				tmp.setDatabasePassword(Config.getDBPass_online());
+				tmp.setDatabase(Config.getDB_online());
+			}
+			else { // test db
+				SplashFrame.setWorkOnIt("Connect to live database");
+				tmp = MySQLConnection.getInstance(Config.isDBType());
 
-			SplashFrame.setWorkOnIt(SQLConcerning.loadDriver());
-			SplashFrame.setWorkOnIt(SQLConcerning.connectToLiveDB());
-			//SplashFrame.setWorkOnIt(SQLConcerning.connectToTestDB());
-			SplashFrame.setWorkOnIt(SQLConcerning.createTables());
-			SplashFrame.setWorkOnIt(SQLConcerning.addTestData());
-			SplashFrame.setWorkOnIt(SQLConcerning.addSpieleTestData());
-			SplashFrame.setWorkOnIt(SQLConcerning.disconnect());
+				tmp.setDatabaseHost(Config.getDBIp_offline());
+				tmp.setDatabaseUser(Config.getDBUser_offline());
+				tmp.setDatabasePassword(Config.getDBPass_offline());
+				tmp.setDatabase(Config.getDB_offline());
+			}
+			
+			Main.mainConnection = tmp;
+			
+			SplashFrame.setWorkOnIt(DatabaseManagement.createTables(Main.mainConnection));
+			SplashFrame.setWorkOnIt(DatabaseManagement.addTestData(Main.mainConnection));
 
 			Thread thread1 = new Thread();
 			thread1.sleep(5000);
