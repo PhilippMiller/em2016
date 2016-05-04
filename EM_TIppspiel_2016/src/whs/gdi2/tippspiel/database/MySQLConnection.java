@@ -1,11 +1,17 @@
 package whs.gdi2.tippspiel.database;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import whs.gdi2.tippspiel.log.Log;
+
+/**
+* @author Mario Kellner
+* @version 1.0
+*/
 
 public class MySQLConnection {
 	private static MySQLConnection testInstance;

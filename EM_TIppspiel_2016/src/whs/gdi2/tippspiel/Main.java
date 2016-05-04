@@ -12,10 +12,8 @@ import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
 
 /**
- * Haupteinstiegspunkt unserer Applikation.
  * 
- * Diese Klasse ist der Haupteinstiegspunkt unsere Application. Es wird statisch
- * die Function main aufgerufen.
+ * Main access to our application.
  * 
  * @version 1.0
  * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
@@ -27,10 +25,9 @@ public class Main {
 	public static MySQLConnection mainConnection;
 
 	/**
-	 * Einstiegspunkt unserer Applikation
 	 * 
 	 * @param args
-	 *            Übergebene Startparameter
+	 *            
 	 */
 	public static void main(String[] args) {
 		Log.info("Application started.");

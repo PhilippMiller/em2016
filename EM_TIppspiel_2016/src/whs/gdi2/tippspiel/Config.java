@@ -1,5 +1,6 @@
 package whs.gdi2.tippspiel;
 
+import java.awt.Color;
 import java.awt.image.BufferedImageFilter;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -37,6 +38,9 @@ public class Config {
 	private static final String table_games = "spiele";
 	private static final String table_ranking = "ranking";
 	private static final String table_bets = "tipps";
+	private static final String font_Calibri = "Calibri Light";
+	
+	private static final Color gui_color = Color.WHITE;
 
 	private static Properties pt;
 
@@ -86,6 +90,14 @@ public class Config {
 
 	public static String getTableBets() {
 		return table_bets;
+	}
+
+	public static String getFont() {
+		return font_Calibri;
+	}
+	
+	public static Color getGuiColor() {
+		return gui_color;
 	}
 
 	public static Properties getPt() {
