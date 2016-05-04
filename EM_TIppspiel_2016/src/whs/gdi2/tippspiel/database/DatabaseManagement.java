@@ -171,12 +171,13 @@ public class DatabaseManagement {
 			while (rs.next()) {
 
 				String spielbezeichnung = rs.getString("spielbezeichnung");
-				Date datumuhrzeit = rs.getDate("datumuhrzeit");
+				Date datumSQL = rs.getDate("datumuhrzeit");
+				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
 				String heimmannschaft = rs.getString("heimmannschaft");
 				String gastmannschaft = rs.getString("gastmannschaft");
 				String spielort = rs.getString("spielort");
-				String datum = new SimpleDateFormat("dd.MM.yyyy").format(datumuhrzeit);
-				String uhrzeit = new SimpleDateFormat("hh:mm").format(datumuhrzeit);				
+				String datum = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
+				String uhrzeit = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);				
 				Object[] objs = {spielbezeichnung, datum, uhrzeit, heimmannschaft, gastmannschaft, spielort};
 				dtm.addRow(objs);
 			}
