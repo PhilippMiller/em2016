@@ -96,7 +96,7 @@ public class MainFrame extends JFrame {
 
 		JMenu mnEinstellungen = new JMenu("Einstellungen");
 		//mnEinstellungen.setBackground(Config.getGuiColor());
-		//mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnEinstellungen);
 
 		
@@ -126,7 +126,7 @@ public class MainFrame extends JFrame {
 		
 		JMenu mnDbSwitcher = new JMenu("DB switcher");
 
-		mnDbSwitcher.setBackground(Config.getGuiColor());
+		mnDbSwitcher.setBackground(new Color(240,240,240));
 		mnDbSwitcher.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnEinstellungen.add(mnDbSwitcher);
 		
