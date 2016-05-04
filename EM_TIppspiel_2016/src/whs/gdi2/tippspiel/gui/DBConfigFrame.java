@@ -7,6 +7,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import whs.gdi2.tippspiel.Config;
+
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
@@ -15,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Window.Type;
+import java.util.HashMap;
 import java.awt.Toolkit;
 
 public class DBConfigFrame extends JFrame {
@@ -158,6 +162,18 @@ public class DBConfigFrame extends JFrame {
 		JButton btnNewButton = new JButton("Einstellungen Speichern");
 		btnNewButton.setBackground(Color.WHITE);
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
+		
+		DBIP_offline_txtfield.setText(Config.getDBIp_offline());
+		DB_offline_txtfield.setText(Config.getDB_offline());
+		DBUser_offline_txtfield.setText(Config.getDBUser_offline());
+		DBPass_offline_txtfield.setText(Config.getDBPass_offline());
+		
+		DBIP_online_txtfield.setText(Config.getDBIp_online());
+		DB_online_txtfield.setText(Config.getDB_online());
+		DBUser_online_txtfield.setText(Config.getDBUser_online());
+		DBPass_online_txtfield.setText(Config.getDBPass_online());
+		
+		DBIP_online_txtfield.setText(Config.getDBIp_online());
 		
 	}
 }
