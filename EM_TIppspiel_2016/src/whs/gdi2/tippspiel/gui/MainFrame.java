@@ -143,17 +143,17 @@ public class MainFrame extends JFrame {
 		lblTop.setBounds(10, 40, 504, 20);
 		lblTop.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
 		lblTop.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblTop);
+		content.add(lblTop);
 		
 		JLabel lblDieNchsten = new JLabel("Die n\u00E4chsten 10 Spiele");
 		lblDieNchsten.setBounds(509, 40, 504, 20);
 		lblDieNchsten.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
 		lblDieNchsten.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPane.add(lblDieNchsten);
+		content.add(lblDieNchsten);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(59, 63, 404, 350);
-		contentPane.add(scrollPane);
+		content.add(scrollPane);
 		
 		table = new JTable();
 		table.setFillsViewportHeight(true);
@@ -165,7 +165,7 @@ public class MainFrame extends JFrame {
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(559, 63, 404, 350);
-		contentPane.add(scrollPane_1);
+		content.add(scrollPane_1);
 		
 		table_1 = new JTable();
 		table_1.setFillsViewportHeight(true);
