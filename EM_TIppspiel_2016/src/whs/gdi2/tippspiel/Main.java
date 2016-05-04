@@ -45,7 +45,7 @@ public class Main {
 			else {
 				SplashFrame.finish();
 				mainFrame = new MainFrame(false);
-				Log.info("Database settings are incorrect. Show DBCobfigFrame.");
+				Log.info("Database settings are incorrect. Have a look at DBConfigFrame.");
 			}
 
 			
