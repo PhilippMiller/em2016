@@ -40,60 +40,7 @@ public class Main {
 
 		// EVERYTHING HAS TO INITIALIZED!
 		try {
-			Thread.sleep(500);
-			
-			MySQLConnection tmp;
-			
-			if (Config.load()) {
-				if (Config.isDBType() && !Config.getDBIp_online().equals("")) {
-					// live db
-					SplashFrame.setWorkOnIt("Connecting to test database...");
-					tmp = MySQLConnection.getInstance(Config.isDBType());
-					tmp.setDatabaseHost(Config.getDBIp_online());
-					tmp.setDatabaseUser(Config.getDBUser_online());
-					tmp.setDatabasePassword(Config.getDBPass_online());
-					tmp.setDatabase(Config.getDB_online());
-					
-					if (tmp.connectToDatabase()) {
-						Main.mainConnection = tmp;
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						MainFrame.main(null);
-					} else {
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						DBConfigFrame.main(null);
-					}
-					
-				} else if (!Config.isDBType() && !Config.getDBIp_offline().equals("")) {
-					// test db
-					SplashFrame.setWorkOnIt("Connecting to live database...");
-					tmp = MySQLConnection.getInstance(Config.isDBType());
-					tmp.setDatabaseHost(Config.getDBIp_offline());
-					tmp.setDatabaseUser(Config.getDBUser_offline());
-					tmp.setDatabasePassword(Config.getDBPass_offline());
-					tmp.setDatabase(Config.getDB_offline());
-					
-					if (tmp.connectToDatabase()) {
-						Main.mainConnection = tmp;
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						MainFrame.main(null);
-					} else {
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						DBConfigFrame.main(null);
-					}
-				} else {
-					Thread.sleep(2000);
-					SplashFrame.finish();
-					DBConfigFrame.main(null);
-				}
-			} else {
-				Thread.sleep(2000);
-				SplashFrame.finish();
-				DBConfigFrame.main(null);
-			}
+			Thread.sleep(3000);
 
 			
 			/*
