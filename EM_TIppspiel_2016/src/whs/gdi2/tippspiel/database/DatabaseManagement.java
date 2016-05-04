@@ -1,22 +1,15 @@
 package whs.gdi2.tippspiel.database;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Scanner;
-
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
-import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
 
 /**

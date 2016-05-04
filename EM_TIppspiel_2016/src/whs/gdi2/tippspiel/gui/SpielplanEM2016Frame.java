@@ -1,6 +1,5 @@
 package whs.gdi2.tippspiel.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
@@ -11,12 +10,9 @@ import javax.swing.border.EmptyBorder;
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
 
-import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.Window.Type;
 import java.awt.Font;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 
 public class SpielplanEM2016Frame extends JDialog {

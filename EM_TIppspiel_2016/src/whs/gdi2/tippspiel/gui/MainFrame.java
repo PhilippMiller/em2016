@@ -1,6 +1,5 @@
 package whs.gdi2.tippspiel.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,37 +7,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import whs.gdi2.tippspiel.Config;
-import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
-import whs.gdi2.tippspiel.database.MySQLConnection;
 import whs.gdi2.tippspiel.log.Log;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingConstants;
 
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.Color;
 
 /**
  * 
@@ -51,7 +36,7 @@ import javax.swing.JButton;
 
 public class MainFrame extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel content;
 
 	/**
 	 * Launch the application.
@@ -147,12 +132,13 @@ public class MainFrame extends JFrame {
 		mntmEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mntmEinstellungen.setBackground(Config.getGuiColor());
 		mnHilfe.add(mntmEinstellungen);
-		contentPane = new JPanel();
-		contentPane.setBackground(Config.getGuiColor());
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
+		content = new JPanel();
+		content.setBackground(Config.getGuiColor());
+		content.setBorder(new EmptyBorder(5, 5, 5, 5));
+		content.setLayout(null);
+		setContentPane(content);
+
 		JLabel lblTop = new JLabel("Top 10 - Tipper");
 		lblTop.setBounds(10, 40, 504, 20);
 		lblTop.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
@@ -170,6 +156,7 @@ public class MainFrame extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.setFillsViewportHeight(true);
 		table.setShowGrid(false);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
 		table.setModel(DatabaseManagement.implementUserTop10Data());
@@ -181,19 +168,17 @@ public class MainFrame extends JFrame {
 		contentPane.add(scrollPane_1);
 		
 		table_1 = new JTable();
-		table_1.setShowGrid(false);
+		table_1.setFillsViewportHeight(true);
 		table_1.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table_1.setModel(DatabaseManagement.implementUserTop10Data());
+		table_1.setModel(DatabaseManagement.implementMatchSchedule());
 		table_1.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(table_1);
-		
+
 		JButton btnAktualisieren = new JButton("Aktualisieren");
-		btnAktualisieren.setBounds(831, 776, 132, 23);
+		btnAktualisieren.setBounds(831, 708, 132, 23);
 		btnAktualisieren.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
 		btnAktualisieren.setBackground(Config.getGuiColor());
-		contentPane.add(btnAktualisieren);
-
-		
+		content.add(btnAktualisieren);
 		
 		setVisible(true);
 		if (!showDBSettings) {

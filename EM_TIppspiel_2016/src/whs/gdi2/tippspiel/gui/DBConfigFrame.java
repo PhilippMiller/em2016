@@ -11,16 +11,11 @@ import javax.swing.border.EmptyBorder;
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.database.MySQLConnection;
 
-import javax.swing.JRadioButton;
 import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.BoxLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
-import java.awt.Window.Type;
-import java.util.HashMap;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

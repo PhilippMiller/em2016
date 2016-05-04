@@ -32,11 +32,12 @@ public class Main {
 
 		Main.Initialize();
 
-		// EVERYTHING HAS TO INITIALIZED!
+		// EVERYTHING HAS TO INITIALIZE!
 		try {
 			
 			Thread.sleep(3000);
 			
+			@SuppressWarnings("unused")
 			MainFrame mainFrame;
 			if(switchDatabaseConnection(Config.isDBType())) {
 				SplashFrame.finish();
@@ -90,13 +91,13 @@ public class Main {
 				tmp.setDatabase(Config.getDB_online());
 				
 				if(!tmp.connectToDatabase()) {
-					Log.error("Cannot switch the mainConnection to the livedatabase.");
+					Log.error("Cannot switch mainConnection to livedatabase.");
 					return false;
 				}
 				
 			}
 			else {
-				Log.info("Livedatabase allready connected. Set it as mainConnection.");
+				Log.info("Livedatabase already connected. Set it as mainConnection.");
 			}
 			
 			
@@ -125,13 +126,13 @@ public class Main {
 				tmp.setDatabase(Config.getDB_offline());
 				
 				if(!tmp.connectToDatabase()) {
-					Log.error("Cannot switch the mainConnection to the testdatabase.");
+					Log.error("Cannot switch mainConnection to testdatabase.");
 					return false;
 				}
 				
 			}
 			else {
-				Log.info("Testdatabase allready connected. Set it as mainConnection.");
+				Log.info("Testdatabase already connected. Set it as mainConnection.");
 			}
 			
 			
