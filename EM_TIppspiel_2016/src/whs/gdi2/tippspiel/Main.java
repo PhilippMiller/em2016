@@ -66,6 +66,7 @@ public class Main {
 		}
 		
 		Config.createDefault();
+		Config.load();
 
 	}
 	
