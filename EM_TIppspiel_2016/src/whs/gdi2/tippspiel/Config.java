@@ -191,10 +191,10 @@ public class Config {
 		try {
 			pt = new Properties();
 			pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
-			Log.info("Successfully load config File.");
+			Log.info("Loading config file succesful.");
 			return pt;
 		} catch (Exception e) {
-			Log.error("Can't load config file from [" + Config.getConfigfile() + "] Exception: " + e.getMessage());
+			Log.error("Can't open config file from [" + Config.getConfigfile() + "] Exception: " + e.getMessage());
 			return null;
 		}
 
@@ -229,7 +229,7 @@ public class Config {
 			Log.info("Config successfully loaded.");
 			return true;
 		} else {
-			Log.error("Can't load config data!");
+			Log.error("Can't open config data!");
 			return false;
 		}
 	}
@@ -246,13 +246,13 @@ public class Config {
 			File cfgFile = new File(Config.getHomeDir() + "/" + Config.getConfigfile());
 			if (!cfgFile.exists()) {
 				cfgFile.createNewFile();
-				Log.info("Successfully create config file.");
+				Log.info("Config file successfully created.");
 			}
 
 			if (pt == null) {
 				pt = new Properties();
 				pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
-				Log.info("Succesfully load config File.");
+				Log.info("Config file sucessfully loaded.");
 			}
 
 			Iterator it = map.entrySet().iterator();
@@ -273,7 +273,7 @@ public class Config {
 			}
 			pt.store(new FileOutputStream(new File(getHomeDir() + "/" + getConfigfile())), "");
 
-			Log.info("Successfully write to config file.");
+			Log.info("Successfully writing to config file.");
 			return true;
 		} catch (Exception e) {
 			Log.error("Can't write to config file! Exception: " + e.getMessage());
@@ -302,7 +302,7 @@ public class Config {
 				return false;
 			}
 		} catch (Exception e) {
-			Log.error("Can't create the default configuration!");
+			Log.error("Can't create default configuration!");
 			return false;
 		}
 	}
