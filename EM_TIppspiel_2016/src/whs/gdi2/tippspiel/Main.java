@@ -1,13 +1,10 @@
 package whs.gdi2.tippspiel;
 
 import java.io.File;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 import whs.gdi2.tippspiel.database.*;
-import whs.gdi2.tippspiel.gui.DBConfigFrame;
 import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;

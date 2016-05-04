@@ -16,12 +16,13 @@ import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 import java.awt.Window.Type;
 import java.util.HashMap;
 import java.awt.Toolkit;
 
-public class DBConfigFrame extends JFrame {
+public class DBConfigFrame extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField DBIP_offline_txtfield;
@@ -40,7 +41,7 @@ public class DBConfigFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DBConfigFrame frame = new DBConfigFrame();
+					DBConfigFrame frame = new DBConfigFrame(new JFrame());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,12 +53,14 @@ public class DBConfigFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DBConfigFrame() {
+	public DBConfigFrame(JFrame parent) {
+		super(parent);
+		setModal(true);
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DBConfigFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Color.WHITE);
 		setTitle("DB Einstellungen");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 243);
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());

@@ -60,24 +60,25 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setTitle("Tippspiel Admin - Tool");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(MainFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 860);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnMen = new JMenu("Men\u00FC");
 		mnMen.setBackground(Config.getGuiColor());
 		mnMen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnMen);
-		
+
 		JMenu mnSpielplan = new JMenu("Spielplan");
 		mnSpielplan.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnSpielplan.setBackground(Config.getGuiColor());
 		mnMen.add(mnSpielplan);
-		
+
 		JMenuItem mntmEm = new JMenuItem("EM 2016");
 		MainFrame tempSpielplan = this;
 		mntmEm.addActionListener(new ActionListener() {
@@ -90,92 +91,43 @@ public class MainFrame extends JFrame {
 		mntmEm.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mntmEm.setBackground(Config.getGuiColor());
 		mnSpielplan.add(mntmEm);
-		
+
 		JMenuItem mntmBundesliga = new JMenuItem("Bundesliga 16/17");
 		mntmBundesliga.setBackground(Config.getGuiColor());
 		mntmBundesliga.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mntmBundesliga.setEnabled(false);
 		mnSpielplan.add(mntmBundesliga);
-		
+
 		JMenu mnEinstellungen = new JMenu("Einstellungen");
 		mnEinstellungen.setBackground(Config.getGuiColor());
 		mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnEinstellungen);
-								
-										JMenu mnHilfe = new JMenu("Hilfe");
-										mnHilfe.setBackground(Config.getGuiColor());
-										mnHilfe.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
-										menuBar.add(mnHilfe);
-										
-												JMenuItem mntmEinstellungen = new JMenuItem("\u00DCber Tippspiel Admin - Tool");
-												mntmEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
-												mntmEinstellungen.setBackground(Config.getGuiColor());
-												mnHilfe.add(mntmEinstellungen);
+		
+		JMenuItem mntmDbEinstellungen = new JMenuItem("DB EInstellungen");
+		mntmDbEinstellungen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DBConfigFrame dbConfigFrame = new DBConfigFrame(tempSpielplan);
+				dbConfigFrame.setVisible(true);
+			}
+		});
+		mntmDbEinstellungen.setBackground(Config.getGuiColor());
+		mntmDbEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		mnEinstellungen.add(mntmDbEinstellungen);
+		
+
+		JMenu mnHilfe = new JMenu("Hilfe");
+		mnHilfe.setBackground(Config.getGuiColor());
+		mnHilfe.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		menuBar.add(mnHilfe);
+
+		JMenuItem mntmEinstellungen = new JMenuItem("\u00DCber Tippspiel Admin - Tool");
+		mntmEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		mntmEinstellungen.setBackground(Config.getGuiColor());
+		mnHilfe.add(mntmEinstellungen);
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		initialize();
-	}
-
-	private void initialize() {
-		try {
-			MySQLConnection tmp;
-
-			if (Config.load()) {
-				if (Config.isDBType() && !Config.getDBIp_online().equals("")) {
-					// live db
-					SplashFrame.setWorkOnIt("Connecting to test database...");
-					tmp = MySQLConnection.getInstance(Config.isDBType());
-					tmp.setDatabaseHost(Config.getDBIp_online());
-					tmp.setDatabaseUser(Config.getDBUser_online());
-					tmp.setDatabasePassword(Config.getDBPass_online());
-					tmp.setDatabase(Config.getDB_online());
-
-					if (tmp.connectToDatabase()) {
-						Main.mainConnection = tmp;
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						MainFrame.main(null);
-					} else {
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						DBConfigFrame.main(null);
-					}
-
-				} else if (!Config.isDBType() && !Config.getDBIp_offline().equals("")) {
-					// test db
-					SplashFrame.setWorkOnIt("Connecting to live database...");
-					tmp = MySQLConnection.getInstance(Config.isDBType());
-					tmp.setDatabaseHost(Config.getDBIp_offline());
-					tmp.setDatabaseUser(Config.getDBUser_offline());
-					tmp.setDatabasePassword(Config.getDBPass_offline());
-					tmp.setDatabase(Config.getDB_offline());
-
-					if (tmp.connectToDatabase()) {
-						Main.mainConnection = tmp;
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						MainFrame.main(null);
-					} else {
-						Thread.sleep(2000);
-						SplashFrame.finish();
-						DBConfigFrame.main(null);
-					}
-				} else {
-					Thread.sleep(2000);
-					SplashFrame.finish();
-					DBConfigFrame.main(null);
-				}
-			} else {
-				Thread.sleep(2000);
-				SplashFrame.finish();
-				DBConfigFrame.main(null);
-			}
-		} catch (Exception e) {
-
-		}
 	}
 }
