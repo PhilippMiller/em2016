@@ -29,7 +29,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
-
+import java.awt.Component;
+import javax.swing.Box;
 /**
  * 
  * @version 1.0

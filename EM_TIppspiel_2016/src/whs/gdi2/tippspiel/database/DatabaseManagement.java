@@ -241,7 +241,7 @@ public class DatabaseManagement {
 				Date datumSQL = rs.getDate("datumuhrzeit");
 				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
 				
-				objs[0] = rs.getInt("spieleid");
+				objs[0] = rs.getString("spielbezeichnung");
 				objs[1] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
 				objs[2] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
 				objs[3] = rs.getString("gastmannschaft");
