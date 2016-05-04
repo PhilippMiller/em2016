@@ -288,10 +288,10 @@ public class Config {
 			if (!cfgFile.exists()) {
 				BufferedWriter bos = new BufferedWriter(new FileWriter(cfgFile));
 
-				String defaultConfig = "DBType = false" + "\n" + "DBIp_online = " + "\n" + "DBUser_online" + "\n"
-						+ "DBPass_online" + "\n" + "DB_online" + "\n"
+				String defaultConfig = "DBType = false" + "\n" + "DBIp_online = " + "\n" + "DBUser_online = " + "\n"
+						+ "DBPass_online = " + "\n" + "DB_online = " + "\n"
 
-						+ "DBIp_offline" + "\n" + "DBUser_offline" + "\n" + "DBPass_offline" + "\n" + "DB_offline";
+						+ "DBIp_offline = " + "\n" + "DBUser_offline = " + "\n" + "DBPass_offline = " + "\n" + "DB_offline = ";
 
 				bos.write(defaultConfig);
 				bos.close();

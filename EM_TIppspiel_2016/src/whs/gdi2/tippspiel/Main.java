@@ -2,6 +2,7 @@ package whs.gdi2.tippspiel;
 
 import java.io.File;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,6 @@ import whs.gdi2.tippspiel.log.Log;
  * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
  * @author Jan-Markus Momper <jan-markus.momper@studmail.w-hs.de>
  * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
- *
  */
 public class Main {
 	public static MySQLConnection mainConnection;
@@ -37,29 +37,22 @@ public class Main {
 
 		// EVERYTHING HAS TO INITIALIZED!
 		try {
+			if(switchDatabaseConnection(Config.isDBType())) {
+				MainFrame.main(null);
+			}
+			else {
+				Log.info("Database settings are incorrect. Show DBCobfigFrame.");
+				MainFrame.main(null);
+			}
+
 			Thread.sleep(3000);
-
 			
-			/*
-			SplashFrame.setWorkOnIt(DatabaseManagement.createTables(Main.mainConnection));
-			SplashFrame.setWorkOnIt(DatabaseManagement.addTestData(Main.mainConnection));
-			*/
-
+			SplashFrame.finish();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		/*
-		 * System.out.println(SQLConcerning.loadDriver());
-		 * System.out.println(SQLConcerning.connectToLiveDB());
-		 * System.out.println(SQLConcerning.connectToTestDB());
-		 * System.out.println(SQLConcerning.createDB());
-		 * System.out.println(SQLConcerning.createTables());
-		 * System.out.println(SQLConcerning.addTestData());
-		 * System.out.println(SQLConcerning.addSpieleTestData());
-		 * System.out.println(SQLConcerning.disconnect());
-		 */
 
 		Log.info("Application has reached its end.");
 	}
@@ -73,5 +66,81 @@ public class Main {
 		
 		Config.createDefault();
 
+	}
+	
+	public static boolean switchDatabaseConnection(boolean DBType) {
+		MySQLConnection tmp;
+		boolean hasValidConnection = false;
+		
+		if(DBType) {
+			tmp = MySQLConnection.getInstance(DBType);
+			try {
+				
+				if(tmp.getConnection() != null && tmp.getConnection().isValid(0)) {
+					hasValidConnection = true;
+				}
+			} catch (SQLException e) {
+				Log.debug("Ignorable error:" + e.getMessage() + ".");
+			}
+			
+			if(!hasValidConnection) {
+				tmp.setDatabaseHost(Config.getDBIp_online());
+				tmp.setDatabaseUser(Config.getDBUser_online());
+				tmp.setDatabasePassword(Config.getDBPass_online());
+				tmp.setDatabase(Config.getDB_online());
+				
+				if(!tmp.connectToDatabase()) {
+					Log.error("Cannot switch the mainConnection to the livedatabase.");
+					return false;
+				}
+				
+			}
+			else {
+				Log.info("Livedatabase allready connected. Set it as mainConnection.");
+			}
+			
+			
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("DBType", "true");
+			Config.write(map);
+			
+			Main.mainConnection = tmp;
+			return true;
+		}
+		else {
+			tmp = MySQLConnection.getInstance(DBType);
+			try {
+				
+				if(tmp.getConnection() != null && tmp.getConnection().isValid(0)) {
+					hasValidConnection = true;
+				}
+			} catch (SQLException e) {
+				Log.debug("Ignorable error:" + e.getMessage() + ".");
+			}
+			
+			if(!hasValidConnection) {
+				tmp.setDatabaseHost(Config.getDBIp_offline());
+				tmp.setDatabaseUser(Config.getDBUser_offline());
+				tmp.setDatabasePassword(Config.getDBPass_offline());
+				tmp.setDatabase(Config.getDB_offline());
+				
+				if(!tmp.connectToDatabase()) {
+					Log.error("Cannot switch the mainConnection to the testdatabase.");
+					return false;
+				}
+				
+			}
+			else {
+				Log.info("Testdatabase allready connected. Set it as mainConnection.");
+			}
+			
+			
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("DBType", "false");
+			Config.write(map);
+			
+			Main.mainConnection = tmp;
+			return true;
+		}
 	}
 }
