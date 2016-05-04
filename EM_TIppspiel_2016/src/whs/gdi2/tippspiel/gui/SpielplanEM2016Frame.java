@@ -31,7 +31,7 @@ public class SpielplanEM2016Frame extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SpielplanEM2016Frame frame = new SpielplanEM2016Frame(new MainFrame());
+					SpielplanEM2016Frame frame = new SpielplanEM2016Frame(new MainFrame(false));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

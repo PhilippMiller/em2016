@@ -1,13 +1,10 @@
 package whs.gdi2.tippspiel;
 
 import java.io.File;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 
 import whs.gdi2.tippspiel.database.*;
-import whs.gdi2.tippspiel.gui.DBConfigFrame;
 import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.gui.SplashFrame;
 import whs.gdi2.tippspiel.log.Log;
@@ -37,17 +34,23 @@ public class Main {
 
 		// EVERYTHING HAS TO INITIALIZED!
 		try {
-			if(switchDatabaseConnection(Config.isDBType())) {
-				MainFrame.main(null);
-			}
-			else {
-				Log.info("Database settings are incorrect. Show DBCobfigFrame.");
-				MainFrame.main(null);
-			}
-
+			
 			Thread.sleep(3000);
 			
-			SplashFrame.finish();
+			MainFrame mainFrame;
+			if(switchDatabaseConnection(Config.isDBType())) {
+				SplashFrame.finish();
+				mainFrame = new MainFrame(true);
+			}
+			else {
+				SplashFrame.finish();
+				mainFrame = new MainFrame(false);
+				Log.info("Database settings are incorrect. Show DBCobfigFrame.");
+			}
+
+			
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

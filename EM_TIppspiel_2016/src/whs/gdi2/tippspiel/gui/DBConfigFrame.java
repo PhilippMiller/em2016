@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import whs.gdi2.tippspiel.Config;
+import whs.gdi2.tippspiel.database.MySQLConnection;
 
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
@@ -16,11 +17,15 @@ import javax.swing.JSeparator;
 import javax.swing.BoxLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 import java.awt.Window.Type;
+import java.util.HashMap;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class DBConfigFrame extends JFrame {
+public class DBConfigFrame extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField DBIP_offline_txtfield;
@@ -39,7 +44,7 @@ public class DBConfigFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DBConfigFrame frame = new DBConfigFrame();
+					DBConfigFrame frame = new DBConfigFrame(new JFrame());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,12 +56,14 @@ public class DBConfigFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DBConfigFrame() {
+	public DBConfigFrame(JFrame parent) {
+		super(parent);
+		setModal(true);
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DBConfigFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Color.WHITE);
 		setTitle("DB Einstellungen");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 243);
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
@@ -159,8 +166,26 @@ public class DBConfigFrame extends JFrame {
 		offlineTab.add(DBPass_offline_txtfield);
 		
 		JButton btnNewButton = new JButton("Einstellungen Speichern");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MySQLConnection.testConnection(DBIP_offline_txtfield.getText(), DBUser_offline_txtfield.getText(), DBPass_offline_txtfield.getText(), "");
+				MySQLConnection.testConnection(DBIP_online_txtfield.getText(), DBUser_online_txtfield.getText(), DBPass_online_txtfield.getText(), DB_online_txtfield.getText());
+			}
+		});
 		btnNewButton.setBackground(Config.getGuiColor());
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
+		
+		DBIP_offline_txtfield.setText(Config.getDBIp_offline());
+		DB_offline_txtfield.setText(Config.getDB_offline());
+		DBUser_offline_txtfield.setText(Config.getDBUser_offline());
+		DBPass_offline_txtfield.setText(Config.getDBPass_offline());
+		
+		DBIP_online_txtfield.setText(Config.getDBIp_online());
+		DB_online_txtfield.setText(Config.getDB_online());
+		DBUser_online_txtfield.setText(Config.getDBUser_online());
+		DBPass_online_txtfield.setText(Config.getDBPass_online());
+		
+		DBIP_online_txtfield.setText(Config.getDBIp_online());
 		
 	}
 }
