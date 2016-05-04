@@ -52,7 +52,7 @@ public class SpielplanEM2016Frame extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SpielplanEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1024, 860);
+		setBounds(100, 100, 1024, 450);
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,7 +66,8 @@ public class SpielplanEM2016Frame extends JDialog {
 		table = new JTable();
 		table.setShowGrid(false);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table.setModel(DatabaseManagement.implementData());	
+		table.setModel(DatabaseManagement.implementMatchSchedule());	
+		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
 	}
 
