@@ -170,12 +170,12 @@ public class MainFrame extends JFrame {
 		table_1 = new JTable();
 		table_1.setFillsViewportHeight(true);
 		table_1.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table_1.setModel(DatabaseManagement.implementMatchSchedule());
+		table_1.setModel(DatabaseManagement.implementNext10Games());
 		table_1.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(table_1);
 
 		JButton btnAktualisieren = new JButton("Aktualisieren");
-		btnAktualisieren.setBounds(831, 708, 132, 23);
+		btnAktualisieren.setBounds(831, 752, 132, 23);
 		btnAktualisieren.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
 		btnAktualisieren.setBackground(Config.getGuiColor());
 		content.add(btnAktualisieren);

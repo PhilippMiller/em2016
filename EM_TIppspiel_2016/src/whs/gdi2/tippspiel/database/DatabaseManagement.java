@@ -67,8 +67,8 @@ public class DatabaseManagement {
 			Log.info("Tables created in " + connection.getDatabase() + ".");
 			return "Tables created in " + connection.getDatabase() + ".";
 		} catch (SQLException e) {
-			Log.error("Error while creating tables for" + connection.getDatabase() + ".");
-			return "Error while creating tables for" + connection.getDatabase() + ".";
+			Log.error("Error while creating tables for " + connection.getDatabase() + ".");
+			return "Error while creating tables for " + connection.getDatabase() + ".";
 		}
 	}
 
@@ -188,7 +188,7 @@ public class DatabaseManagement {
 		Object[] objs = new Object[4];
 		Object[] defaultObj = { "", "", "", "" };
 		String nickname = null;
-		String gruppe  = null;
+		String gruppe = null;
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
@@ -223,5 +223,135 @@ public class DatabaseManagement {
 			Log.error(e.getMessage());
 		}
 		return null;
+	}
+
+	public static DefaultTableModel implementNext10Games() {
+
+		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+		Object[] objs = new Object[5];
+		Object[] defaultObj = { "", "", "", "", "" };
+		Date today = new Date();
+		Timestamp ts1 = new Timestamp(today.getTime());
+		int i = 0;
+
+		long tsTime1 = ts1.getTime();
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("SELECT * FROM spiele");
+			ResultSet rs2 = statement.executeQuery("SELECT COUNT(*) AS total FROM spiele");
+			int rowCount = rs2.getInt("total");
+			GameSorter[] gs = new GameSorter[rowCount];
+			while (rs.next()) {
+				Timestamp ts2 = Timestamp.valueOf(rs.getString("datumuhrzeit"));
+				long tsTime2 = ts2.getTime();
+				if (tsTime2 > tsTime1) {
+					gs[i].setId(rs.getInt("spieleid"));
+					gs[i].setTime(tsTime2);
+					gs[i].setBezeichnung(rs.getString("spielbezeichnung"));
+					gs[i].setHeimmannschaft(rs.getString("heimmannschaft"));
+					gs[i].setGastmannschaft(rs.getString("gastmannschaft"));
+					Date datumSQL = rs.getDate("datumuhrzeit");
+					Date uhrzeitSQL = rs.getTime("datumuhrzeit");
+					gs[i].setDatum(new SimpleDateFormat("dd.MM.yyyy").format(datumSQL));
+					gs[i].setUhrzeit(new SimpleDateFormat("HH:mm").format(uhrzeitSQL));
+				}
+				i++;
+			}
+			Arrays.sort(gs);
+			for (int j = 0; j < 10; j++) {
+				objs[0] = gs[j].getBezeichnung();
+				objs[1] = gs[j].getDatum();
+				objs[2] = gs[j].getUhrzeit();
+				objs[3] = gs[j].getHeimmannschaft();
+				objs[4] = gs[j].getGastmannschaft();
+				dtm.addRow(objs);
+			}
+			if (dtm.getRowCount() == 0) {
+				dtm.addRow(defaultObj);
+			}
+			return dtm;
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+		return null;
+	}
+}
+
+class GameSorter implements Comparable<GameSorter> {
+
+	int id;
+	long time;
+	String bezeichnung, datum, uhrzeit, heimmannschaft, gastmannschaft;
+
+	public GameSorter() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long time) {
+		this.time = time;
+	}
+
+	public String getBezeichnung() {
+		return bezeichnung;
+	}
+
+	public void setBezeichnung(String bezeichnung) {
+		this.bezeichnung = bezeichnung;
+	}
+
+	public String getDatum() {
+		return datum;
+	}
+
+	public void setDatum(String datum) {
+		this.datum = datum;
+	}
+
+	public String getUhrzeit() {
+		return uhrzeit;
+	}
+
+	public void setUhrzeit(String uhrzeit) {
+		this.uhrzeit = uhrzeit;
+	}
+
+	public String getHeimmannschaft() {
+		return heimmannschaft;
+	}
+
+	public void setHeimmannschaft(String heimmannschaft) {
+		this.heimmannschaft = heimmannschaft;
+	}
+
+	public String getGastmannschaft() {
+		return gastmannschaft;
+	}
+
+	public void setGastmannschaft(String gastmannschaft) {
+		this.gastmannschaft = gastmannschaft;
+	}
+
+	@Override
+	public int compareTo(GameSorter o) {
+		if (this.getTime() < o.getTime()) {
+			return -1;
+		} else if (this.getTime() == o.getTime()) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 }
