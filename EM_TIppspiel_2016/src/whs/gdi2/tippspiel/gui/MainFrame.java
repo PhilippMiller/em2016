@@ -13,17 +13,22 @@ import whs.gdi2.tippspiel.log.Log;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import java.awt.Toolkit;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+
 import java.awt.Color;
+import javax.swing.JSeparator;
+import javax.swing.JRadioButtonMenuItem;
 
 /**
  * 
@@ -35,24 +40,7 @@ import java.awt.Color;
  */
 
 public class MainFrame extends JFrame {
-
 	private JPanel content;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame(true);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -86,10 +74,10 @@ public class MainFrame extends JFrame {
 		mnMen.add(mnSpielplan);
 
 		JMenuItem mntmEm = new JMenuItem("EM 2016");
-		MainFrame tempSpielplan = this;
+		MainFrame classContext = this;
 		mntmEm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SpielplanEM2016Frame spielplanFrame = new SpielplanEM2016Frame(tempSpielplan);
+				SpielplanEM2016Frame spielplanFrame = new SpielplanEM2016Frame(classContext);
 				spielplanFrame.setVisible(true);
 				spielplanFrame.setModal(true);
 				Log.info("Menue item 'EM 2016' clicked.");
@@ -106,8 +94,8 @@ public class MainFrame extends JFrame {
 		mnSpielplan.add(mntmBundesliga);
 
 		JMenu mnEinstellungen = new JMenu("Einstellungen");
-		mnEinstellungen.setBackground(Config.getGuiColor());
-		mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		//mnEinstellungen.setBackground(Config.getGuiColor());
+		//mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnEinstellungen);
 
 		
@@ -115,13 +103,49 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmDbEinstellungen = new JMenuItem("DB Einstellungen");
 		mntmDbEinstellungen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dbConfigFrame = new DBConfigFrame(tempSpielplan);
+				dbConfigFrame = new DBConfigFrame(classContext);
 				dbConfigFrame.setVisible(true);
 			}
 		});
-		mntmDbEinstellungen.setBackground(Config.getGuiColor());
-		mntmDbEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		//mntmDbEinstellungen.setBackground(Config.getGuiColor());
+		//mntmDbEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnEinstellungen.add(mntmDbEinstellungen);
+		
+		JMenuItem mntmTestdatenEinpflegen = new JMenuItem("Testdaten einpflegen");
+		mntmTestdatenEinpflegen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(Config.isDBType()) {
+					JOptionPane.showMessageDialog(classContext, "Testdaten können nur in der Testdatenbank eingespielt werden.\n Bitte ändere die benutze Datenbank zur test Datenbank.");
+					return;
+				}
+				DBToolDialog dbtd = new DBToolDialog(classContext);
+				dbtd.setVisible(true);
+			}
+		});
+		
+		JMenu mnDbSwitcher = new JMenu("DB switcher");
+
+		mnDbSwitcher.setBackground(Config.getGuiColor());
+		mnDbSwitcher.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		mnEinstellungen.add(mnDbSwitcher);
+		
+		JRadioButtonMenuItem rdbtnmntmLiveDatenbank = new JRadioButtonMenuItem("Live Datenbank");
+
+		rdbtnmntmLiveDatenbank.setBackground(Config.getGuiColor());
+		rdbtnmntmLiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));		
+		mnDbSwitcher.add(rdbtnmntmLiveDatenbank);
+		
+		JRadioButtonMenuItem rdbtnmntmTestDatenbank = new JRadioButtonMenuItem("Test Datenbank");
+		rdbtnmntmTestDatenbank.setBackground(Config.getGuiColor());
+		rdbtnmntmTestDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));		
+		
+		mnDbSwitcher.add(rdbtnmntmTestDatenbank);
+		
+		JSeparator separator = new JSeparator();
+		mnEinstellungen.add(separator);
+		mntmTestdatenEinpflegen.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mntmTestdatenEinpflegen.setBackground(Color.WHITE);
+		mnEinstellungen.add(mntmTestdatenEinpflegen);
 
 		JMenu mnHilfe = new JMenu("Hilfe");
 		mnHilfe.setBackground(Config.getGuiColor());
@@ -182,7 +206,7 @@ public class MainFrame extends JFrame {
 		
 		setVisible(true);
 		if (!showDBSettings) {
-			dbConfigFrame = new DBConfigFrame(tempSpielplan);
+			dbConfigFrame = new DBConfigFrame(classContext);
 			dbConfigFrame.setVisible(true);;
 		}
 	}
