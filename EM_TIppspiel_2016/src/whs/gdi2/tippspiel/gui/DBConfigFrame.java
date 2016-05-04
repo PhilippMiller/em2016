@@ -60,19 +60,19 @@ public class DBConfigFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 243);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBackground(Color.WHITE);
+		tabbedPane.setBackground(Config.getGuiColor());
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel onlineTab = new JPanel();
 		tabbedPane.addTab("Online", null, onlineTab, null);
 		onlineTab.setLayout(null);
-		onlineTab.setBackground(Color.white);
+		onlineTab.setBackground(Config.getGuiColor());
 		
 		JLabel DBIP_online = new JLabel("DB online Host");
 		DBIP_online.setBounds(70, 11, 130, 14);
@@ -115,7 +115,7 @@ public class DBConfigFrame extends JFrame {
 		onlineTab.add(DBPass_online_txtfield);
 		
 		JPanel offlineTab = new JPanel();
-		offlineTab.setBackground(Color.white);
+		offlineTab.setBackground(Config.getGuiColor());
 		tabbedPane.addTab("Offline", null, offlineTab, null);
 		offlineTab.setLayout(null);
 		
@@ -160,7 +160,7 @@ public class DBConfigFrame extends JFrame {
 		offlineTab.add(DBPass_offline_txtfield);
 		
 		JButton btnNewButton = new JButton("Einstellungen Speichern");
-		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setBackground(Config.getGuiColor());
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
 		DBIP_offline_txtfield.setText(Config.getDBIp_offline());
