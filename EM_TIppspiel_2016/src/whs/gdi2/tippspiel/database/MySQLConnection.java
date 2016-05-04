@@ -1,7 +1,6 @@
 package whs.gdi2.tippspiel.database;
 
 import java.sql.Connection;
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -134,6 +133,19 @@ public class MySQLConnection {
 	}
 	
 	public static boolean testConnection(String host, String user, String password, String database) {
+		try {
+			MySQLConnection testConnection = new MySQLConnection();
+			testConnection.setDatabaseHost(host);
+			testConnection.setDatabaseUser(user);
+			testConnection.setDatabase(database);
+			testConnection.setDatabasePassword(password);
+			
+			return testConnection.connectToDatabase();
+			
+		} catch (ClassNotFoundException e) {
+			Log.error(e.getMessage());
+			Log.critical("Cannot load driver.");
+		}
 		
 		return false;
 	}
