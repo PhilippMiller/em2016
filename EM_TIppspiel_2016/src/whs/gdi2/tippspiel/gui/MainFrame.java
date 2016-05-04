@@ -173,12 +173,6 @@ public class MainFrame extends JFrame {
 		table_1.setModel(DatabaseManagement.implementNext10Games());
 		table_1.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(table_1);
-
-		JButton btnAktualisieren = new JButton("Aktualisieren");
-		btnAktualisieren.setBounds(831, 752, 132, 23);
-		btnAktualisieren.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
-		btnAktualisieren.setBackground(Config.getGuiColor());
-		content.add(btnAktualisieren);
 		
 		setVisible(true);
 		if (!showDBSettings) {
