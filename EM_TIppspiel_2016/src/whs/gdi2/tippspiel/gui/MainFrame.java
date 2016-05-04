@@ -24,6 +24,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Component;
+import javax.swing.Box;
 
 /**
  * 
@@ -173,6 +175,24 @@ public class MainFrame extends JFrame {
 		table_1.setModel(DatabaseManagement.implementNext10Games());
 		table_1.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(table_1);
+		
+		JButton btnZurWebsite = new JButton("Zur Website");
+		btnZurWebsite.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		btnZurWebsite.setBounds(59, 424, 404, 23);
+		btnZurWebsite.setBackground(Config.getGuiColor());
+		content.add(btnZurWebsite);
+		
+		JButton btnZurLiveDatenbank = new JButton("Zur Live - Datenbank");
+		btnZurLiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		btnZurLiveDatenbank.setBounds(59, 456, 404, 23);
+		btnZurLiveDatenbank.setBackground(Config.getGuiColor());
+		content.add(btnZurLiveDatenbank);
+		
+		JButton btnZurOffline = new JButton("Zur Offline - Datenbank");
+		btnZurOffline.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		btnZurOffline.setBackground(Config.getGuiColor());
+		btnZurOffline.setBounds(59, 490, 404, 23);
+		content.add(btnZurOffline);
 		
 		setVisible(true);
 		if (!showDBSettings) {
