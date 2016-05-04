@@ -58,6 +58,7 @@ public class Main {
 
 
 		Log.info("Application has reached its end.");
+		
 	}
 
 	public static void Initialize() {

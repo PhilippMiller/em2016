@@ -132,4 +132,9 @@ public class MySQLConnection {
 			return false;
 		}
 	}
+	
+	public static boolean testConnection(String host, String user, String password, String database) {
+		
+		return false;
+	}
 }
