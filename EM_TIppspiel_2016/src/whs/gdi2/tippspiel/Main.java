@@ -34,17 +34,23 @@ public class Main {
 
 		// EVERYTHING HAS TO INITIALIZED!
 		try {
-			if(switchDatabaseConnection(Config.isDBType())) {
-				MainFrame.main(null);
-			}
-			else {
-				Log.info("Database settings are incorrect. Show DBCobfigFrame.");
-				MainFrame.main(null);
-			}
-
+			
 			Thread.sleep(3000);
 			
-			SplashFrame.finish();
+			MainFrame mainFrame;
+			if(switchDatabaseConnection(Config.isDBType())) {
+				SplashFrame.finish();
+				mainFrame = new MainFrame(true);
+			}
+			else {
+				SplashFrame.finish();
+				mainFrame = new MainFrame(false);
+				Log.info("Database settings are incorrect. Show DBCobfigFrame.");
+			}
+
+			
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,6 +68,7 @@ public class Main {
 		}
 		
 		Config.createDefault();
+		Config.load();
 
 	}
 	

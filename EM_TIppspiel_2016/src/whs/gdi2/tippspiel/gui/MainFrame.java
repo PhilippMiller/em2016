@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame();
+					MainFrame frame = new MainFrame(true);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +56,10 @@ public class MainFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	
+	protected DBConfigFrame dbConfigFrame;
+	
+	public MainFrame(boolean showDBSettings) {
 		setResizable(false);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setTitle("Tippspiel Admin - Tool");
@@ -102,18 +105,19 @@ public class MainFrame extends JFrame {
 		mnEinstellungen.setBackground(Config.getGuiColor());
 		mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnEinstellungen);
+
 		
+
 		JMenuItem mntmDbEinstellungen = new JMenuItem("DB EInstellungen");
 		mntmDbEinstellungen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DBConfigFrame dbConfigFrame = new DBConfigFrame(tempSpielplan);
+				dbConfigFrame = new DBConfigFrame(tempSpielplan);
 				dbConfigFrame.setVisible(true);
 			}
 		});
 		mntmDbEinstellungen.setBackground(Config.getGuiColor());
 		mntmDbEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnEinstellungen.add(mntmDbEinstellungen);
-		
 
 		JMenu mnHilfe = new JMenu("Hilfe");
 		mnHilfe.setBackground(Config.getGuiColor());
@@ -129,5 +133,13 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		
+		
+		setVisible(true);
+		if (!showDBSettings) {
+			dbConfigFrame = new DBConfigFrame(tempSpielplan);
+			dbConfigFrame.setVisible(true);;
+		}
 	}
 }

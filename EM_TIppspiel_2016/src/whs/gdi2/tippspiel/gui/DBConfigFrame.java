@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import java.awt.Window.Type;
 import java.util.HashMap;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DBConfigFrame extends JDialog {
 
@@ -60,7 +62,7 @@ public class DBConfigFrame extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DBConfigFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Color.WHITE);
 		setTitle("DB Einstellungen");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 243);
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
@@ -163,6 +165,11 @@ public class DBConfigFrame extends JDialog {
 		offlineTab.add(DBPass_offline_txtfield);
 		
 		JButton btnNewButton = new JButton("Einstellungen Speichern");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnNewButton.setBackground(Config.getGuiColor());
 		contentPane.add(btnNewButton, BorderLayout.SOUTH);
 		
