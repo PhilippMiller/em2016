@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import whs.gdi2.tippspiel.Config;
+import whs.gdi2.tippspiel.database.MySQLConnection;
 
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
@@ -167,7 +168,8 @@ public class DBConfigFrame extends JDialog {
 		JButton btnNewButton = new JButton("Einstellungen Speichern");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				MySQLConnection.testConnection(DBIP_offline_txtfield.getText(), DBUser_offline_txtfield.getText(), DBPass_offline_txtfield.getText(), "");
+				MySQLConnection.testConnection(DBIP_online_txtfield.getText(), DBUser_online_txtfield.getText(), DBPass_online_txtfield.getText(), DB_online_txtfield.getText());
 			}
 		});
 		btnNewButton.setBackground(Config.getGuiColor());
