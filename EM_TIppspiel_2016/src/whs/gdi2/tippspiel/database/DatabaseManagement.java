@@ -160,9 +160,9 @@ public class DatabaseManagement {
 	/**
 	 * Reads data from 'spiele'
 	 */
-	public static DefaultTableModel implementData() {
-		
-		String col[] = {"Gruppe", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Spielort"};
+	public static DefaultTableModel implementMatchSchedule() {
+
+		String col[] = { "Gruppe", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Spielort" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
 		try {
@@ -177,9 +177,53 @@ public class DatabaseManagement {
 				String gastmannschaft = rs.getString("gastmannschaft");
 				String spielort = rs.getString("spielort");
 				String datum = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
-				String uhrzeit = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);				
-				Object[] objs = {spielbezeichnung, datum, uhrzeit, heimmannschaft, gastmannschaft, spielort};
+				String uhrzeit = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
+				Object[] objs = { spielbezeichnung, datum, uhrzeit, heimmannschaft, gastmannschaft, spielort };
 				dtm.addRow(objs);
+			}
+			return dtm;
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public static DefaultTableModel implementUserTop10Data() {
+
+		String col[] = { "Platz", "Nickname", "Gruppenname", "Punkte" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+		Object[] objs = new Object[4];
+		Object[] defaultObj = { "", "", "", "" };
+		String nickname = null;
+		String gruppe  = null;
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("SELECT * FROM ranking");
+			while (rs.next()) {
+
+				int ranking = rs.getInt("platz");
+				if (ranking <= 10) {
+					String punkte = rs.getString("punkte");
+					String benutzerid = rs.getString("benutzerid");
+					ResultSet rs2 = statement.executeQuery("SELECT * FROM benutzer");
+					while (rs2.next()) {
+						String benutzerid2 = rs2.getString("benutzerid");
+						if (benutzerid.equals(benutzerid2)) {
+							nickname = rs2.getString("nickname");
+							gruppe = rs2.getString("gruppenname");
+						}
+					}
+					objs[0] = ranking;
+					objs[1] = nickname;
+					objs[2] = gruppe;
+					objs[3] = punkte;
+				}
+				dtm.addRow(objs);
+
+			}
+			if (dtm.getRowCount() == 0) {
+				dtm.addRow(defaultObj);
 			}
 			return dtm;
 		} catch (Exception e) {
