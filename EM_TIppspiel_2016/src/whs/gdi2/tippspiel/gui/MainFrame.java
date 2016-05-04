@@ -84,6 +84,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SpielplanEM2016Frame spielplanFrame = new SpielplanEM2016Frame(tempSpielplan);
 				spielplanFrame.setVisible(true);
+				spielplanFrame.setModal(true);
 				Log.info("Menue item 'EM 2016' clicked.");
 			}
 		});

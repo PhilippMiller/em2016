@@ -16,6 +16,7 @@ import java.awt.Window.Type;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class SpielplanEM2016Frame extends JDialog {
 
@@ -42,7 +43,8 @@ public class SpielplanEM2016Frame extends JDialog {
 	 * Create the frame.
 	 */
 	public SpielplanEM2016Frame(JFrame parent) {
-		super(parent, "");
+		super(parent);
+		setModal(true);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
 		setTitle("Tippspiel Admin - Tool");
@@ -53,54 +55,17 @@ public class SpielplanEM2016Frame extends JDialog {
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 1006, 813);
+		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setFont(new Font("US", Font.PLAIN, 13));
-		table.setColumnSelectionAllowed(true);
+		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
+			new String [][] {
 				{null, null, null, null, null, null},
 				{null, null, null, null, null, null},
 				{null, null, null, null, null, null},
@@ -163,10 +128,11 @@ public class SpielplanEM2016Frame extends JDialog {
 				{null, null, null, null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column"
+				"Gruppe", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Spielort"
 			}
 		));
-		contentPane.add(table, BorderLayout.NORTH);
+		
+		scrollPane.setViewportView(table);
 	}
 
 }
