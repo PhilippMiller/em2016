@@ -96,6 +96,23 @@ public class MainFrame extends JFrame {
 		mntmBundesliga.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mntmBundesliga.setEnabled(false);
 		mnSpielplan.add(mntmBundesliga);
+		
+		JMenuItem mntmErgebnisseEingeben = new JMenuItem("Ergebnis Eingabe");
+
+		mntmErgebnisseEingeben.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		mntmErgebnisseEingeben.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ErgebnisFrame ergebnisFrame = new ErgebnisFrame(classContext);
+				ergebnisFrame.setVisible(true);
+				ergebnisFrame.setModal(true);
+				Log.info("Menue item 'Ergebnis Eingabe' clicked.");
+			}
+		});
+		mnMen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		
+		JSeparator separator_1 = new JSeparator();
+		mnMen.add(separator_1);
+		mnMen.add(mntmErgebnisseEingeben);
 
 		JMenu mnEinstellungen = new JMenu("Einstellungen");
 		mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));

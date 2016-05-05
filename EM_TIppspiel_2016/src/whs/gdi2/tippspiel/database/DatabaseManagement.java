@@ -296,4 +296,37 @@ public class DatabaseManagement {
 
 		return dtm;
 	}
+	
+	public static DefaultTableModel getGamesWithNoInfoData() {
+
+		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+
+		Object[] defaultObj = { "", "", "", "", "" };
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement
+					.executeQuery("SELECT * FROM spiele WHERE datumuhrzeit > NOW() ORDER BY datumuhrzeit LIMIT 10");
+
+			while (rs.next()) {
+				Object[] objs = new Object[5];
+
+				Date datumSQL = rs.getDate("datumuhrzeit");
+				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
+
+				objs[0] = rs.getString("spielbezeichnung");
+				objs[1] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
+				objs[2] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
+				objs[3] = rs.getString("gastmannschaft");
+				objs[4] = rs.getString("heimmannschaft");
+
+				dtm.addRow(objs);
+			}
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+
+		return dtm;
+	}
 }
