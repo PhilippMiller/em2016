@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
+import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.log.Log;
 
 /**
@@ -338,5 +339,21 @@ public class DatabaseManagement {
 
 	public static void setOffset(int offset) {
 		DatabaseManagement.offset = offset;
+	}
+	
+	public static void sendTextToDB (String text) {
+		try {
+		Statement statement = Main.mainConnection.getConnection().createStatement();
+		ResultSet rs = statement.executeQuery(text);
+		while (rs.next()) {
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnsNumber = rsmd.getColumnCount();
+			for (int i = 1; i<=columnsNumber; i++) {
+				MainFrame.setSqlOutput(rs.getString(i));
+			}	
+		}
+		} catch (SQLException e) {
+			Log.error(e.getMessage());
+		}
 	}
 }

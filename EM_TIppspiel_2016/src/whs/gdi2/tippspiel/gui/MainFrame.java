@@ -1,7 +1,5 @@
 package whs.gdi2.tippspiel.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -27,16 +25,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
-import java.awt.Color;
-
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
 
-import java.awt.Component;
-
-import javax.swing.Box;
-
-import java.awt.SystemColor;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
 /**
  * 
  * @version 1.0
@@ -53,9 +46,20 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	
+	static String sqlOutput;
+	
+	public String getSqlOutput() {
+		return sqlOutput;
+	}
+
+	public static void setSqlOutput(String sqlOutput) {
+		sqlOutput = sqlOutput;
+	}
+	
 	protected DBConfigFrame dbConfigFrame;
 	private JTable table;
 	private JTable table_1;
+	private JTextField textField;
 	
 	public MainFrame(boolean showDBSettings) {
 		setResizable(false);
@@ -243,10 +247,57 @@ public class MainFrame extends JFrame {
 		btnAktualisieren.setBackground(Config.getGuiColor());
 		content.add(btnAktualisieren);
 		
+		JLabel lblMysqlKonsoleneingabe = new JLabel("MySQL Konsoleneingabe");
+		lblMysqlKonsoleneingabe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMysqlKonsoleneingabe.setFont(new Font("Calibri Light", Font.PLAIN, 18));
+		lblMysqlKonsoleneingabe.setBounds(10, 441, 504, 20);
+		content.add(lblMysqlKonsoleneingabe);
+		
+		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatabaseManagement.sendTextToDB(textField.getText());
+			}
+		});
+		textField.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
+		textField.setBounds(59, 472, 404, 20);
+		content.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnSenden = new JButton("Senden");
+		btnSenden.setBounds(473, 470, 89, 23);
+		btnSenden.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
+		btnSenden.setBackground(Config.getGuiColor());
+		btnSenden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DatabaseManagement.sendTextToDB(textField.getText());
+			}
+		});
+		content.add(btnSenden);
+		
+		JLabel lblMysqlKonsolenausgabe = new JLabel("MySQL Konsolenausgabe");
+		lblMysqlKonsolenausgabe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMysqlKonsolenausgabe.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
+		lblMysqlKonsolenausgabe.setBounds(10, 503, 504, 20);
+		content.add(lblMysqlKonsolenausgabe);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(58, 528, 4, 22);
+		content.add(textArea);
+		
+		JTextArea txtrF = new JTextArea();
+		txtrF.setText(getSqlOutput());
+		txtrF.setEditable(false);
+		txtrF.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
+		txtrF.setBounds(59, 534, 404, 241);
+		content.add(txtrF);
+		
 		setVisible(true);
 		if (!showDBSettings) {
 			dbConfigFrame = new DBConfigFrame(classContext);
 			dbConfigFrame.setVisible(true);;
 		}
 	}
+
+
 }
