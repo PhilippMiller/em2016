@@ -23,6 +23,8 @@ import whs.gdi2.tippspiel.log.Log;
  */
 
 public class DatabaseManagement {
+	
+	static int offset = 0;
 
 	/** Creates necessary db */
 	public static String createDB(MySQLConnection connection) {
@@ -307,7 +309,7 @@ public class DatabaseManagement {
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs = statement
-					.executeQuery("SELECT * FROM spiele WHERE datumuhrzeit > NOW() ORDER BY datumuhrzeit LIMIT 10");
+					.executeQuery("SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit LIMIT 1 OFFSET " + getOffset());
 
 			while (rs.next()) {
 				Object[] objs = new Object[5];
@@ -328,5 +330,13 @@ public class DatabaseManagement {
 		}
 
 		return dtm;
+	}
+
+	public static int getOffset() {
+		return offset;
+	}
+
+	public static void setOffset(int offset) {
+		DatabaseManagement.offset = offset;
 	}
 }
