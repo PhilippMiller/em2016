@@ -34,7 +34,7 @@ public class DatabaseManagement {
 	}
 
 	/** Creates necessary tables */
-	public static String createTables(MySQLConnection connection) {
+	public static String createTables() {
 		String[] tables = { "CREATE TABLE " + Config.getTableUser() + " ("
 				+ "benutzerid INT(11) NOT NULL AUTO_INCREMENT primary key," + "benutzerName VARCHAR(20),"
 				+ "autologin VARCHAR(32)," + "IP VARCHAR(15) NOT NULL," + "sessionID VARCHAR(32) NOT NULL,"
@@ -57,16 +57,18 @@ public class DatabaseManagement {
 						+ "tippgastelf INT(4)," + "tippgelbeheim INT(4)," + "tippgelbegast INT(4),"
 						+ "tipproteheim INT(4)," + "tipprotegast INT(4)" + ")" };
 		try {
-			Statement statement = connection.getConnection().createStatement();
+			Statement statement = Main.mainConnection.getConnection().createStatement();
 
 			for (String table : tables) {
 				statement.executeUpdate(table);
+				System.out.println(table);
 			}
-			Log.info("Tables created in " + connection.getDatabase() + ".");
-			return "Tables created in " + connection.getDatabase() + ".";
+
+			Log.info("Tables created in " + Main.mainConnection.getDatabase() + ".");
+			return "Tables created in " + Main.mainConnection.getDatabase() + ".";
 		} catch (SQLException e) {
-			Log.error("Error while creating tables for " + connection.getDatabase() + ".");
-			return "Error while creating tables for " + connection.getDatabase() + ".";
+			Log.error("Error while creating tables for " + Main.mainConnection.getDatabase() + ".");
+			return "Error while creating tables for " + Main.mainConnection.getDatabase() + ".";
 		}
 	}
 
@@ -74,10 +76,10 @@ public class DatabaseManagement {
 	 * Method for reading and adding all the 'benutzer' and 'tipps' test datas
 	 * to the database
 	 */
-	public static String addTestData(MySQLConnection connection) {
+	public static String addTestData() {
 
 		try {
-			Statement statement = connection.getConnection().createStatement();
+			Statement statement = Main.mainConnection.getConnection().createStatement();
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					DatabaseManagement.class.getResourceAsStream("/whs/gdi2/tippspiel/data/benutzer.txt")));
 

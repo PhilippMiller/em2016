@@ -104,6 +104,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				dbConfigFrame = new DBConfigFrame(classContext);
 				dbConfigFrame.setVisible(true);
+				Log.info("Menue item 'DB Einstellungen' clicked.");
 			}
 		});
 		mnEinstellungen.add(mntmDbEinstellungen);
@@ -117,6 +118,7 @@ public class MainFrame extends JFrame {
 				}
 				DBToolDialog dbtd = new DBToolDialog(classContext);
 				dbtd.setVisible(true);
+				Log.info("Menue item 'Datenbank Verwaltung' clicked.");
 			}
 		});
 		mntmTestdatenEinpflegen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));	
