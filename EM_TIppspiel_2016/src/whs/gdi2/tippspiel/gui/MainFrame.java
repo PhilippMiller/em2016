@@ -172,7 +172,7 @@ public class MainFrame extends JFrame {
 		table.setShowGrid(false);
 		table.setFillsViewportHeight(true);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table.setModel(DatabaseManagement.implementNext10Games());
+		table.setModel(DatabaseManagement.implementUserTop10Data());
 		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
 		
