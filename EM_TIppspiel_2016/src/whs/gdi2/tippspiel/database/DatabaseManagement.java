@@ -240,19 +240,15 @@ public class DatabaseManagement {
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM ranking WHERE platz < 11 ORDER BY platz LIMIT 10");
+			ResultSet rs = statement.executeQuery("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE r.platz < 11 ORDER BY platz LIMIT 10");
 			while (rs.next()) {
 				int ranking = rs.getInt("platz");
 				String punkte = rs.getString("punkte");
 				String benutzerid = rs.getString("benutzerid");
-				ResultSet rs2 = statement.executeQuery("SELECT * FROM benutzer");
-				while (rs2.next()) {
-					String benutzerid2 = rs2.getString("benutzerid");
-					if (benutzerid.equals(benutzerid2)) {
-						nickname = rs2.getString("nickname");
-						gruppe = rs2.getString("gruppenname");
-					}
-				}
+				nickname = rs.getString("nickname");
+				gruppe = rs.getString("gruppenname");
+				
+				
 				objs[0] = ranking;
 				objs[1] = nickname;
 				objs[2] = gruppe;
