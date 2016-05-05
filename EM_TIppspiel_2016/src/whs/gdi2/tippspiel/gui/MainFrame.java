@@ -10,6 +10,7 @@ import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
 import whs.gdi2.tippspiel.log.Log;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -27,10 +28,14 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 
 import java.awt.Color;
+
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import java.awt.SystemColor;
 /**
  * 
@@ -125,13 +130,31 @@ public class MainFrame extends JFrame {
 		mnDbSwitcher.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnEinstellungen.add(mnDbSwitcher);
 		
+	    ActionListener actionPrinter = new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	          try {
+	            Log.info("Action [" + e.getActionCommand()+ "] performed!");
+	          } catch (Exception ex) {
+	            ex.printStackTrace();
+	          }	
+	        }
+	      };
+		
 		JRadioButtonMenuItem rdbtnmntmLiveDatenbank = new JRadioButtonMenuItem("Live Datenbank");
 		rdbtnmntmLiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));		
 		mnDbSwitcher.add(rdbtnmntmLiveDatenbank);
+		rdbtnmntmLiveDatenbank.setSelected(true);
+		rdbtnmntmLiveDatenbank.addActionListener(actionPrinter);
 		
 		JRadioButtonMenuItem rdbtnmntmTestDatenbank = new JRadioButtonMenuItem("Test Datenbank");
 		rdbtnmntmTestDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));				
 		mnDbSwitcher.add(rdbtnmntmTestDatenbank);
+		rdbtnmntmTestDatenbank.addActionListener(actionPrinter);
+		
+		
+	    ButtonGroup group = new ButtonGroup();
+	    group.add(rdbtnmntmLiveDatenbank);
+	    group.add(rdbtnmntmTestDatenbank);
 		
 		JSeparator separator = new JSeparator();
 		mnEinstellungen.add(separator);
