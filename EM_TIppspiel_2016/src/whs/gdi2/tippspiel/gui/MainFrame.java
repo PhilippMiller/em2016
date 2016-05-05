@@ -145,7 +145,6 @@ public class MainFrame extends JFrame {
 		JRadioButtonMenuItem rdbtnmntmLiveDatenbank = new JRadioButtonMenuItem("Live Datenbank");
 		rdbtnmntmLiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));		
 		mnDbSwitcher.add(rdbtnmntmLiveDatenbank);
-		rdbtnmntmLiveDatenbank.setSelected(true);
 		rdbtnmntmLiveDatenbank.addActionListener(actionPrinter);
 		
 		JRadioButtonMenuItem rdbtnmntmTestDatenbank = new JRadioButtonMenuItem("Test Datenbank");
@@ -153,6 +152,14 @@ public class MainFrame extends JFrame {
 		mnDbSwitcher.add(rdbtnmntmTestDatenbank);
 		rdbtnmntmTestDatenbank.addActionListener(actionPrinter);
 		
+		if(Config.isDBType()) {
+			rdbtnmntmLiveDatenbank.setSelected(true);
+			
+		}
+		else {
+			rdbtnmntmTestDatenbank.setSelected(true);
+			
+		}
 		
 	    ButtonGroup group = new ButtonGroup();
 	    group.add(rdbtnmntmLiveDatenbank);

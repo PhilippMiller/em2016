@@ -6,6 +6,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+
 import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
@@ -32,9 +33,24 @@ public class DatabaseManagement {
 
 		return "Database creation failed.";
 	}
-
+	
+	public static boolean dropTables(MySQLConnection connection) {
+		try {
+			Statement statement = connection.getConnection().createStatement();
+			statement.execute("DROP TABLE IF EXISTS " + Config.getTableUser());
+			statement.execute("DROP TABLE IF EXISTS " + Config.getTableGames());
+			statement.execute("DROP TABLE IF EXISTS " + Config.getTableRanking());
+			statement.execute("DROP TABLE IF EXISTS " + Config.getTableBets());
+			return true;
+			
+		} catch (SQLException e) {
+			Log.error(e.getMessage());
+			return false;
+		}
+	}
+	
 	/** Creates necessary tables */
-	public static String createTables(MySQLConnection connection) {
+	public static boolean createTables(MySQLConnection connection) {
 		String[] tables = { "CREATE TABLE " + Config.getTableUser() + " ("
 				+ "benutzerid INT(11) NOT NULL AUTO_INCREMENT primary key," + "benutzerName VARCHAR(20),"
 				+ "autologin VARCHAR(32)," + "IP VARCHAR(15) NOT NULL," + "sessionID VARCHAR(32) NOT NULL,"
@@ -61,14 +77,16 @@ public class DatabaseManagement {
 
 			for (String table : tables) {
 				statement.executeUpdate(table);
-				System.out.println(table);
+				Log.debug(table);
 			}
 
 			Log.info("Tables created in " + connection.getDatabase() + ".");
-			return "Tables created in " + connection.getDatabase() + ".";
+			return true;
 		} catch (SQLException e) {
 			Log.error("Error while creating tables for " +connection.getDatabase() + ".");
-			return "Error while creating tables for " + connection.getDatabase() + ".";
+			Log.debug(e.getMessage());
+			
+			return false;
 		}
 	}
 
@@ -76,7 +94,7 @@ public class DatabaseManagement {
 	 * Method for reading and adding all the 'benutzer' and 'tipps' test datas
 	 * to the database
 	 */
-	public static String addTestData(MySQLConnection connection) {
+	public static boolean addTestData(MySQLConnection connection) {
 
 		try {
 			Statement statement = connection.getConnection().createStatement();
@@ -85,17 +103,26 @@ public class DatabaseManagement {
 
 			String readline = "";
 			String sql = "INSERT INTO " + Config.getTableUser()
-					+ " (IP, sessionID, nickname, passwort, gruppenname, email, show_Email) " + "VALUES";
+					+ "\n(benutzerName, autologin, IP, sessionID, nickname, passwort, gruppenname,email,show_Email,registrierungsdatum)\n" + "VALUES";
 
 			while ((readline = br.readLine()) != null) {
-				String[] str = readline.replaceAll("endOfLine", "").split(";");
+				String[] str = (readline+"NULL").replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
-
-				sql += "('";
-				sql += String.join("','", str);
-				sql += "')\n,";
+				
+				for(int i = 0; i < str.length;i++) {
+					if(str[i].equals("")) {
+						str[i] = "NULL";
+					}
+					if(i >= 2 && i<= 7) {
+						str[i] = "'" + str[i] + "'";
+					}
+				}				
+				
+				sql += "\n(";
+				sql += String.join(",", str);
+				sql += "),";
 			}
-			sql = sql.substring(0, sql.length() - 1);
+			sql = sql.substring(0, sql.length() -1);
 
 			statement.executeUpdate(sql);
 
@@ -104,16 +131,20 @@ public class DatabaseManagement {
 			BufferedReader br2 = new BufferedReader(new InputStreamReader(
 					DatabaseManagement.class.getResourceAsStream("/whs/gdi2/tippspiel/data/tipps.txt")));
 			sql = "INSERT INTO " + Config.getTableBets()
-					+ "(tippid, benutzerid, spieleid, tippdatum, tippheimhz, tippgasthz, tippheimende, tippgastende, tippheimverl, tippgastverl, "
+					+ "(benutzerid, spieleid, tippdatum, tippheimhz, tippgasthz, tippheimende, tippgastende, tippheimverl, tippgastverl, "
 					+ "tippheimelf, tippgastelf, tippgelbeheim, tippgelbegast, tipproteheim, tipprotegast)" + "VALUES";
 
 			while ((readline = br2.readLine()) != null) {
 				String[] str = readline.replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
-
-				sql += "('";
-				sql += String.join("','", str);
-				sql += "')\n,";
+				for(int i = 0; i < str.length;i++) {
+					if(str[i].equals("")) {
+						str[i] = "NULL";
+					}
+				}			
+				sql += "\n(";
+				sql += String.join(",", str);
+				sql += "),";
 			}
 			sql = sql.substring(0, sql.length() - 1);
 
@@ -123,30 +154,47 @@ public class DatabaseManagement {
 			BufferedReader br3 = new BufferedReader(new InputStreamReader(
 					DatabaseManagement.class.getResourceAsStream("/whs/gdi2/tippspiel/data/spiele_test.txt")));
 
-			while ((readline = br2.readLine()) != null) {
+			while ((readline = br3.readLine()) != null) {
 				String[] str = readline.replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
 				if (str.length == 5) {
 					sql = "INSERT INTO " + Config.getTableGames()
 							+ "(spielbezeichnung, spielort, datumuhrzeit, heimmannschaft, gastmannschaft)" + "VALUES";
+					for(int i = 0; i < str.length;i++) {
+						if(str[i].equals("")) {
+							str[i] = "NULL";
+						}
+						else {
+							str[i] = "'" + str[i] + "'";
+						}
+					}	
 				} else {
-					sql = "INSERT INTO spiele (spielbezeichnung, spielort, datumuhrzeit, heimmannschaft, gastmannschaft, heimmannschafthz, gastmannschafthz, heimmannschaftende,"
+					sql = "INSERT INTO " + Config.getTableGames() + "(spielbezeichnung, spielort, datumuhrzeit, heimmannschaft, gastmannschaft, heimmannschafthz, gastmannschafthz, heimmannschaftende,"
 							+ "gastmannschaftende, verlaengerung, heimmannschaftverl, gastmannschaftverl,"
 							+ "elfmeter, heimmannschaftelf, gastmannschaftelf, gelbekartenheim, gelbekartengast,"
 							+ "rotekartenheim, rotekartengast) VALUES ";
+					for(int i = 0; i < str.length;i++) {
+						if(str[i].equals("")) {
+							str[i] = "NULL";
+						}
+						if( i<= 4) {
+							str[i] = "'" + str[i] + "'";
+						}
+					}	
 				}
-				sql += "('";
-				sql += String.join("','", str);
-				sql += "')\n,";
+				sql += "(";
+				sql += String.join(",", str);
+				sql += ")";
+				
+				statement.executeUpdate(sql);
 			}
 
-			statement.executeUpdate(sql);
 			Log.info("'" + Config.getTableGames() + "' inserted into database.");
 			statement.close();
-			return "Inserted test datas.";
+			return true;
 		} catch (Exception e) {
 			Log.error(e.getMessage());
-			return "Inserting datas failed.";
+			return false;
 		}
 	}
 
