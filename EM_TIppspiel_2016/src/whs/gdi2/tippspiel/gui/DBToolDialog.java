@@ -46,7 +46,7 @@ public class DBToolDialog extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 
 					Log.info("Menue item 'Erstelle Tabellen' clicked.");
-					DatabaseManagement.createTables();
+					DatabaseManagement.createTables(Main.mainConnection);
 				}
 			});
 			btnCreateTables.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
@@ -60,7 +60,7 @@ public class DBToolDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 
 				Log.info("Menue item 'Testdaten Einfügen' clicked.");
-				DatabaseManagement.addTestData();
+				DatabaseManagement.addTestData(Main.mainConnection);
 			}
 		});
 		button.setFont(new Font("Calibri Light", Font.PLAIN, 15));
