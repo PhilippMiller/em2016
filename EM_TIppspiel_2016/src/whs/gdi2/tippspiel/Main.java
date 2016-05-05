@@ -18,6 +18,7 @@ import whs.gdi2.tippspiel.log.Log;
  * @author Jan-Markus Momper <jan-markus.momper@studmail.w-hs.de>
  * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
  */
+
 public class Main {
 	public static MySQLConnection mainConnection;
 
