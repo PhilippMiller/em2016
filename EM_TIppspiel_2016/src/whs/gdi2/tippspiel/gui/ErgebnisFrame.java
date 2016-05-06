@@ -24,6 +24,8 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class ErgebnisFrame extends JDialog {
 	
@@ -150,6 +152,13 @@ public class ErgebnisFrame extends JDialog {
 	contentPane.add(lblGabEsEine);
 	
 	JCheckBox checkBox = new JCheckBox("");
+	checkBox.setEnabled(DatabaseManagement.isGroupPhase());
+	checkBox.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+			textField_6.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+			textField_7.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+		}
+	});
 	checkBox.setBounds(240, 205, 21, 23);
 	checkBox.setBackground(Config.getGuiColor());
 	contentPane.add(checkBox);
@@ -157,8 +166,8 @@ public class ErgebnisFrame extends JDialog {
 	textField_6 = new JTextField();
 	textField_6.setText("0");
 	textField_6.setHorizontalAlignment(SwingConstants.CENTER);
-	textField_6.setEnabled(false);
 	textField_6.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
+	textField_6.setEnabled(false);
 	textField_6.setColumns(10);
 	textField_6.setBounds(50, 236, 86, 20);
 	contentPane.add(textField_6);
@@ -204,6 +213,13 @@ public class ErgebnisFrame extends JDialog {
 	contentPane.add(lblGabEsElfmeterschieen);
 	
 	JCheckBox checkBox_1 = new JCheckBox("");
+	checkBox_1.setEnabled(DatabaseManagement.isGroupPhase());
+	checkBox_1.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+			textField_8.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+			textField_9.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+		}
+	});
 	checkBox_1.setBounds(240, 270, 21, 23);
 	checkBox_1.setBackground(Config.getGuiColor());
 	contentPane.add(checkBox_1);
@@ -251,6 +267,41 @@ public class ErgebnisFrame extends JDialog {
 	JButton btnSpeichern = new JButton("Speichern");
 	btnSpeichern.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
+			String sqlCommand;
+			@SuppressWarnings("unused")
+			String sqlInputData;
+			if (checkBox.isSelected() && checkBox_1.isSelected()) {
+				sqlCommand = "UPDATE " + Config.getTableGames() + " SET heimmannschafthz = "
+						+ goalsHomeAfterFirstHalfInt + ", gastmannschafthz = " + goalsGuestAfterFirstHalfInt + ","
+								+ " heimmannschaftende = " + goalsHomeAfterSecondHalfInt + ", gastmannschaftende = "
+								+ goalsGuestAfterSecondHalfInt + ", verlaengerung=TRUE, heimmannschaftverl=" + goalsHomeAfterOvertimeInt
+								+ ", gastmannschaftverl=" + goalsGuestAfterOvertimeInt + ", elfmeter=TRUE, heimmannschaftelf=" + goalsHomeAfterPenaltyInt
+								+ ", gastmannschaftelf=" + goalsGuestAfterPenaltyInt + ", gelbekartenheim=" + yellowCardsHomeInt + ", gelbekartengast="
+								+ yellowCardsGuestInt + ", rotekartenheim=" + redCardsHomeInt + ", rotekartengast=" + redCardsGuestInt + " ";
+			} else if (checkBox.isSelected()) {
+				sqlCommand = "UPDATE " + Config.getTableGames() + " SET heimmannschafthz = "
+						+ goalsHomeAfterFirstHalfInt + ", gastmannschafthz = " + goalsGuestAfterFirstHalfInt + ","
+								+ " heimmannschaftende = " + goalsHomeAfterSecondHalfInt + ", gastmannschaftende = "
+								+ goalsGuestAfterSecondHalfInt + ", verlaengerung=TRUE, heimmannschaftverl=" + goalsHomeAfterOvertimeInt
+								+ ", gastmannschaftverl=" + goalsGuestAfterOvertimeInt + ", elfmeter=FALSE, gelbekartenheim=" + yellowCardsHomeInt + ", gelbekartengast="
+								+ yellowCardsGuestInt + ", rotekartenheim=" + redCardsHomeInt + ", rotekartengast=" + redCardsGuestInt + " ";
+			} else if (DatabaseManagement.isGroupPhase()){
+				sqlCommand = "UPDATE " + Config.getTableGames() + " SET heimmannschafthz = "
+						+ goalsHomeAfterFirstHalfInt + ", gastmannschafthz = " + goalsGuestAfterFirstHalfInt + ","
+								+ " heimmannschaftende = " + goalsHomeAfterSecondHalfInt + ", gastmannschaftende = "
+								+ goalsGuestAfterSecondHalfInt + ", gelbekartenheim=" + yellowCardsHomeInt + ", gelbekartengast="
+								+ yellowCardsGuestInt + ", rotekartenheim=" + redCardsHomeInt + ", rotekartengast=" + redCardsGuestInt + " ";
+			} else {
+				sqlCommand = "UPDATE " + Config.getTableGames() + " SET heimmannschafthz = "
+						+ goalsHomeAfterFirstHalfInt + ", gastmannschafthz = " + goalsGuestAfterFirstHalfInt + ","
+								+ " heimmannschaftende = " + goalsHomeAfterSecondHalfInt + ", gastmannschaftende = "
+								+ goalsGuestAfterSecondHalfInt + ", verlaengerung=FALSE, elfmeter=FALSE, gelbekartenheim=" + yellowCardsHomeInt + ", gelbekartengast="
+								+ yellowCardsGuestInt + ", rotekartenheim=" + redCardsHomeInt + ", rotekartengast=" + redCardsGuestInt + " ";
+			}
+			DatabaseManagement.addGameData(sqlCommand);
+			ErgebnisFrame.this.dispose();
+			ErgebnisFrame ef = new ErgebnisFrame(parent);
+			ef.setVisible(true);
 		}
 	});
 	btnSpeichern.setFont(new Font(Config.getFont(), Font.PLAIN, 12));

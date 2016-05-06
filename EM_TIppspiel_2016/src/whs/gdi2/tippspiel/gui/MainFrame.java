@@ -30,6 +30,9 @@ import javax.swing.JRadioButtonMenuItem;
 
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.DropMode;
+import javax.swing.ScrollPaneConstants;
+import java.awt.Color;
 /**
  * 
  * @version 1.0
@@ -52,8 +55,8 @@ public class MainFrame extends JFrame {
 		return sqlOutput;
 	}
 
-	public static void setSqlOutput(String sqlOutput) {
-		sqlOutput = sqlOutput;
+	public void setSqlOutput(String text) {
+		MainFrame.sqlOutput = text + ",";
 	}
 	
 	protected DBConfigFrame dbConfigFrame;
@@ -242,6 +245,13 @@ public class MainFrame extends JFrame {
 		scrollPane_1.setViewportView(table_1);
 
 		JButton btnAktualisieren = new JButton("Aktualisieren");
+		btnAktualisieren.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MainFrame.super.dispose();
+				MainFrame mainFrame = new MainFrame(true);
+				mainFrame.setVisible(true);
+			}
+		});
 		btnAktualisieren.setBounds(831, 752, 132, 23);
 		btnAktualisieren.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
 		btnAktualisieren.setBackground(Config.getGuiColor());
@@ -270,6 +280,7 @@ public class MainFrame extends JFrame {
 		btnSenden.setBackground(Config.getGuiColor());
 		btnSenden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setSqlOutput("mnamamamama");
 				DatabaseManagement.sendTextToDB(textField.getText());
 			}
 		});
@@ -281,16 +292,29 @@ public class MainFrame extends JFrame {
 		lblMysqlKonsolenausgabe.setBounds(10, 503, 504, 20);
 		content.add(lblMysqlKonsolenausgabe);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(58, 528, 4, 22);
-		content.add(textArea);
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_2.setBounds(59, 534, 404, 241);
+		content.add(scrollPane_2);
 		
-		JTextArea txtrF = new JTextArea();
-		txtrF.setText(getSqlOutput());
-		txtrF.setEditable(false);
-		txtrF.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		txtrF.setBounds(59, 534, 404, 241);
-		content.add(txtrF);
+		JTextArea txtrFasfsafsaf = new JTextArea();
+		txtrFasfsafsaf.setEditable(false);
+		txtrFasfsafsaf.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
+		txtrFasfsafsaf.setText("HALLO ICH FUNKTIONIERE NOCH NICHT UND WARTE\nAUF BEARBEITUNG VON MARIO ODER PHILIPP");
+		scrollPane_2.setViewportView(txtrFasfsafsaf);
+		
+		JButton btnMiroslav = new JButton("MIROSLAV");
+		btnMiroslav.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Log.info("MIROSLAV CLOSE");
+				System.exit(0);
+			}
+		});
+		btnMiroslav.setFont(new Font("Calibri Light", Font.PLAIN, 50));
+		btnMiroslav.setBackground(Color.WHITE);
+		btnMiroslav.setBounds(559, 573, 404, 102);
+		content.add(btnMiroslav);
 		
 		setVisible(true);
 		if (!showDBSettings) {
@@ -298,6 +322,4 @@ public class MainFrame extends JFrame {
 			dbConfigFrame.setVisible(true);;
 		}
 	}
-
-
 }

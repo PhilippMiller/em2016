@@ -24,8 +24,9 @@ import whs.gdi2.tippspiel.log.Log;
  */
 
 public class DatabaseManagement {
-	
+
 	static int offset = 0;
+	static int spieleIDinErgebnisFrame = 0;
 
 	/** Creates necessary db */
 	public static String createDB(MySQLConnection connection) {
@@ -36,7 +37,7 @@ public class DatabaseManagement {
 
 		return "Database creation failed.";
 	}
-	
+
 	public static boolean dropTables(MySQLConnection connection) {
 		try {
 			Statement statement = connection.getConnection().createStatement();
@@ -45,13 +46,13 @@ public class DatabaseManagement {
 			statement.execute("DROP TABLE IF EXISTS " + Config.getTableRanking());
 			statement.execute("DROP TABLE IF EXISTS " + Config.getTableBets());
 			return true;
-			
+
 		} catch (SQLException e) {
 			Log.error(e.getMessage());
 			return false;
 		}
 	}
-	
+
 	/** Creates necessary tables */
 	public static boolean createTables(MySQLConnection connection) {
 		String[] tables = { "CREATE TABLE " + Config.getTableUser() + " ("
@@ -86,9 +87,9 @@ public class DatabaseManagement {
 			Log.info("Tables created in " + connection.getDatabase() + ".");
 			return true;
 		} catch (SQLException e) {
-			Log.error("Error while creating tables for " +connection.getDatabase() + ".");
+			Log.error("Error while creating tables for " + connection.getDatabase() + ".");
 			Log.debug(e.getMessage());
-			
+
 			return false;
 		}
 	}
@@ -106,26 +107,27 @@ public class DatabaseManagement {
 
 			String readline = "";
 			String sql = "INSERT INTO " + Config.getTableUser()
-					+ "\n(benutzerName, autologin, IP, sessionID, nickname, passwort, gruppenname,email,show_Email,registrierungsdatum)\n" + "VALUES";
+					+ "\n(benutzerName, autologin, IP, sessionID, nickname, passwort, gruppenname,email,show_Email,registrierungsdatum)\n"
+					+ "VALUES";
 
 			while ((readline = br.readLine()) != null) {
-				String[] str = (readline+"NULL").replaceAll("endOfLine", "").split(";");
+				String[] str = (readline + "NULL").replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
-				
-				for(int i = 0; i < str.length;i++) {
-					if(str[i].equals("")) {
+
+				for (int i = 0; i < str.length; i++) {
+					if (str[i].equals("")) {
 						str[i] = "NULL";
 					}
-					if(i >= 2 && i<= 7) {
+					if (i >= 2 && i <= 7) {
 						str[i] = "'" + str[i] + "'";
 					}
-				}				
-				
+				}
+
 				sql += "\n(";
 				sql += String.join(",", str);
 				sql += "),";
 			}
-			sql = sql.substring(0, sql.length() -1);
+			sql = sql.substring(0, sql.length() - 1);
 
 			statement.executeUpdate(sql);
 
@@ -140,11 +142,11 @@ public class DatabaseManagement {
 			while ((readline = br2.readLine()) != null) {
 				String[] str = readline.replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
-				for(int i = 0; i < str.length;i++) {
-					if(str[i].equals("")) {
+				for (int i = 0; i < str.length; i++) {
+					if (str[i].equals("")) {
 						str[i] = "NULL";
 					}
-				}			
+				}
 				sql += "\n(";
 				sql += String.join(",", str);
 				sql += "),";
@@ -163,32 +165,32 @@ public class DatabaseManagement {
 				if (str.length == 5) {
 					sql = "INSERT INTO " + Config.getTableGames()
 							+ "(spielbezeichnung, spielort, datumuhrzeit, heimmannschaft, gastmannschaft)" + "VALUES";
-					for(int i = 0; i < str.length;i++) {
-						if(str[i].equals("")) {
+					for (int i = 0; i < str.length; i++) {
+						if (str[i].equals("")) {
 							str[i] = "NULL";
-						}
-						else {
+						} else {
 							str[i] = "'" + str[i] + "'";
 						}
-					}	
+					}
 				} else {
-					sql = "INSERT INTO " + Config.getTableGames() + "(spielbezeichnung, spielort, datumuhrzeit, heimmannschaft, gastmannschaft, heimmannschafthz, gastmannschafthz, heimmannschaftende,"
+					sql = "INSERT INTO " + Config.getTableGames()
+							+ "(spielbezeichnung, spielort, datumuhrzeit, heimmannschaft, gastmannschaft, heimmannschafthz, gastmannschafthz, heimmannschaftende,"
 							+ "gastmannschaftende, verlaengerung, heimmannschaftverl, gastmannschaftverl,"
 							+ "elfmeter, heimmannschaftelf, gastmannschaftelf, gelbekartenheim, gelbekartengast,"
 							+ "rotekartenheim, rotekartengast) VALUES ";
-					for(int i = 0; i < str.length;i++) {
-						if(str[i].equals("")) {
+					for (int i = 0; i < str.length; i++) {
+						if (str[i].equals("")) {
 							str[i] = "NULL";
 						}
-						if( i<= 4) {
+						if (i <= 4) {
 							str[i] = "'" + str[i] + "'";
 						}
-					}	
+					}
 				}
 				sql += "(";
 				sql += String.join(",", str);
 				sql += ")";
-				
+
 				statement.executeUpdate(sql);
 			}
 
@@ -243,15 +245,15 @@ public class DatabaseManagement {
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE r.platz < 11 ORDER BY platz LIMIT 10");
+			ResultSet rs = statement.executeQuery(
+					"SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE r.platz < 11 ORDER BY platz LIMIT 10");
 			while (rs.next()) {
 				int ranking = rs.getInt("platz");
 				String punkte = rs.getString("punkte");
 				String benutzerid = rs.getString("benutzerid");
 				nickname = rs.getString("nickname");
 				gruppe = rs.getString("gruppenname");
-				
-				
+
 				objs[0] = ranking;
 				objs[1] = nickname;
 				objs[2] = gruppe;
@@ -299,7 +301,7 @@ public class DatabaseManagement {
 
 		return dtm;
 	}
-	
+
 	public static DefaultTableModel getGamesWithNoInfoData() {
 
 		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
@@ -309,11 +311,14 @@ public class DatabaseManagement {
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement
-					.executeQuery("SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit LIMIT 1 OFFSET " + getOffset());
+			ResultSet rs = statement.executeQuery(
+					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NULL ORDER BY datumuhrzeit LIMIT 1 OFFSET "
+							+ getOffset());
 
 			while (rs.next()) {
 				Object[] objs = new Object[5];
+
+				spieleIDinErgebnisFrame = rs.getInt("spieleid");
 
 				Date datumSQL = rs.getDate("datumuhrzeit");
 				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
@@ -321,8 +326,8 @@ public class DatabaseManagement {
 				objs[0] = rs.getString("spielbezeichnung");
 				objs[1] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
 				objs[2] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
-				objs[3] = rs.getString("gastmannschaft");
-				objs[4] = rs.getString("heimmannschaft");
+				objs[4] = rs.getString("gastmannschaft");
+				objs[3] = rs.getString("heimmannschaft");
 
 				dtm.addRow(objs);
 			}
@@ -340,20 +345,48 @@ public class DatabaseManagement {
 	public static void setOffset(int offset) {
 		DatabaseManagement.offset = offset;
 	}
-	
-	public static void sendTextToDB (String text) {
+
+	public static void sendTextToDB(String text) {
 		try {
-		Statement statement = Main.mainConnection.getConnection().createStatement();
-		ResultSet rs = statement.executeQuery(text);
-		while (rs.next()) {
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			for (int i = 1; i<=columnsNumber; i++) {
-				MainFrame.setSqlOutput(rs.getString(i));
-			}	
-		}
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(text);
+			while (rs.next()) {
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int columnsCount = rsmd.getColumnCount();
+				for (int i = 1; i <= columnsCount; i++) {
+					System.out.println(rs.getString(i));
+				}
+			}
 		} catch (SQLException e) {
 			Log.error(e.getMessage());
+		}
+	}
+
+	public static boolean isGroupPhase() {
+		String tempString = null;
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("SELECT * FROM spiele WHERE spieleid = " + spieleIDinErgebnisFrame);
+			while (rs.next()) {
+				tempString = rs.getString("spielbezeichnung");
+				if (tempString.contains("ruppe")) {
+					return false;
+				}
+			}
+			return true;
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+		return true;
+	}
+	
+	public static void addGameData(String data) {
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			System.out.println(data + " WHERE spieleid = " + spieleIDinErgebnisFrame);
+			statement.executeUpdate(data + " WHERE spieleid = " + spieleIDinErgebnisFrame);
+		} catch (Exception e) {
+			Log.mysqlError(e.getMessage());
 		}
 	}
 }
