@@ -36,7 +36,7 @@ public class Main {
 		// EVERYTHING HAS TO INITIALIZE!
 		try {
 			
-			Thread.sleep(3000);
+			Thread.sleep(1500);
 			
 			@SuppressWarnings("unused")
 			MainFrame mainFrame;

@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class DBConfigFrame extends JDialog {
 
@@ -109,7 +110,7 @@ public class DBConfigFrame extends JDialog {
 		DBPass_online.setBounds(240, 77, 130, 14);
 		onlineTab.add(DBPass_online);
 		
-		DBPass_online_txtfield = new JTextField();
+		DBPass_online_txtfield = new JPasswordField();
 		DBPass_online_txtfield.setText("DBIP_textfield");
 		DBPass_online_txtfield.setColumns(10);
 		DBPass_online_txtfield.setBounds(240, 97, 130, 20);
@@ -154,7 +155,7 @@ public class DBConfigFrame extends JDialog {
 		DBPass_offline.setBounds(240, 77, 130, 14);
 		offlineTab.add(DBPass_offline);
 		
-		DBPass_offline_txtfield = new JTextField();
+		DBPass_offline_txtfield = new JPasswordField();
 		DBPass_offline_txtfield.setText("DBIP_textfield");
 		DBPass_offline_txtfield.setColumns(10);
 		DBPass_offline_txtfield.setBounds(240, 97, 130, 20);

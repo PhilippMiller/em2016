@@ -117,9 +117,56 @@ public class MainFrame extends JFrame {
 		});
 		mnMen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		
+		JMenu mnErgebnisse = new JMenu("Ergebnisse");
+		mnErgebnisse.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnMen.add(mnErgebnisse);
+		
+		JMenuItem menuItem = new JMenuItem("EM 2016");
+		menuItem.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnErgebnisse.add(menuItem);
+		
+		JMenuItem menuItem_1 = new JMenuItem("Bundesliga 16/17");
+		menuItem_1.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		menuItem_1.setEnabled(false);
+		mnErgebnisse.add(menuItem_1);
+		
+		JMenu mnSpielerranking = new JMenu("Ranking");
+		mnSpielerranking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnMen.add(mnSpielerranking);
+		
+		JMenu mnEm = new JMenu("EM 2016");
+		mnEm.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnSpielerranking.add(mnEm);
+		
+		JMenuItem mntmSpielerRanking = new JMenuItem("Spieler Ranking");
+		mntmSpielerRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnEm.add(mntmSpielerRanking);
+		
+		JMenuItem mntmGruppenRanking = new JMenuItem("Gruppen Ranking");
+		mntmGruppenRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnEm.add(mntmGruppenRanking);
+		
+		JMenu mnBundesliga = new JMenu("Bundesliga 16 / 17");
+		mnBundesliga.setEnabled(false);
+		mnBundesliga.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnSpielerranking.add(mnBundesliga);
+		
 		JSeparator separator_1 = new JSeparator();
 		mnMen.add(separator_1);
 		mnMen.add(mntmErgebnisseEingeben);
+		
+		JSeparator separator_2 = new JSeparator();
+		mnMen.add(separator_2);
+		
+		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
+		mntmSchlieen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Log.info("'Schlieﬂen' clicked.");
+				System.exit(0);
+			}
+		});
+		mntmSchlieen.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnMen.add(mntmSchlieen);
 
 		JMenu mnEinstellungen = new JMenu("Einstellungen");
 		mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
