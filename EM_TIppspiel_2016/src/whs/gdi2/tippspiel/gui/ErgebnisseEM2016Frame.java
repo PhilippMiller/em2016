@@ -15,41 +15,22 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
-public class SpielplanEM2016Frame extends JDialog {
+public class ErgebnisseEM2016Frame extends JDialog {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SpielplanEM2016Frame frame = new SpielplanEM2016Frame(new MainFrame(false));
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public SpielplanEM2016Frame(JFrame parent) {
+	public ErgebnisseEM2016Frame(JFrame parent) {
 		super(parent);
 		setModal(true);
-		setResizable(false);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
 		setTitle("Tippspiel Admin - Tool");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(SpielplanEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ErgebnisseEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1024, 450);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,7 +44,7 @@ public class SpielplanEM2016Frame extends JDialog {
 		table = new JTable();
 		table.setShowGrid(false);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table.setModel(DatabaseManagement.implementMatchSchedule());	
+		table.setModel(DatabaseManagement.implementMatchScheduleWithScores());	
 		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
 	}

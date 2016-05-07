@@ -212,7 +212,7 @@ public class DatabaseManagement {
 	 */
 	public static DefaultTableModel implementMatchSchedule() {
 
-		String col[] = { "Gruppe", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Spielort" };
+		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Spielort" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
 		try {
@@ -229,6 +229,54 @@ public class DatabaseManagement {
 				String datum = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
 				String uhrzeit = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
 				Object[] objs = { spielbezeichnung, datum, uhrzeit, heimmannschaft, gastmannschaft, spielort };
+				dtm.addRow(objs);
+			}
+			return dtm;
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public static DefaultTableModel implementMatchScheduleWithScores() {
+
+		String col[] = { "Gruppe", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Ergebnis nach 1. HZ",
+				"Ergebnis nach 2. HZ", "Ergebnis nach Verl‰ngerung", "Ergebnis nach Elfmeterschieﬂen", "Gelbe Karten",
+				"Rote Karten", "Spielort" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+		String ergebnisverl = null;
+		String ergebniself = null;
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(
+					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit");
+			while (rs.next()) {
+
+				String spielbezeichnung = rs.getString("spielbezeichnung");
+				Date datumSQL = rs.getDate("datumuhrzeit");
+				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
+				String heimmannschaft = rs.getString("heimmannschaft");
+				String gastmannschaft = rs.getString("gastmannschaft");
+				String spielort = rs.getString("spielort");
+				String datum = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
+				String uhrzeit = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
+				String ergebnis1hz = rs.getString("heimmannschafthz") + ":" + rs.getString("gastmannschafthz");
+				String ergebnis2hz = rs.getString("heimmannschaftende") + ":" + rs.getString("gastmannschaftende");
+				if (rs.getBoolean("verlaengerung")) {
+					ergebnisverl = rs.getString("heimmannschaftverl") + ":" + rs.getString("gastmannschaftverl");
+				} else {
+					ergebnisverl = "-:-";
+				}
+				if (rs.getBoolean("elfmeter")) {
+					ergebniself = rs.getString("heimmannschaftelf") + ":" + rs.getString("gastmannschaftelf");
+				} else {
+					ergebniself = "-:-";
+				}
+				String gelbekarten = rs.getString("gelbekartenheim") + " - " + rs.getString("gelbekartengast");
+				String rotekarten = rs.getString("rotekartenheim") + " - " + rs.getString("rotekartengast");
+				Object[] objs = { spielbezeichnung, datum, uhrzeit, heimmannschaft, gastmannschaft, ergebnis1hz,
+						ergebnis2hz, ergebnisverl, ergebniself, gelbekarten, rotekarten, spielort };
 				dtm.addRow(objs);
 			}
 			return dtm;
@@ -275,7 +323,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel implementNext10Games() {
 
-		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
 		Object[] defaultObj = { "", "", "", "", "" };
@@ -308,7 +356,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel getGamesWithNoInfoData() {
 
-		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
 		Object[] defaultObj = { "", "", "", "", "" };
@@ -343,7 +391,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel getGamesWithInfoData() {
 
-		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		int i = 0;
 
@@ -370,7 +418,7 @@ public class DatabaseManagement {
 				setGelbekartengast(rs.getString("gelbekartengast"));
 				setRotekartenheim(rs.getString("rotekartenheim"));
 				setRotekartengast(rs.getString("rotekartengast"));
-		
+
 				Object[] objs = new Object[5];
 
 				spieleIDinErgebnisFrame = rs.getInt("spieleid");
@@ -388,7 +436,7 @@ public class DatabaseManagement {
 				i++;
 			}
 			if (i == 0) {
-				Object[] dobjs = {"","","","",""};
+				Object[] dobjs = { "", "", "", "", "" };
 				setVerlaengerung(false);
 				setElfmeter(false);
 				setHeimmannschafthz("");

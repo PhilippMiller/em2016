@@ -122,6 +122,14 @@ public class MainFrame extends JFrame {
 		mnMen.add(mnErgebnisse);
 		
 		JMenuItem menuItem = new JMenuItem("EM 2016");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ErgebnisseEM2016Frame ergebnisseFrame = new ErgebnisseEM2016Frame(classContext);
+				ergebnisseFrame.setVisible(true);
+				ergebnisseFrame.setModal(true);
+				Log.info("Menue item 'Ergebnisse > EM2016' clicked.");
+			}
+		});
 		menuItem.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnErgebnisse.add(menuItem);
 		

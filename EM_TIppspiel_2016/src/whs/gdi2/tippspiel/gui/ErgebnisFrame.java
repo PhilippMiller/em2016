@@ -264,7 +264,7 @@ public class ErgebnisFrame extends JDialog {
 
 				String redCardsGuest = textField_5.getText();
 				int redCardsGuestInt = Integer.parseInt(redCardsGuest);
-				String yellowCardsGuest = textField_10.getText();
+				String yellowCardsGuest = textField_11.getText();
 				int yellowCardsGuestInt = Integer.parseInt(yellowCardsGuest);
 				String redCardsHome = textField_4.getText();
 				int redCardsHomeInt = Integer.parseInt(redCardsHome);
