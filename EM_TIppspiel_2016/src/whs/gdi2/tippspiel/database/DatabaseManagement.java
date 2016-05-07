@@ -27,6 +27,10 @@ public class DatabaseManagement {
 
 	static int offset = 0;
 	static int spieleIDinErgebnisFrame = 0;
+	static String heimmannschafthz, gastmannschafthz, heimmannschaftende, gastmannschaftende, heimmannschaftverl,
+			gastmannschaftverl, heimmannschaftelf, gastmannschaftelf, gelbekartenheim, gelbekartengast, rotekartenheim,
+			rotekartengast;
+	static boolean verlaengerung, elfmeter;
 
 	/** Creates necessary db */
 	public static String createDB(MySQLConnection connection) {
@@ -314,7 +318,6 @@ public class DatabaseManagement {
 			ResultSet rs = statement.executeQuery(
 					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NULL ORDER BY datumuhrzeit LIMIT 1 OFFSET "
 							+ getOffset());
-
 			while (rs.next()) {
 				Object[] objs = new Object[5];
 
@@ -335,6 +338,59 @@ public class DatabaseManagement {
 			Log.error(e.getMessage());
 		}
 
+		return dtm;
+	}
+
+	public static DefaultTableModel getGamesWithInfoData() {
+
+		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+
+		int tempInt = getOffset() * (-1);
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(
+					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit DESC LIMIT 1 OFFSET "
+							+ tempInt);
+			System.out.println(
+					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit DESC LIMIT 1 OFFSET "
+							+ tempInt);
+			while (rs.next()) {
+				setVerlaengerung(rs.getBoolean("verlaengerung"));
+				setElfmeter(rs.getBoolean("elfmeter"));
+				setHeimmannschafthz(rs.getString("heimmannschafthz"));
+				System.out.println(getHeimmannschafthz());
+				setGastmannschafthz(rs.getString("gastmannschafthz"));
+				setHeimmannschaftende(rs.getString("heimmannschaftende"));
+				setGastmannschaftende(rs.getString("gastmannschaftende"));
+				setHeimmannschaftverl(rs.getString("heimmannschaftverl"));
+				setGastmannschaftverl(rs.getString("gastmannschaftverl"));
+				setHeimmannschaftelf(rs.getString("heimmannschaftelf"));
+				setGastmannschaftelf(rs.getString("gastmannschaftelf"));
+				setGelbekartenheim(rs.getString("gelbekartenheim"));
+				setGelbekartengast(rs.getString("gelbekartengast"));
+				setRotekartenheim(rs.getString("rotekartenheim"));
+				setRotekartengast(rs.getString("rotekartengast"));
+		
+				Object[] objs = new Object[5];
+
+				spieleIDinErgebnisFrame = rs.getInt("spieleid");
+
+				Date datumSQL = rs.getDate("datumuhrzeit");
+				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
+
+				objs[0] = rs.getString("spielbezeichnung");
+				objs[1] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
+				objs[2] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
+				objs[4] = rs.getString("gastmannschaft");
+				objs[3] = rs.getString("heimmannschaft");
+
+				dtm.addRow(objs);
+			}
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
 		return dtm;
 	}
 
@@ -379,14 +435,125 @@ public class DatabaseManagement {
 		}
 		return true;
 	}
-	
+
 	public static void addGameData(String data) {
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			System.out.println(data + " WHERE spieleid = " + spieleIDinErgebnisFrame);
 			statement.executeUpdate(data + " WHERE spieleid = " + spieleIDinErgebnisFrame);
 		} catch (Exception e) {
 			Log.mysqlError(e.getMessage());
 		}
+	}
+
+	public static boolean isVerlaengerung() {
+		return verlaengerung;
+	}
+
+	public static void setVerlaengerung(boolean verlaengerung) {
+		DatabaseManagement.verlaengerung = verlaengerung;
+	}
+
+	public static boolean isElfmeter() {
+		return elfmeter;
+	}
+
+	public static void setElfmeter(boolean elfmeter) {
+		DatabaseManagement.elfmeter = elfmeter;
+	}
+
+	public static String getHeimmannschafthz() {
+		return heimmannschafthz;
+	}
+
+	public static void setHeimmannschafthz(String heimmannschafthz) {
+		DatabaseManagement.heimmannschafthz = heimmannschafthz;
+	}
+
+	public static String getGastmannschafthz() {
+		return gastmannschafthz;
+	}
+
+	public static void setGastmannschafthz(String gastmannschafthz) {
+		DatabaseManagement.gastmannschafthz = gastmannschafthz;
+	}
+
+	public static String getHeimmannschaftende() {
+		return heimmannschaftende;
+	}
+
+	public static void setHeimmannschaftende(String heimmannschaftende) {
+		DatabaseManagement.heimmannschaftende = heimmannschaftende;
+	}
+
+	public static String getGastmannschaftende() {
+		return gastmannschaftende;
+	}
+
+	public static void setGastmannschaftende(String gastmannschaftende) {
+		DatabaseManagement.gastmannschaftende = gastmannschaftende;
+	}
+
+	public static String getHeimmannschaftverl() {
+		return heimmannschaftverl;
+	}
+
+	public static void setHeimmannschaftverl(String heimmannschaftverl) {
+		DatabaseManagement.heimmannschaftverl = heimmannschaftverl;
+	}
+
+	public static String getGastmannschaftverl() {
+		return gastmannschaftverl;
+	}
+
+	public static void setGastmannschaftverl(String gastmannschaftverl) {
+		DatabaseManagement.gastmannschaftverl = gastmannschaftverl;
+	}
+
+	public static String getHeimmannschaftelf() {
+		return heimmannschaftelf;
+	}
+
+	public static void setHeimmannschaftelf(String heimmannschaftelf) {
+		DatabaseManagement.heimmannschaftelf = heimmannschaftelf;
+	}
+
+	public static String getGastmannschaftelf() {
+		return gastmannschaftelf;
+	}
+
+	public static void setGastmannschaftelf(String gastmannschaftelf) {
+		DatabaseManagement.gastmannschaftelf = gastmannschaftelf;
+	}
+
+	public static String getGelbekartenheim() {
+		return gelbekartenheim;
+	}
+
+	public static void setGelbekartenheim(String gelbekartenheim) {
+		DatabaseManagement.gelbekartenheim = gelbekartenheim;
+	}
+
+	public static String getGelbekartengast() {
+		return gelbekartengast;
+	}
+
+	public static void setGelbekartengast(String gelbekartengast) {
+		DatabaseManagement.gelbekartengast = gelbekartengast;
+	}
+
+	public static String getRotekartenheim() {
+		return rotekartenheim;
+	}
+
+	public static void setRotekartenheim(String rotekartenheim) {
+		DatabaseManagement.rotekartenheim = rotekartenheim;
+	}
+
+	public static String getRotekartengast() {
+		return rotekartengast;
+	}
+
+	public static void setRotekartengast(String rotekartengast) {
+		DatabaseManagement.rotekartengast = rotekartengast;
 	}
 }

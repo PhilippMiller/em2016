@@ -79,10 +79,15 @@ public class ErgebnisFrame extends JDialog {
 	button = new JButton("<<<");
 	button.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			DatabaseManagement.setOffset(DatabaseManagement.getOffset() - 1);
+			DatabaseManagement.setOffset(DatabaseManagement.getOffset() - 1);			
 			ErgebnisFrame.this.dispose();
+			if (DatabaseManagement.getOffset() < 0) {
+				ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
+				ef_2.setVisible(true);
+			} else {
 			ErgebnisFrame ef = new ErgebnisFrame(parent);
 			ef.setVisible(true);
+			}
 			Log.info("Button '<<<' clicked.");
 		}
 	});
@@ -96,8 +101,13 @@ public class ErgebnisFrame extends JDialog {
 		public void actionPerformed(ActionEvent arg0) {
 			DatabaseManagement.setOffset(DatabaseManagement.getOffset() + 1);
 			ErgebnisFrame.this.dispose();
+			if (DatabaseManagement.getOffset() < 0) {
+				ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
+				ef_2.setVisible(true);
+			} else {
 			ErgebnisFrame ef = new ErgebnisFrame(parent);
 			ef.setVisible(true);
+			}
 			Log.info("Button '>>>' clicked.");
 		}
 	});
@@ -298,6 +308,7 @@ public class ErgebnisFrame extends JDialog {
 								+ goalsGuestAfterSecondHalfInt + ", verlaengerung=FALSE, elfmeter=FALSE, gelbekartenheim=" + yellowCardsHomeInt + ", gelbekartengast="
 								+ yellowCardsGuestInt + ", rotekartenheim=" + redCardsHomeInt + ", rotekartengast=" + redCardsGuestInt + " ";
 			}
+			System.out.println(sqlCommand);
 			DatabaseManagement.addGameData(sqlCommand);
 			ErgebnisFrame.this.dispose();
 			ErgebnisFrame ef = new ErgebnisFrame(parent);
