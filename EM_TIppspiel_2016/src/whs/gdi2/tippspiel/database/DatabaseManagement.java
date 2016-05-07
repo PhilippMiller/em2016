@@ -345,15 +345,13 @@ public class DatabaseManagement {
 
 		String col[] = { "Bezeichnung", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+		int i = 0;
 
 		int tempInt = getOffset() * (-1);
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit DESC LIMIT 1 OFFSET "
-							+ tempInt);
-			System.out.println(
 					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit DESC LIMIT 1 OFFSET "
 							+ tempInt);
 			while (rs.next()) {
@@ -387,6 +385,25 @@ public class DatabaseManagement {
 				objs[3] = rs.getString("heimmannschaft");
 
 				dtm.addRow(objs);
+				i++;
+			}
+			if (i == 0) {
+				Object[] dobjs = {"","","","",""};
+				setVerlaengerung(false);
+				setElfmeter(false);
+				setHeimmannschafthz("");
+				setGastmannschafthz("");
+				setHeimmannschaftende("");
+				setGastmannschaftende("");
+				setHeimmannschaftverl("");
+				setGastmannschaftverl("");
+				setHeimmannschaftelf("");
+				setGastmannschaftelf("");
+				setGelbekartenheim("");
+				setGelbekartengast("");
+				setRotekartenheim("");
+				setRotekartengast("");
+				dtm.addRow(dobjs);
 			}
 		} catch (Exception e) {
 			Log.error(e.getMessage());

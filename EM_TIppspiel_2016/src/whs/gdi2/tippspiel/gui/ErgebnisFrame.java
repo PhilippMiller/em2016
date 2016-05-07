@@ -123,8 +123,7 @@ public class ErgebnisFrame extends JDialog {
 	textField.setBounds(50, 140, 86, 20);
 	contentPane.add(textField);
 	textField.setColumns(10);
-	String goalsHomeAfterFirstHalf = textField.getText();
-	int goalsHomeAfterFirstHalfInt = Integer.parseInt(goalsHomeAfterFirstHalf);
+
 	
 	textField_1 = new JTextField();
 	textField_1.setText("0");
@@ -133,9 +132,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_1.setColumns(10);
 	textField_1.setBounds(314, 140, 86, 20);
 	contentPane.add(textField_1);
-	String goalsGuestAfterFirstHalf = textField_1.getText();
-	int goalsGuestAfterFirstHalfInt = Integer.parseInt(goalsGuestAfterFirstHalf);
-	
+
 	textField_2 = new JTextField();
 	textField_2.setText("0");
 	textField_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -143,9 +140,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_2.setColumns(10);
 	textField_2.setBounds(50, 171, 86, 20);
 	contentPane.add(textField_2);
-	String goalsHomeAfterSecondHalf = textField_2.getText();
-	int goalsHomeAfterSecondHalfInt = Integer.parseInt(goalsHomeAfterSecondHalf);
-	
+
 	textField_3 = new JTextField();
 	textField_3.setText("0");
 	textField_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -153,9 +148,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_3.setColumns(10);
 	textField_3.setBounds(314, 171, 86, 20);
 	contentPane.add(textField_3);
-	String goalsGuestAfterSecondHalf = textField_3.getText();
-	int goalsGuestAfterSecondHalfInt = Integer.parseInt(goalsGuestAfterSecondHalf);
-	
+
 	JLabel lblGabEsEine = new JLabel("Gab es eine Verl\u00E4ngerung?");
 	lblGabEsEine.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 	lblGabEsEine.setBounds(50, 202, 184, 23);
@@ -181,9 +174,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_6.setColumns(10);
 	textField_6.setBounds(50, 236, 86, 20);
 	contentPane.add(textField_6);
-	String goalsHomeAfterOvertime = textField_6.getText();
-	int goalsHomeAfterOvertimeInt = Integer.parseInt(goalsHomeAfterOvertime);
-	
+
 	textField_7 = new JTextField();
 	textField_7.setText("0");
 	textField_7.setHorizontalAlignment(SwingConstants.CENTER);
@@ -192,9 +183,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_7.setColumns(10);
 	textField_7.setBounds(314, 236, 86, 20);
 	contentPane.add(textField_7);
-	String goalsGuestAfterOvertime = textField_7.getText();
-	int goalsGuestAfterOvertimeInt = Integer.parseInt(goalsGuestAfterOvertime);
-	
+
 	textField_8 = new JTextField();
 	textField_8.setText("0");
 	textField_8.setHorizontalAlignment(SwingConstants.CENTER);
@@ -203,9 +192,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_8.setColumns(10);
 	textField_8.setBounds(50, 301, 86, 20);
 	contentPane.add(textField_8);
-	String goalsHomeAfterPenalty = textField_8.getText();
-	int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
-	
+
 	textField_9 = new JTextField();
 	textField_9.setText("0");
 	textField_9.setHorizontalAlignment(SwingConstants.CENTER);
@@ -214,9 +201,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_9.setColumns(10);
 	textField_9.setBounds(314, 301, 86, 20);
 	contentPane.add(textField_9);
-	String goalsGuestAfterPenalty = textField_9.getText();
-	int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
-	
+
 	JLabel lblGabEsElfmeterschieen = new JLabel("Gab es Elfmeterschie\u00DFen?");
 	lblGabEsElfmeterschieen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 	lblGabEsElfmeterschieen.setBounds(50, 267, 184, 23);
@@ -241,9 +226,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_10.setColumns(10);
 	textField_10.setBounds(50, 345, 86, 20);
 	contentPane.add(textField_10);
-	String yellowCardsHome = textField_10.getText();
-	int yellowCardsHomeInt = Integer.parseInt(yellowCardsHome);
-	
+
 	textField_11 = new JTextField();
 	textField_11.setText("0");
 	textField_11.setHorizontalAlignment(SwingConstants.CENTER);
@@ -251,9 +234,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_11.setColumns(10);
 	textField_11.setBounds(314, 345, 86, 20);
 	contentPane.add(textField_11);
-	String yellowCardsGuest = textField_10.getText();
-	int yellowCardsGuestInt = Integer.parseInt(yellowCardsGuest);
-	
+
 	textField_4 = new JTextField();
 	textField_4.setText("0");
 	textField_4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -261,9 +242,7 @@ public class ErgebnisFrame extends JDialog {
 	textField_4.setColumns(10);
 	textField_4.setBounds(50, 376, 86, 20);
 	contentPane.add(textField_4);
-	String redCardsHome = textField_4.getText();
-	int redCardsHomeInt = Integer.parseInt(redCardsHome);
-	
+
 	textField_5 = new JTextField();
 	textField_5.setText("0");
 	textField_5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -271,12 +250,35 @@ public class ErgebnisFrame extends JDialog {
 	textField_5.setColumns(10);
 	textField_5.setBounds(314, 376, 86, 20);
 	contentPane.add(textField_5);
-	String redCardsGuest = textField_5.getText();
-	int redCardsGuestInt = Integer.parseInt(redCardsGuest);
-	
+
 	JButton btnSpeichern = new JButton("Speichern");
 	btnSpeichern.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
+			String redCardsGuest = textField_5.getText();
+			int redCardsGuestInt = Integer.parseInt(redCardsGuest);
+			String yellowCardsGuest = textField_10.getText();
+			int yellowCardsGuestInt = Integer.parseInt(yellowCardsGuest);
+			String redCardsHome = textField_4.getText();
+			int redCardsHomeInt = Integer.parseInt(redCardsHome);
+			String yellowCardsHome = textField_10.getText();
+			int yellowCardsHomeInt = Integer.parseInt(yellowCardsHome);
+			String goalsGuestAfterPenalty = textField_9.getText();
+			int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
+			String goalsHomeAfterPenalty = textField_8.getText();
+			int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
+			String goalsGuestAfterOvertime = textField_7.getText();
+			int goalsGuestAfterOvertimeInt = Integer.parseInt(goalsGuestAfterOvertime);
+			String goalsHomeAfterOvertime = textField_6.getText();
+			int goalsHomeAfterOvertimeInt = Integer.parseInt(goalsHomeAfterOvertime);
+			String goalsGuestAfterSecondHalf = textField_3.getText();
+			int goalsGuestAfterSecondHalfInt = Integer.parseInt(goalsGuestAfterSecondHalf);
+			String goalsHomeAfterSecondHalf = textField_2.getText();
+			int goalsHomeAfterSecondHalfInt = Integer.parseInt(goalsHomeAfterSecondHalf);
+			String goalsGuestAfterFirstHalf = textField_1.getText();
+			int goalsGuestAfterFirstHalfInt = Integer.parseInt(goalsGuestAfterFirstHalf);
+			String goalsHomeAfterFirstHalf = textField.getText();
+			int goalsHomeAfterFirstHalfInt = Integer.parseInt(goalsHomeAfterFirstHalf);
+			System.out.println(textField_5.getText());
 			String sqlCommand;
 			@SuppressWarnings("unused")
 			String sqlInputData;
