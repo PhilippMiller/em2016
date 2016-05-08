@@ -14,9 +14,19 @@ import whs.gdi2.tippspiel.log.Log;
 
 /**
  * 
- * Main access to our application.
+ * Main entrypoint of our application.
  * 
- * @version 1.0
+ * This class is our Application class. It initialize the MainFrame and
+ * check if a Database is present. It also holds an attribute for the main
+ * connection of this program as the global connection.
+ * 
+ * Note: only use switchDatabaseConnection to ensure that the attrbute has 
+ * a correct state.
+ * 
+ * Note 2: access means 'zugriff' but this class isn´t an accesspoint.
+ * It is a entrypoint(Einstiegspunkt). Just for clarification:
+ * 
+ * @version 1.2
  * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
  * @author Jan-Markus Momper <jan-markus.momper@studmail.w-hs.de>
  * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
@@ -34,22 +44,27 @@ public class Main {
 		Log.info("Application started.");
 		SplashFrame.main(null);
 
-		Main.Initialize();
-
-		// EVERYTHING HAS TO INITIALIZE!
 		try {
+			Thread.sleep(100); // cz nullpointerexception in splashscreen
 			
-			Thread.sleep(1500);
+			SplashFrame.setWorkOnIt("Initialize main components...");
+			Main.Initialize();
 			
-			@SuppressWarnings("unused")
+			Thread.sleep(1000);
+
+			SplashFrame.setWorkOnIt("Setup database...");
 			MainFrame mainFrame;
 			if(switchDatabaseConnection(Config.isDBType())) {
-				SplashFrame.finish();
+				SplashFrame.setWorkOnIt("Die Antwort auf alle Fragen: 42!");
 				mainFrame = new MainFrame(true);
+				SplashFrame.finish();
 			}
 			else {
-				SplashFrame.finish();
+
+				SplashFrame.setWorkOnIt("Database settings are incorrect. Show DBConfig...");
 				mainFrame = new MainFrame(false);
+				SplashFrame.finish();
+				
 				Log.info("Database settings are incorrect. Check DBConfigFrame.");
 			}		
 		} catch (Exception e) {
@@ -149,14 +164,11 @@ public class Main {
 						Log.error("Cannot switch mainConnection to testdatabase.");
 						return false;						
 					}
-
 				}
-				
 			}
 			else {
 				Log.info("Testdatabase already connected. Set it as mainConnection.");
 			}
-			
 			
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("DBType", "false");

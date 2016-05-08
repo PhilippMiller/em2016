@@ -51,6 +51,15 @@ public class SplashFrame extends JFrame {
 	 * Content of the following frame
 	 */
 	private static JLabel workOnIt;
+	private JTextPane txtpnEmTippspiel;
+	private URL imageResource;
+	private ImageIcon emLogo;
+	private JLabel label;
+	private JLabel versionLabel;
+	private JLabel autorTopLabel;
+	private JLabel autorLabel;
+	private JLabel autor2Label;
+	private JLabel autor3Label;
 
 	/**
 	 * Create the frame.
@@ -73,7 +82,7 @@ public class SplashFrame extends JFrame {
 		workOnIt.setBounds(10, 235, 163, 14);
 		contentPane.add(workOnIt);
 
-		JTextPane txtpnEmTippspiel = new JTextPane();
+		txtpnEmTippspiel = new JTextPane();
 		txtpnEmTippspiel.setEditable(false);
 		txtpnEmTippspiel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtpnEmTippspiel.setBackground(UIManager.getColor("Button.disabledShadow"));
@@ -81,35 +90,33 @@ public class SplashFrame extends JFrame {
 		txtpnEmTippspiel.setBounds(10, 11, 170, 30);
 		contentPane.add(txtpnEmTippspiel);
 
-		// MYJavaFile.class.getResource("/package/packageb/packagebb/packagebbb/../File.typ")
-		// Loads a file out which contains to the Project
-		URL imageResource = SplashFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png");
-		ImageIcon emLogo = new ImageIcon(imageResource, "The EM2016 WHS-selfmade-Logo");
-		JLabel label = new JLabel("", emLogo, JLabel.CENTER);
+		imageResource = SplashFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png");
+		emLogo = new ImageIcon(imageResource, "The EM2016 WHS-selfmade-Logo");
+		label = new JLabel("", emLogo, JLabel.CENTER);
 		label.setBackground(UIManager.getColor("Button.disabledShadow"));
 		label.setBounds(125, 15, 250, 250);
 		contentPane.add(label);
 
-		JLabel versionLabel = new JLabel("New label");
+		versionLabel = new JLabel("New label");
 		versionLabel.setBounds(10, 255, 70, 14);
 		versionLabel.setText("Version: " + Config.getVersion());
 		contentPane.add(versionLabel);
 
-		JLabel autorTopLabel = new JLabel("Autoren:");
+		autorTopLabel = new JLabel("Autoren:");
 		autorTopLabel.setBounds(360, 183, 105, 22);
 		contentPane.add(autorTopLabel);
 
-		JLabel autorLabel = new JLabel("");
+		autorLabel = new JLabel("");
 		autorLabel.setBounds(360, 203, 127, 22);
 		autorLabel.setText(Config.getAutor()[0]);
 		contentPane.add(autorLabel);
 
-		JLabel autor2Label = new JLabel("");
+		autor2Label = new JLabel("");
 		autor2Label.setBounds(360, 223, 105, 22);
 		autor2Label.setText(Config.getAutor()[1]);
 		contentPane.add(autor2Label);
 
-		JLabel autor3Label = new JLabel("");
+		autor3Label = new JLabel("");
 		autor3Label.setBounds(360, 243, 105, 22);
 		autor3Label.setText(Config.getAutor()[2]);
 		contentPane.add(autor3Label);

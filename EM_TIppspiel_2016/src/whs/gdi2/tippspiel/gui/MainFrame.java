@@ -61,8 +61,7 @@ public class MainFrame extends JFrame {
 	private JMenuItem mntmSpielerRanking;
 	private JMenuItem mntmGruppenRanking;
 	private JTable table;
-	private JTable table_1;
-	private JTextField textField;
+	private JTable nextGames;
 	private JMenu mnBundesliga;
 	private JMenuItem mntmSchlieen;
 	private JMenu mnEinstellungen;
@@ -76,11 +75,6 @@ public class MainFrame extends JFrame {
 	private JLabel lblTop;
 	private JLabel lblDieNchsten;
 	private JButton btnAktualisieren;
-	private JLabel lblMysqlKonsoleneingabe;
-	private JButton btnSenden;
-	private JLabel lblMysqlKonsolenausgabe;
-	private JTextArea txtrFasfsafsaf;
-	private JButton btnMiroslav;
 
 	
 	public String getSqlOutput() {
@@ -101,7 +95,7 @@ public class MainFrame extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 860);
+		setBounds(100, 100, 983, 510);
 
 		this.menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -336,12 +330,12 @@ public class MainFrame extends JFrame {
 		scrollPane_1.setBounds(559, 63, 404, 350);
 		content.add(scrollPane_1);
 
-		table_1 = new JTable();
-		table_1.setShowGrid(false);
-		table_1.setFillsViewportHeight(true);
-		table_1.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table_1.setAutoCreateRowSorter(true);
-		scrollPane_1.setViewportView(table_1);
+		nextGames = new JTable();
+		nextGames.setShowGrid(false);
+		nextGames.setFillsViewportHeight(true);
+		nextGames.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
+		nextGames.setAutoCreateRowSorter(true);
+		scrollPane_1.setViewportView(nextGames);
 
 		btnAktualisieren = new JButton("Aktualisieren");
 		btnAktualisieren.addActionListener(new ActionListener() {
@@ -349,69 +343,10 @@ public class MainFrame extends JFrame {
 				reload();
 			}
 		});
-		btnAktualisieren.setBounds(831, 752, 132, 23);
+		btnAktualisieren.setBounds(831, 424, 132, 23);
 		btnAktualisieren.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
 		btnAktualisieren.setBackground(Config.getGuiColor());
 		content.add(btnAktualisieren);
-
-		lblMysqlKonsoleneingabe = new JLabel("MySQL Konsoleneingabe");
-		lblMysqlKonsoleneingabe.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMysqlKonsoleneingabe.setFont(new Font("Calibri Light", Font.PLAIN, 18));
-		lblMysqlKonsoleneingabe.setBounds(10, 441, 504, 20);
-		content.add(lblMysqlKonsoleneingabe);
-
-		textField = new JTextField();
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DatabaseManagement.sendTextToDB(textField.getText());
-			}
-		});
-		textField.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
-		textField.setBounds(59, 472, 404, 20);
-		content.add(textField);
-		textField.setColumns(10);
-
-		btnSenden = new JButton("Senden");
-		btnSenden.setBounds(473, 470, 89, 23);
-		btnSenden.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		btnSenden.setBackground(Config.getGuiColor());
-		btnSenden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setSqlOutput("mnamamamama");
-				DatabaseManagement.sendTextToDB(textField.getText());
-			}
-		});
-		content.add(btnSenden);
-
-		lblMysqlKonsolenausgabe = new JLabel("MySQL Konsolenausgabe");
-		lblMysqlKonsolenausgabe.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMysqlKonsolenausgabe.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
-		lblMysqlKonsolenausgabe.setBounds(10, 503, 504, 20);
-		content.add(lblMysqlKonsolenausgabe);
-
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane_2.setBounds(59, 534, 404, 241);
-		content.add(scrollPane_2);
-
-		txtrFasfsafsaf = new JTextArea();
-		txtrFasfsafsaf.setEditable(false);
-		txtrFasfsafsaf.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		txtrFasfsafsaf.setText("HALLO ICH FUNKTIONIERE NOCH NICHT UND WARTE\nAUF BEARBEITUNG VON MARIO ODER PHILIPP");
-		scrollPane_2.setViewportView(txtrFasfsafsaf);
-
-		btnMiroslav = new JButton("MIROSLAV");
-		btnMiroslav.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Log.info("MIROSLAV CLOSE");
-				System.exit(0);
-			}
-		});
-		btnMiroslav.setFont(new Font("Calibri Light", Font.PLAIN, 50));
-		btnMiroslav.setBackground(Color.WHITE);
-		btnMiroslav.setBounds(559, 573, 404, 102);
-		content.add(btnMiroslav);
 
 		if (!showDBSettings) {
 			dbConfigFrame = new DBConfigFrame(classContext);
@@ -431,7 +366,7 @@ public class MainFrame extends JFrame {
 			rdbtnmntmTestDatenbank.setSelected(true);
 		}
 		table.setModel(DatabaseManagement.implementUserTop10Data());
-		table_1.setModel(DatabaseManagement.implementNext10Games());
+		nextGames.setModel(DatabaseManagement.implementNext10Games());
 		
 		Log.info("Reload MainFrame data complete.");
 	}

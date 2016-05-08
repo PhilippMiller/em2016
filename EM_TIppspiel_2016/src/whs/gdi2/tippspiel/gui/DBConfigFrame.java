@@ -42,6 +42,27 @@ public class DBConfigFrame extends JDialog {
 	private JTextField DB_online_txtfield;
 	private JTextField DBUser_online_txtfield;
 	private JTextField DBPass_online_txtfield;
+	private JTabbedPane tabbedPane;
+	private JPanel offlineTab;
+	private JLabel dBIP_offline;
+	private JLabel dB_offline;
+	private JLabel dBUser_offline;
+	private JLabel dBPass_offline;
+	private JButton btnVerbindungTestenOffline;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JLabel lblAktiveDatenbank;
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnLiveDatenbank;
+	private ButtonGroup group;
+	private JPanel panel_2;
+	private JButton btnNewButton;
+	private JPanel onlineTab;
+	private JLabel dBIP_online;
+	private JLabel dB_online;
+	private JLabel dBUser_online;
+	private JLabel dBPass_online;
+	private JButton btnVerbindungTestenOnline;
 	
 
 	/**
@@ -64,18 +85,18 @@ public class DBConfigFrame extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(Config.getGuiColor());
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel offlineTab = new JPanel();
+		offlineTab = new JPanel();
 		offlineTab.setBackground(Config.getGuiColor());
 		tabbedPane.addTab("Offline", null, offlineTab, null);
 		offlineTab.setLayout(null);
 		
-		JLabel DBIP_offline = new JLabel("Datenbank Host");
-		DBIP_offline.setBounds(14, 8, 130, 20);
-		offlineTab.add(DBIP_offline);
+		dBIP_offline = new JLabel("Datenbank Host");
+		dBIP_offline.setBounds(14, 8, 130, 20);
+		offlineTab.add(dBIP_offline);
 		
 		DBIP_offline_txtfield = new JTextField();
 		DBIP_offline_txtfield.setText("DBIP_textfield");
@@ -83,9 +104,9 @@ public class DBConfigFrame extends JDialog {
 		DBIP_offline_txtfield.setBounds(154, 8, 265, 20);
 		offlineTab.add(DBIP_offline_txtfield);
 		
-		JLabel DB_offline = new JLabel("Datenbank");
-		DB_offline.setBounds(14, 84, 130, 20);
-		offlineTab.add(DB_offline);
+		dB_offline = new JLabel("Datenbank");
+		dB_offline.setBounds(14, 84, 130, 20);
+		offlineTab.add(dB_offline);
 		
 		DB_offline_txtfield = new JTextField();
 		DB_offline_txtfield.setText("DBIP_textfield");
@@ -93,9 +114,9 @@ public class DBConfigFrame extends JDialog {
 		DB_offline_txtfield.setBounds(154, 84, 265, 20);
 		offlineTab.add(DB_offline_txtfield);
 		
-		JLabel DBUser_offline = new JLabel("Datenbank Benutzer");
-		DBUser_offline.setBounds(14, 33, 130, 20);
-		offlineTab.add(DBUser_offline);
+		dBUser_offline = new JLabel("Datenbank Benutzer");
+		dBUser_offline.setBounds(14, 33, 130, 20);
+		offlineTab.add(dBUser_offline);
 		
 		DBUser_offline_txtfield = new JTextField();
 		DBUser_offline_txtfield.setText("DBIP_textfield");
@@ -103,11 +124,11 @@ public class DBConfigFrame extends JDialog {
 		DBUser_offline_txtfield.setBounds(154, 33, 265, 20);
 		offlineTab.add(DBUser_offline_txtfield);
 		
-		JLabel DBPass_offline = new JLabel("Datenbank Passwort");
-		DBPass_offline.setBounds(14, 59, 130, 20);
-		offlineTab.add(DBPass_offline);
+		dBPass_offline = new JLabel("Datenbank Passwort");
+		dBPass_offline.setBounds(14, 59, 130, 20);
+		offlineTab.add(dBPass_offline);
 		
-		JButton btnVerbindungTestenOffline = new JButton("Verbindung testen");
+		btnVerbindungTestenOffline = new JButton("Verbindung testen");
 		btnVerbindungTestenOffline.setBackground(Config.getGuiColor());
 		
 		btnVerbindungTestenOffline.addActionListener(new ActionListener() {
@@ -132,32 +153,32 @@ public class DBConfigFrame extends JDialog {
 		DBPass_offline_txtfield.setBounds(154, 59, 265, 20);
 		offlineTab.add(DBPass_offline_txtfield);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel.add(panel_1, BorderLayout.NORTH);
 		panel_1.setBackground(Config.getGuiColor());
 		
-		JLabel lblAktiveDatenbank = new JLabel("Standard Datenbank:");
+		lblAktiveDatenbank = new JLabel("Standard Datenbank:");
 		panel_1.add(lblAktiveDatenbank);
 		lblAktiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Test Datenbank");
+		rdbtnNewRadioButton = new JRadioButton("Test Datenbank");
 		panel_1.add(rdbtnNewRadioButton);
 		
 		rdbtnNewRadioButton.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		rdbtnNewRadioButton.setBackground(Config.getGuiColor());
 		
-		JRadioButton rdbtnLiveDatenbank = new JRadioButton("Live Datenbank");
+		rdbtnLiveDatenbank = new JRadioButton("Live Datenbank");
 		panel_1.add(rdbtnLiveDatenbank);
 		rdbtnLiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		rdbtnLiveDatenbank.setBackground(Config.getGuiColor());
 		
-		ButtonGroup group = new ButtonGroup();
+		group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);
 		group.add(rdbtnLiveDatenbank);
 		
@@ -167,12 +188,12 @@ public class DBConfigFrame extends JDialog {
 			rdbtnNewRadioButton.setSelected(true);
 		}
 		
-		JPanel panel_2 = new JPanel();
+		panel_2 = new JPanel();
 		panel.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		panel_2.setBackground(Config.getGuiColor());
 		
-		JButton btnNewButton = new JButton("Einstellungen Speichern");
+		btnNewButton = new JButton("Einstellungen Speichern");
 		panel_2.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -209,14 +230,14 @@ public class DBConfigFrame extends JDialog {
 		DBUser_offline_txtfield.setText(Config.getDBUser_offline());
 		DBPass_offline_txtfield.setText(Config.getDBPass_offline());
 		
-		JPanel onlineTab = new JPanel();
+		onlineTab = new JPanel();
 		tabbedPane.addTab("Online", null, onlineTab, null);
 		onlineTab.setLayout(null);
 		onlineTab.setBackground(Config.getGuiColor());
 		
-		JLabel DBIP_online = new JLabel("Datenbank Host");
-		DBIP_online.setBounds(14, 8, 130, 20);
-		onlineTab.add(DBIP_online);
+		dBIP_online = new JLabel("Datenbank Host");
+		dBIP_online.setBounds(14, 8, 130, 20);
+		onlineTab.add(dBIP_online);
 		
 		DBIP_online_txtfield = new JTextField();
 		DBIP_online_txtfield.setText("DBIP_textfield");
@@ -224,9 +245,9 @@ public class DBConfigFrame extends JDialog {
 		DBIP_online_txtfield.setBounds(154, 8, 265, 20);
 		onlineTab.add(DBIP_online_txtfield);
 		
-		JLabel DB_online = new JLabel("Datenbank ");
-		DB_online.setBounds(14, 84, 130, 20);
-		onlineTab.add(DB_online);
+		dB_online = new JLabel("Datenbank ");
+		dB_online.setBounds(14, 84, 130, 20);
+		onlineTab.add(dB_online);
 		
 		DB_online_txtfield = new JTextField();
 		DB_online_txtfield.setText("DBIP_textfield");
@@ -234,9 +255,9 @@ public class DBConfigFrame extends JDialog {
 		DB_online_txtfield.setBounds(154, 84, 265, 20);
 		onlineTab.add(DB_online_txtfield);
 		
-		JLabel DBUser_online = new JLabel("Datenbank Benutzer");
-		DBUser_online.setBounds(14, 33, 130, 20);
-		onlineTab.add(DBUser_online);
+		dBUser_online = new JLabel("Datenbank Benutzer");
+		dBUser_online.setBounds(14, 33, 130, 20);
+		onlineTab.add(dBUser_online);
 		
 		DBUser_online_txtfield = new JTextField();
 		DBUser_online_txtfield.setText("DBIP_textfield");
@@ -244,9 +265,9 @@ public class DBConfigFrame extends JDialog {
 		DBUser_online_txtfield.setBounds(154, 33, 265, 20);
 		onlineTab.add(DBUser_online_txtfield);
 		
-		JLabel DBPass_online = new JLabel("Datenbank Passwort");
-		DBPass_online.setBounds(14, 59, 130, 20);
-		onlineTab.add(DBPass_online);
+		dBPass_online = new JLabel("Datenbank Passwort");
+		dBPass_online.setBounds(14, 59, 130, 20);
+		onlineTab.add(dBPass_online);
 		
 		DBPass_online_txtfield = new JPasswordField();
 		DBPass_online_txtfield.setText("DBIP_textfield");
@@ -261,7 +282,7 @@ public class DBConfigFrame extends JDialog {
 		
 		DBIP_online_txtfield.setText(Config.getDBIp_online());
 		
-		JButton btnVerbindungTestenOnline = new JButton("Verbindung testen");
+		btnVerbindungTestenOnline = new JButton("Verbindung testen");
 		btnVerbindungTestenOnline.setBackground(Config.getGuiColor());
 		btnVerbindungTestenOnline.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
