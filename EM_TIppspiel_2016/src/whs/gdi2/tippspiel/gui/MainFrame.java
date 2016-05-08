@@ -147,6 +147,14 @@ public class MainFrame extends JFrame {
 		mnSpielerranking.add(mnEm);
 		
 		JMenuItem mntmSpielerRanking = new JMenuItem("Spieler Ranking");
+		mntmSpielerRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SpielerRankingEM2016Frame srkemframe = new SpielerRankingEM2016Frame (classContext);
+				srkemframe.setVisible(true);
+				srkemframe.setModal(true);
+				Log.info("Menue item 'Ranking > EM2016 > Spieler Ranking' clicked.");
+			}
+		});
 		mntmSpielerRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnEm.add(mntmSpielerRanking);
 		

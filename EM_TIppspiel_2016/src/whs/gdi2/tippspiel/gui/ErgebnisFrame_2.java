@@ -49,7 +49,7 @@ public class ErgebnisFrame_2 extends JDialog {
 		setModal(true);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
-		setTitle("Tippspiel Admin - Tool");
+		setTitle("Tippspiel Admin - Tool | Ergebnis - Ansicht");
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(SpielplanEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());

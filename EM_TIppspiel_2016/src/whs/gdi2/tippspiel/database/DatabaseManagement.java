@@ -288,7 +288,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel implementUserTop10Data() {
 
-		String col[] = { "Platz", "Nickname", "Gruppenname", "Punkte" };
+		String col[] = { "Platz", "Nickname",  "Punkte","Tipprunde" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		Object[] objs = new Object[4];
 		Object[] defaultObj = { "", "", "", "" };
@@ -308,8 +308,8 @@ public class DatabaseManagement {
 
 				objs[0] = ranking;
 				objs[1] = nickname;
-				objs[2] = gruppe;
-				objs[3] = punkte;
+				objs[2] = punkte;
+				objs[3] = gruppe;
 				dtm.addRow(objs);
 			}
 			if (dtm.getRowCount() == 0) {
@@ -508,6 +508,35 @@ public class DatabaseManagement {
 		} catch (Exception e) {
 			Log.mysqlError(e.getMessage());
 		}
+	}
+	
+	public static DefaultTableModel playerRanking() {
+
+		String col[] = {"Platz", "Nickname", "Punkte", "Tipprunde"};
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+
+		Object[] defaultObj = { "", "", "", "", "" };
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(
+					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NULL ORDER BY datumuhrzeit LIMIT 1 OFFSET "
+							+ getOffset());
+			while (rs.next()) {
+				Object[] objs = new Object[5];
+
+				spieleIDinErgebnisFrame = rs.getInt("spieleid");
+
+				Date datumSQL = rs.getDate("datumuhrzeit");
+				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
+
+				dtm.addRow(objs);
+			}
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+
+		return dtm;
 	}
 
 	public static boolean isVerlaengerung() {

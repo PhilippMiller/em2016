@@ -39,7 +39,7 @@ public class DBToolDialog extends JDialog {
 
 		DBToolDialog classContext = this;
 		
-		setTitle("Verwaltung der Testdatenbank");
+		setTitle("Tippspiel Admin - Tool | Verwaltung der Testdatenbank");
 		setBackground(Color.PINK);
 		setModal(true);
 

@@ -25,7 +25,7 @@ public class ErgebnisseEM2016Frame extends JDialog {
 		setModal(true);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
-		setTitle("Tippspiel Admin - Tool");
+		setTitle("Tippspiel Admin - Tool | Ergebnisse EM2016");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ErgebnisseEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
