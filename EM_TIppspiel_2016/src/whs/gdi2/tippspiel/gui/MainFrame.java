@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import whs.gdi2.tippspiel.Config;
+import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
 import whs.gdi2.tippspiel.log.Log;
 
@@ -24,14 +25,13 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
-
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
-
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
 import javax.swing.ScrollPaneConstants;
+
 import java.awt.Color;
 
 /**
@@ -246,12 +246,31 @@ public class MainFrame extends JFrame {
 		mnDbSwitcher.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnEinstellungen.add(mnDbSwitcher);
 
-		ActionListener actionPrinter = new ActionListener() {
+		ActionListener databaseSwitcher = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Log.info("Action [" + e.getActionCommand() + "] performed!");
+					if(Main.switchDatabaseConnection(!Config.isDBType())) {
+						JOptionPane.showMessageDialog(classContext, "Datenbankverbindung erfolgreich geändert.", "Datenbank Switcher", JOptionPane.PLAIN_MESSAGE);
+					}
+					else {
+						JOptionPane.showMessageDialog(classContext, "Datenbankverbindung konnte nicht gewechselt werden. Bitte überprüfen Sie ihre Datenbank Einstellungen", "Datenbank Switcher", JOptionPane.WARNING_MESSAGE);
+						if(((JRadioButtonMenuItem)e.getSource()).getText() == "Test Datenbank") {
+							rdbtnmntmLiveDatenbank.setSelected(true);
+						}
+						else {
+							rdbtnmntmTestDatenbank.setSelected(true);
+						}
+					}
+					
+					
 				} catch (Exception ex) {
-					ex.printStackTrace();
+					if(((JRadioButtonMenuItem)e.getSource()).getText() == "Test Datenbank") {
+						rdbtnmntmLiveDatenbank.setSelected(true);
+					}
+					else {
+						rdbtnmntmTestDatenbank.setSelected(true);
+					}
 				}
 			}
 		};
@@ -259,17 +278,13 @@ public class MainFrame extends JFrame {
 		rdbtnmntmLiveDatenbank = new JRadioButtonMenuItem("Live Datenbank");
 		rdbtnmntmLiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnDbSwitcher.add(rdbtnmntmLiveDatenbank);
-		rdbtnmntmLiveDatenbank.addActionListener(actionPrinter);
+		rdbtnmntmLiveDatenbank.addActionListener(databaseSwitcher);
 
 		rdbtnmntmTestDatenbank = new JRadioButtonMenuItem("Test Datenbank");
 		rdbtnmntmTestDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnDbSwitcher.add(rdbtnmntmTestDatenbank);
-		rdbtnmntmTestDatenbank.addActionListener(actionPrinter);
-		if (Config.isDBType()) {
-			rdbtnmntmLiveDatenbank.setSelected(true);
-		} else {
-			rdbtnmntmTestDatenbank.setSelected(true);
-		}
+		rdbtnmntmTestDatenbank.addActionListener(databaseSwitcher);
+
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnmntmLiveDatenbank);

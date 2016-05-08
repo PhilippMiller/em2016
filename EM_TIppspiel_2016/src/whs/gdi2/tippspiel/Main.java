@@ -127,9 +127,11 @@ public class Main {
 				tmp.setDatabaseHost(Config.getDBIp_offline());
 				tmp.setDatabaseUser(Config.getDBUser_offline());
 				tmp.setDatabasePassword(Config.getDBPass_offline());
+				tmp.setDatabase(""); // prevent to be null
 				
 				if(!tmp.connectToDatabase()) {
 					Log.error("Cannot switch mainConnection to testdatabase.");
+					
 					return false;
 				}
 				

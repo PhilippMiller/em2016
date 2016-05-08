@@ -76,12 +76,13 @@ public class MySQLConnection {
 		try {
 			connection = DriverManager.getConnection(dsn, this.getDatabaseUser(), this.getDatabasePassword());
 			Log.info("Connected to database server.");
-			Log.debug("ConnectionString: " + dsn);
 			
 			return true;
 		} catch (SQLException ex) {
 			Log.error("Cannot connect to " + this.getDatabaseHost()+ ". Exception: " + ex.getMessage());
 		}
+
+		Log.debug("ConnectionString: " + dsn);
 		return false;
 	}
 	
