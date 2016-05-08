@@ -288,7 +288,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel implementUserTop10Data() {
 
-		String col[] = { "Platz", "Nickname",  "Punkte","Tipprunde" };
+		String col[] = { "Platz", "Nickname", "Punkte", "Tipprunde" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		Object[] objs = new Object[4];
 		Object[] defaultObj = { "", "", "", "" };
@@ -509,13 +509,15 @@ public class DatabaseManagement {
 			Log.mysqlError(e.getMessage());
 		}
 	}
-	
+
+	// ACHTUNG, NUR DIE PROVISORISCHE METHODE, MUSS NOCH KORREKT ANGELEGT
+	// WERDEN, PLATZHALTER!!!
 	public static DefaultTableModel playerRanking() {
 
-		String col[] = {"Platz", "Nickname", "Punkte", "Tipprunde"};
+		String col[] = { "Platz", "Nickname", "Punkte", "Tipprunde" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
-		Object[] defaultObj = { "", "", "", "", "" };
+		Object[] defaultObj = { "", "", "", "" };
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
@@ -532,6 +534,83 @@ public class DatabaseManagement {
 
 				dtm.addRow(objs);
 			}
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+
+		return dtm;
+	}
+
+	public static DefaultTableModel groupARanking() {
+
+		String col[] = { "Mannschaft", "Spiele", "Siege", "Unentschieden", "Niederlagen", "Erzielte Tore", "Gegentore",
+				"Tordifferenz", "Punkte" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+		Object[] objfr = new Object[9];
+
+		int matchCounter = 0;
+
+		int allScoredGoals = 0;
+		int allGoalAgainst = 0;
+		int win = 0;
+		int remis = 0;
+		int defeat = 0;
+		int points = 0;
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement
+					.executeQuery("SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND "
+							+ "gelbekartenheim IS NOT NULL AND spielbezeichnung='Gruppe A' AND (heimmannschaft='Frankreich' OR gastmannschaft='Frankreich')");
+
+			while (rs.next()) {
+				int scoredGoals = 0;
+				int goalAgainst = 0;
+				matchCounter++;
+				if (rs.getString("heimmannschaft").equals("Frankreich")) {
+					scoredGoals = rs.getInt("heimmannschafthz") + rs.getInt("heimmannschaftende");
+					goalAgainst = rs.getInt("gastmannschafthz") + rs.getInt("gastmannschaftende");
+					if (scoredGoals > goalAgainst) {
+						win++;
+						points += 3;
+					} else if (scoredGoals < goalAgainst) {
+						defeat++;
+					} else {
+						remis++;
+						points += 1;
+					}
+					allScoredGoals += scoredGoals;
+					allGoalAgainst += goalAgainst;
+				} else {
+					goalAgainst = rs.getInt("heimmannschafthz") + rs.getInt("heimmannschaftende");
+					scoredGoals = rs.getInt("gastmannschafthz") + rs.getInt("gastmannschaftende");
+					if (scoredGoals > goalAgainst) {
+						win++;
+						points += 3;
+					} else if (scoredGoals < goalAgainst) {
+						defeat++;
+					} else {
+						remis++;
+						points += 1;
+					}
+					allScoredGoals += scoredGoals;
+					allGoalAgainst += goalAgainst;
+				}
+			}
+			
+			objfr[0] = "Frankreich";
+			objfr[1] = matchCounter;
+			objfr[2] = win;
+			objfr[3] = remis;
+			objfr[4] = defeat;
+			objfr[5] = allScoredGoals;
+			objfr[6] = allGoalAgainst;
+			objfr[7] = allScoredGoals - allGoalAgainst;
+			objfr[8] = points;			
+
+			dtm.addRow(objfr);
+			
+			
 		} catch (Exception e) {
 			Log.error(e.getMessage());
 		}
