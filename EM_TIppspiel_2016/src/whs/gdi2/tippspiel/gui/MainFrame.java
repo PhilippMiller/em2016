@@ -180,7 +180,16 @@ public class MainFrame extends JFrame {
 		mntmSpielerRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnEm.add(mntmSpielerRanking);
 
+
 		mntmGruppenRanking = new JMenuItem("Gruppen Ranking");
+		mntmGruppenRanking.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GruppenRankingEM2016Frame grura = new GruppenRankingEM2016Frame(classContext);
+				grura.setVisible(true);
+				grura.setModal(true);
+				Log.info("Menue item 'Ranking > EM2016 > Gruppen Ranking' clicked.");
+			}
+		});
 		mntmGruppenRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnEm.add(mntmGruppenRanking);
 
