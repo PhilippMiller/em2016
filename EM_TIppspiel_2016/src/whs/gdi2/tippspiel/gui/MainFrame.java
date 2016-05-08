@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import whs.gdi2.tippspiel.Config;
+import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
 import whs.gdi2.tippspiel.log.Log;
 
@@ -24,14 +25,13 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
-
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
-
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
 import javax.swing.ScrollPaneConstants;
+
 import java.awt.Color;
 
 /**
@@ -44,14 +44,45 @@ import java.awt.Color;
  */
 
 public class MainFrame extends JFrame {
-	private JPanel content;
-
-	/**
-	 * Create the frame.
-	 */
-
 	static String sqlOutput;
+	protected DBConfigFrame dbConfigFrame;
+	protected MainFrame classContext;
+	
+	// Gui Elemente. Bitte die Hauptsachen immer als Attribut
+	private JPanel content;
+	private JMenuBar menuBar;
+	private JMenu mnSpielplan;
+	private JMenuItem mntmEm;
+	private JMenu mnErgebnisse;
+	private JMenuItem menuItem;
+	private JMenuItem menuItem_1;
+	private JMenu mnSpielerranking;
+	private JMenu mnEm;
+	private JMenuItem mntmSpielerRanking;
+	private JMenuItem mntmGruppenRanking;
+	private JTable table;
+	private JTable table_1;
+	private JTextField textField;
+	private JMenu mnBundesliga;
+	private JMenuItem mntmSchlieen;
+	private JMenu mnEinstellungen;
+	private JMenuItem mntmDbEinstellungen;
+	private JMenuItem mntmTestdatenEinpflegen;
+	private JMenu mnDbSwitcher;
+	private JRadioButtonMenuItem rdbtnmntmLiveDatenbank;
+	private JRadioButtonMenuItem rdbtnmntmTestDatenbank;
+	private JMenu mnHilfe;
+	private JMenuItem mntmEinstellungen;
+	private JLabel lblTop;
+	private JLabel lblDieNchsten;
+	private JButton btnAktualisieren;
+	private JLabel lblMysqlKonsoleneingabe;
+	private JButton btnSenden;
+	private JLabel lblMysqlKonsolenausgabe;
+	private JTextArea txtrFasfsafsaf;
+	private JButton btnMiroslav;
 
+	
 	public String getSqlOutput() {
 		return sqlOutput;
 	}
@@ -60,35 +91,31 @@ public class MainFrame extends JFrame {
 		MainFrame.sqlOutput = text + ",";
 	}
 
-	protected DBConfigFrame dbConfigFrame;
-	private JTable table;
-	private JTable table_1;
-	private JTextField textField;
-
 	public MainFrame(boolean showDBSettings) {
+
+		classContext = this;
+		
 		setResizable(false);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setTitle("Tippspiel Admin - Tool");
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(MainFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 860);
 
-		JMenuBar menuBar = new JMenuBar();
+		this.menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-
+		
 		JMenu mnMen = new JMenu("Men\u00FC");
 		mnMen.setBackground(Config.getGuiColor());
 		mnMen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnMen);
 
-		JMenu mnSpielplan = new JMenu("Spielplan");
+		mnSpielplan = new JMenu("Spielplan");
 		mnSpielplan.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnMen.add(mnSpielplan);
 
-		JMenuItem mntmEm = new JMenuItem("EM 2016");
-		MainFrame classContext = this;
+		mntmEm = new JMenuItem("EM 2016");
 		mntmEm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SpielplanEM2016Frame spielplanFrame = new SpielplanEM2016Frame(classContext);
@@ -118,11 +145,11 @@ public class MainFrame extends JFrame {
 		});
 		mnMen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 
-		JMenu mnErgebnisse = new JMenu("Ergebnisse");
+		mnErgebnisse = new JMenu("Ergebnisse");
 		mnErgebnisse.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnMen.add(mnErgebnisse);
 
-		JMenuItem menuItem = new JMenuItem("EM 2016");
+		menuItem = new JMenuItem("EM 2016");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ErgebnisseEM2016Frame ergebnisseFrame = new ErgebnisseEM2016Frame(classContext);
@@ -134,20 +161,20 @@ public class MainFrame extends JFrame {
 		menuItem.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnErgebnisse.add(menuItem);
 
-		JMenuItem menuItem_1 = new JMenuItem("Bundesliga 16/17");
+		menuItem_1 = new JMenuItem("Bundesliga 16/17");
 		menuItem_1.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		menuItem_1.setEnabled(false);
 		mnErgebnisse.add(menuItem_1);
 
-		JMenu mnSpielerranking = new JMenu("Ranking");
+		mnSpielerranking = new JMenu("Ranking");
 		mnSpielerranking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnMen.add(mnSpielerranking);
 
-		JMenu mnEm = new JMenu("EM 2016");
+		mnEm = new JMenu("EM 2016");
 		mnEm.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnSpielerranking.add(mnEm);
 
-		JMenuItem mntmSpielerRanking = new JMenuItem("Spieler Ranking");
+		mntmSpielerRanking = new JMenuItem("Spieler Ranking");
 		mntmSpielerRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SpielerRankingEM2016Frame srkemframe = new SpielerRankingEM2016Frame(classContext);
@@ -159,7 +186,8 @@ public class MainFrame extends JFrame {
 		mntmSpielerRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnEm.add(mntmSpielerRanking);
 
-		JMenuItem mntmGruppenRanking = new JMenuItem("Gruppen Ranking");
+
+		mntmGruppenRanking = new JMenuItem("Gruppen Ranking");
 		mntmGruppenRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				GruppenRankingEM2016Frame grura = new GruppenRankingEM2016Frame(classContext);
@@ -171,7 +199,7 @@ public class MainFrame extends JFrame {
 		mntmGruppenRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnEm.add(mntmGruppenRanking);
 
-		JMenu mnBundesliga = new JMenu("Bundesliga 16 / 17");
+		mnBundesliga = new JMenu("Bundesliga 16 / 17");
 		mnBundesliga.setEnabled(false);
 		mnBundesliga.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnSpielerranking.add(mnBundesliga);
@@ -183,7 +211,7 @@ public class MainFrame extends JFrame {
 		JSeparator separator_2 = new JSeparator();
 		mnMen.add(separator_2);
 
-		JMenuItem mntmSchlieen = new JMenuItem("Schlie\u00DFen");
+		mntmSchlieen = new JMenuItem("Schlie\u00DFen");
 		mntmSchlieen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Log.info("'Schließen' clicked.");
@@ -193,11 +221,11 @@ public class MainFrame extends JFrame {
 		mntmSchlieen.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnMen.add(mntmSchlieen);
 
-		JMenu mnEinstellungen = new JMenu("Einstellungen");
+		mnEinstellungen = new JMenu("Einstellungen");
 		mnEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnEinstellungen);
 
-		JMenuItem mntmDbEinstellungen = new JMenuItem("DB Einstellungen");
+		mntmDbEinstellungen = new JMenuItem("DB Einstellungen");
 		mntmDbEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mntmDbEinstellungen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -208,7 +236,7 @@ public class MainFrame extends JFrame {
 		});
 		mnEinstellungen.add(mntmDbEinstellungen);
 
-		JMenuItem mntmTestdatenEinpflegen = new JMenuItem("Datenbank Verwaltung");
+		mntmTestdatenEinpflegen = new JMenuItem("Datenbank Verwaltung");
 		mntmTestdatenEinpflegen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (Config.isDBType()) {
@@ -223,34 +251,49 @@ public class MainFrame extends JFrame {
 		});
 		mntmTestdatenEinpflegen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 
-		JMenu mnDbSwitcher = new JMenu("DB Switcher");
+		mnDbSwitcher = new JMenu("DB Switcher");
 		mnDbSwitcher.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnEinstellungen.add(mnDbSwitcher);
 
-		ActionListener actionPrinter = new ActionListener() {
+		ActionListener databaseSwitcher = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Log.info("Action [" + e.getActionCommand() + "] performed!");
+					if(Main.switchDatabaseConnection(!Config.isDBType())) {
+						JOptionPane.showMessageDialog(classContext, "Datenbankverbindung erfolgreich geändert.", "Datenbank Switcher", JOptionPane.PLAIN_MESSAGE);
+					}
+					else {
+						JOptionPane.showMessageDialog(classContext, "Datenbankverbindung konnte nicht gewechselt werden. Bitte überprüfen Sie ihre Datenbank Einstellungen", "Datenbank Switcher", JOptionPane.WARNING_MESSAGE);
+						if(((JRadioButtonMenuItem)e.getSource()).getText() == "Test Datenbank") {
+							rdbtnmntmLiveDatenbank.setSelected(true);
+						}
+						else {
+							rdbtnmntmTestDatenbank.setSelected(true);
+						}
+					}
+					
+					
 				} catch (Exception ex) {
-					ex.printStackTrace();
+					if(((JRadioButtonMenuItem)e.getSource()).getText() == "Test Datenbank") {
+						rdbtnmntmLiveDatenbank.setSelected(true);
+					}
+					else {
+						rdbtnmntmTestDatenbank.setSelected(true);
+					}
 				}
 			}
 		};
 
-		JRadioButtonMenuItem rdbtnmntmLiveDatenbank = new JRadioButtonMenuItem("Live Datenbank");
+		rdbtnmntmLiveDatenbank = new JRadioButtonMenuItem("Live Datenbank");
 		rdbtnmntmLiveDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnDbSwitcher.add(rdbtnmntmLiveDatenbank);
-		rdbtnmntmLiveDatenbank.addActionListener(actionPrinter);
+		rdbtnmntmLiveDatenbank.addActionListener(databaseSwitcher);
 
-		JRadioButtonMenuItem rdbtnmntmTestDatenbank = new JRadioButtonMenuItem("Test Datenbank");
+		rdbtnmntmTestDatenbank = new JRadioButtonMenuItem("Test Datenbank");
 		rdbtnmntmTestDatenbank.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnDbSwitcher.add(rdbtnmntmTestDatenbank);
-		rdbtnmntmTestDatenbank.addActionListener(actionPrinter);
-		if (Config.isDBType()) {
-			rdbtnmntmLiveDatenbank.setSelected(true);
-		} else {
-			rdbtnmntmTestDatenbank.setSelected(true);
-		}
+		rdbtnmntmTestDatenbank.addActionListener(databaseSwitcher);
+
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnmntmLiveDatenbank);
@@ -261,11 +304,11 @@ public class MainFrame extends JFrame {
 		mntmTestdatenEinpflegen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnEinstellungen.add(mntmTestdatenEinpflegen);
 
-		JMenu mnHilfe = new JMenu("Hilfe");
+		mnHilfe = new JMenu("Hilfe");
 		mnHilfe.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		menuBar.add(mnHilfe);
 
-		JMenuItem mntmEinstellungen = new JMenuItem("\u00DCber Tippspiel Admin - Tool");
+		mntmEinstellungen = new JMenuItem("\u00DCber Tippspiel Admin - Tool");
 		mntmEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnHilfe.add(mntmEinstellungen);
 
@@ -275,13 +318,13 @@ public class MainFrame extends JFrame {
 		content.setLayout(null);
 		setContentPane(content);
 
-		JLabel lblTop = new JLabel("Top 10 - Tipper");
+		lblTop = new JLabel("Top 10 - Tipper");
 		lblTop.setBounds(10, 40, 504, 20);
 		lblTop.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
 		lblTop.setHorizontalAlignment(SwingConstants.CENTER);
 		content.add(lblTop);
 
-		JLabel lblDieNchsten = new JLabel("Die n\u00E4chsten 10 Spiele");
+		lblDieNchsten = new JLabel("Die n\u00E4chsten 10 Spiele");
 		lblDieNchsten.setBounds(509, 40, 504, 20);
 		lblDieNchsten.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
 		lblDieNchsten.setHorizontalAlignment(SwingConstants.CENTER);
@@ -295,7 +338,6 @@ public class MainFrame extends JFrame {
 		table.setShowGrid(false);
 		table.setFillsViewportHeight(true);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table.setModel(DatabaseManagement.implementUserTop10Data());
 		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
 
@@ -307,16 +349,13 @@ public class MainFrame extends JFrame {
 		table_1.setShowGrid(false);
 		table_1.setFillsViewportHeight(true);
 		table_1.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table_1.setModel(DatabaseManagement.implementNext10Games());
 		table_1.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(table_1);
 
-		JButton btnAktualisieren = new JButton("Aktualisieren");
+		btnAktualisieren = new JButton("Aktualisieren");
 		btnAktualisieren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.super.dispose();
-				MainFrame mainFrame = new MainFrame(true);
-				mainFrame.setVisible(true);
+				reload();
 			}
 		});
 		btnAktualisieren.setBounds(831, 752, 132, 23);
@@ -324,7 +363,7 @@ public class MainFrame extends JFrame {
 		btnAktualisieren.setBackground(Config.getGuiColor());
 		content.add(btnAktualisieren);
 
-		JLabel lblMysqlKonsoleneingabe = new JLabel("MySQL Konsoleneingabe");
+		lblMysqlKonsoleneingabe = new JLabel("MySQL Konsoleneingabe");
 		lblMysqlKonsoleneingabe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMysqlKonsoleneingabe.setFont(new Font("Calibri Light", Font.PLAIN, 18));
 		lblMysqlKonsoleneingabe.setBounds(10, 441, 504, 20);
@@ -341,7 +380,7 @@ public class MainFrame extends JFrame {
 		content.add(textField);
 		textField.setColumns(10);
 
-		JButton btnSenden = new JButton("Senden");
+		btnSenden = new JButton("Senden");
 		btnSenden.setBounds(473, 470, 89, 23);
 		btnSenden.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
 		btnSenden.setBackground(Config.getGuiColor());
@@ -353,7 +392,7 @@ public class MainFrame extends JFrame {
 		});
 		content.add(btnSenden);
 
-		JLabel lblMysqlKonsolenausgabe = new JLabel("MySQL Konsolenausgabe");
+		lblMysqlKonsolenausgabe = new JLabel("MySQL Konsolenausgabe");
 		lblMysqlKonsolenausgabe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMysqlKonsolenausgabe.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
 		lblMysqlKonsolenausgabe.setBounds(10, 503, 504, 20);
@@ -365,13 +404,13 @@ public class MainFrame extends JFrame {
 		scrollPane_2.setBounds(59, 534, 404, 241);
 		content.add(scrollPane_2);
 
-		JTextArea txtrFasfsafsaf = new JTextArea();
+		txtrFasfsafsaf = new JTextArea();
 		txtrFasfsafsaf.setEditable(false);
 		txtrFasfsafsaf.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
 		txtrFasfsafsaf.setText("HALLO ICH FUNKTIONIERE NOCH NICHT UND WARTE\nAUF BEARBEITUNG VON MARIO ODER PHILIPP");
 		scrollPane_2.setViewportView(txtrFasfsafsaf);
 
-		JButton btnMiroslav = new JButton("MIROSLAV");
+		btnMiroslav = new JButton("MIROSLAV");
 		btnMiroslav.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Log.info("MIROSLAV CLOSE");
@@ -383,11 +422,26 @@ public class MainFrame extends JFrame {
 		btnMiroslav.setBounds(559, 573, 404, 102);
 		content.add(btnMiroslav);
 
-		setVisible(true);
 		if (!showDBSettings) {
 			dbConfigFrame = new DBConfigFrame(classContext);
 			dbConfigFrame.setVisible(true);
-			;
 		}
+		else {
+			reload();
+		}
+		
+		setVisible(true);
+	}
+	
+	public void reload() {
+		if (Config.isDBType()) {
+			rdbtnmntmLiveDatenbank.setSelected(true);
+		} else {
+			rdbtnmntmTestDatenbank.setSelected(true);
+		}
+		table.setModel(DatabaseManagement.implementUserTop10Data());
+		table_1.setModel(DatabaseManagement.implementNext10Games());
+		
+		Log.info("Reload MainFrame data complete.");
 	}
 }

@@ -4,6 +4,9 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import whs.gdi2.tippspiel.database.*;
 import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.gui.SplashFrame;
@@ -124,11 +127,29 @@ public class Main {
 				tmp.setDatabaseHost(Config.getDBIp_offline());
 				tmp.setDatabaseUser(Config.getDBUser_offline());
 				tmp.setDatabasePassword(Config.getDBPass_offline());
-				tmp.setDatabase(Config.getDB_offline());
+				tmp.setDatabase(""); // prevent to be null
 				
 				if(!tmp.connectToDatabase()) {
 					Log.error("Cannot switch mainConnection to testdatabase.");
+					
 					return false;
+				}
+				
+				tmp.setDatabase(Config.getDB_offline());
+				
+				if(!tmp.connectToDatabase()) {
+					int selectedOption = JOptionPane.showConfirmDialog(null, "Datenbank '" + tmp.getDatabase() + "' existiert nicht auf dem Testserver.\n" 
+							+ "Möchten Sie diese anlegen und das Verwaltungstool öffnen?\n","Datenbank anlegen?", JOptionPane.YES_NO_OPTION);
+					if (selectedOption == JOptionPane.YES_OPTION) {
+						DatabaseManagement.createDB(tmp);
+
+						Log.error("Create Database");
+					}
+					else {
+						Log.error("Cannot switch mainConnection to testdatabase.");
+						return false;						
+					}
+
 				}
 				
 			}
