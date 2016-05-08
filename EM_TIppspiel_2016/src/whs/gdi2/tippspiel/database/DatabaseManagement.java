@@ -212,7 +212,7 @@ public class DatabaseManagement {
 	 */
 	public static DefaultTableModel implementMatchSchedule() {
 
-		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Spielort" };
+		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft", "Spielort" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
 		try {
@@ -240,7 +240,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel implementMatchScheduleWithScores() {
 
-		String col[] = { "Gruppe", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft", "Ergebnis nach 1. HZ",
+		String col[] = { "Gruppe", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft", "Ergebnis nach 1. HZ",
 				"Ergebnis nach 2. HZ", "Ergebnis nach Verl‰ngerung", "Ergebnis nach Elfmeterschieﬂen", "Gelbe Karten",
 				"Rote Karten", "Spielort" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
@@ -323,7 +323,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel implementNext10Games() {
 
-		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
 		Object[] defaultObj = { "", "", "", "", "" };
@@ -356,7 +356,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel getGamesWithNoInfoData() {
 
-		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
 		Object[] defaultObj = { "", "", "", "", "" };
@@ -391,7 +391,7 @@ public class DatabaseManagement {
 
 	public static DefaultTableModel getGamesWithInfoData() {
 
-		String col[] = { "Spielmodus", "Datum", "Anstoss", "Heimmannschaft", "Gastmannschaft" };
+		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		int i = 0;
 
