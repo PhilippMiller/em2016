@@ -314,7 +314,6 @@ public class MainFrame extends JFrame {
 		table.setShowGrid(false);
 		table.setFillsViewportHeight(true);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table.setModel(DatabaseManagement.implementUserTop10Data());
 		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
 
@@ -326,16 +325,13 @@ public class MainFrame extends JFrame {
 		table_1.setShowGrid(false);
 		table_1.setFillsViewportHeight(true);
 		table_1.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table_1.setModel(DatabaseManagement.implementNext10Games());
 		table_1.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(table_1);
 
 		btnAktualisieren = new JButton("Aktualisieren");
 		btnAktualisieren.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MainFrame.super.dispose();
-				MainFrame mainFrame = new MainFrame(true);
-				mainFrame.setVisible(true);
+				reload();
 			}
 		});
 		btnAktualisieren.setBounds(831, 752, 132, 23);
@@ -406,7 +402,10 @@ public class MainFrame extends JFrame {
 			dbConfigFrame = new DBConfigFrame(classContext);
 			dbConfigFrame.setVisible(true);
 		}
-
+		else {
+			reload();
+		}
+		
 		setVisible(true);
 	}
 	
@@ -416,5 +415,9 @@ public class MainFrame extends JFrame {
 		} else {
 			rdbtnmntmTestDatenbank.setSelected(true);
 		}
+		table.setModel(DatabaseManagement.implementUserTop10Data());
+		table_1.setModel(DatabaseManagement.implementNext10Games());
+		
+		Log.info("Reload MainFrame data complete.");
 	}
 }
