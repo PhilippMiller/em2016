@@ -45,11 +45,6 @@ import java.awt.Color;
 
 public class MainFrame extends JFrame {
 	private JPanel content;
-
-	/**
-	 * Create the frame.
-	 */
-
 	static String sqlOutput;
 
 	public String getSqlOutput() {
@@ -380,6 +375,14 @@ public class MainFrame extends JFrame {
 			dbConfigFrame = new DBConfigFrame(classContext);
 			dbConfigFrame.setVisible(true);
 			;
+		}
+	}
+	
+	public void reload() {
+		if (Config.isDBType()) {
+			rdbtnmntmLiveDatenbank.setSelected(true);
+		} else {
+			rdbtnmntmTestDatenbank.setSelected(true);
 		}
 	}
 }
