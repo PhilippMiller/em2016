@@ -75,9 +75,10 @@ public class SplashFrame extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		workOnIt = new JLabel("Work in progress...");
+		workOnIt = new JLabel();
 		workOnIt.setBounds(10, 235, 163, 14);
-		contentPane.add(workOnIt);
+		workOnIt.setText("Work in progress...");
+		contentPane.add(workOnIt); 
 
 		txtpnEmTippspiel = new JTextPane();
 		txtpnEmTippspiel.setEditable(false);
