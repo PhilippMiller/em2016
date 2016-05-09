@@ -27,12 +27,6 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import javax.swing.DropMode;
-import javax.swing.ScrollPaneConstants;
-
-import java.awt.Color;
 
 /**
  * 

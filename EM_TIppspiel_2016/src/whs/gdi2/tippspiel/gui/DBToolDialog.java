@@ -17,13 +17,9 @@ import whs.gdi2.tippspiel.log.Log;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 

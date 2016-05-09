@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
-import whs.gdi2.tippspiel.gui.MainFrame;
 import whs.gdi2.tippspiel.log.Log;
 
 /**

@@ -8,24 +8,16 @@ import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
 import whs.gdi2.tippspiel.log.Log;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.Window.Type;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JCheckBox;
-import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 public class SpielerRankingEM2016Frame extends JDialog {
 

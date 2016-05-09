@@ -12,11 +12,8 @@ import whs.gdi2.tippspiel.Config;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.JLabel;
-import java.awt.SystemColor;
-import java.awt.Color;
 
 /**
  * 
