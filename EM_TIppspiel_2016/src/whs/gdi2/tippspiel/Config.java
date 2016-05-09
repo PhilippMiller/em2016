@@ -28,7 +28,7 @@ public class Config {
 	private static final String logDir = homeDir + "/log";
 	private static final String configFile = "application.ini";
 
-	private static final String version = "1.0";
+	private static final String version = "1.2";
 	private static final String[] autor = { "Jan-Markus Momper", "Mario Kellner", "Philipp Miller" };
 
 	private static final String table_user = "benutzer";

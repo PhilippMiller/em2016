@@ -3,8 +3,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import whs.gdi2.tippspiel.*;
 
 
@@ -21,7 +24,16 @@ import whs.gdi2.tippspiel.*;
 
 public class Log {
 	protected static String logFolder = Config.getLogDir();
+	protected static PrintStream printStream;
 	
+	public static PrintStream getPrintStream() {
+		return printStream;
+	}
+
+	public static void setPrintStream(PrintStream printStream) {
+		Log.printStream = printStream;
+	}
+
 	public static String getLogFolder() {
 		return logFolder;
 	}
@@ -83,9 +95,12 @@ public class Log {
 				}
 			}
 
+			String writedString = "[" + (new Date()).toString() + "][" + level.name() + "]" + message + System.lineSeparator();
 			bw = new BufferedWriter(new FileWriter(logFile, true));
-			bw.write("[" + level.name() + "][" + (new Date()).toString() + "]  " + message
-					+ System.lineSeparator());
+			bw.write(writedString);
+			if(getPrintStream() != null) {
+				getPrintStream().print(writedString);
+			}
 			
 
 		} catch (IOException e) {

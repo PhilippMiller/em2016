@@ -4,7 +4,6 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import whs.gdi2.tippspiel.database.*;
@@ -20,11 +19,11 @@ import whs.gdi2.tippspiel.log.Log;
  * check if a Database is present. It also holds an attribute for the main
  * connection of this program as the global connection.
  * 
- * Note: only use switchDatabaseConnection to ensure that the attrbute has 
+ * Note: only use switchDatabaseConnection to ensure that the attribute has 
  * a correct state.
  * 
  * Note 2: access means 'zugriff' but this class isn´t an accesspoint.
- * It is a entrypoint(Einstiegspunkt). Just for clarification:
+ * It is a entrypoint(Einstiegspunkt). Just for clarification.
  * 
  * @version 1.2
  * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
@@ -33,13 +32,18 @@ import whs.gdi2.tippspiel.log.Log;
  */
 
 public class Main {
+	/**
+	 * This object handles the main Connection to the Datebase.
+	 * It can be switched by using the function switchDatabaseConnection
+	 */
 	public static MySQLConnection mainConnection;
 
 	/**
+	 * Initialize our splasher and bringing things up to life.
 	 * 
-	 * @param args
-	 *            
+	 * @param args Commandline parameters.
 	 */
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Log.info("Application started.");
 		SplashFrame.main(null);
@@ -55,12 +59,11 @@ public class Main {
 			SplashFrame.setWorkOnIt("Setup database...");
 			MainFrame mainFrame;
 			if(switchDatabaseConnection(Config.isDBType())) {
-				SplashFrame.setWorkOnIt("Die Antwort auf alle Fragen: 42!");
+				SplashFrame.setWorkOnIt("Antwort auf alle Fragen: 42");
 				mainFrame = new MainFrame(true);
 				SplashFrame.finish();
 			}
 			else {
-
 				SplashFrame.setWorkOnIt("Database settings are incorrect. Show DBConfig...");
 				mainFrame = new MainFrame(false);
 				SplashFrame.finish();
@@ -71,12 +74,16 @@ public class Main {
 			e.printStackTrace();
 		}
 	
-
-		Log.info("Application has reached its end.");
-		
+		Log.info("Application has reached its end.");	
 	}
 
+	/**
+	 * This function create the basic folder structure
+	 * and load the configfile. 
+	 */
 	public static void Initialize() {
+		Log.setPrintStream(System.out);
+		
 		File homeDir = new File(Config.getHomeDir());
 
 		if (!homeDir.exists()) {
@@ -85,78 +92,70 @@ public class Main {
 		
 		Config.createDefault();
 		Config.load();
-
 	}
-	
+	/**
+	 * This function switch our mainconnection between the testdatabase
+	 * and the livedatabase. 
+	 * 
+	 * @since 1.0
+	 * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
+	 * @param DBType
+	 * @return  
+	 */
 	public static boolean switchDatabaseConnection(boolean DBType) {
-		MySQLConnection tmp;
+		HashMap<String, String> ConfigMapper = new HashMap<String, String>();
+		MySQLConnection connectionObject;
 		boolean hasValidConnection = false;
 		
-		if(DBType) {
-			tmp = MySQLConnection.getInstance(DBType);
-			try {
-				
-				if(tmp.getConnection() != null && tmp.getConnection().isValid(0)) {
-					hasValidConnection = true;
-				}
-			} catch (SQLException e) {
-				Log.debug("Ignorable error:" + e.getMessage() + ".");
+		connectionObject = MySQLConnection.getInstance(DBType);
+
+		try {
+			if(connectionObject.getConnection() != null && connectionObject.getConnection().isValid(0)) {
+				hasValidConnection = true;
 			}
-			
+		} catch (SQLException e) {
+			Log.debug("Ignorable error: " + e.getMessage() + ".");
+		}
+		
+		
+		if(DBType) {
 			if(!hasValidConnection) {
-				tmp.setDatabaseHost(Config.getDBIp_online());
-				tmp.setDatabaseUser(Config.getDBUser_online());
-				tmp.setDatabasePassword(Config.getDBPass_online());
-				tmp.setDatabase(Config.getDB_online());
+				connectionObject.setDatabaseHost(Config.getDBIp_online());
+				connectionObject.setDatabaseUser(Config.getDBUser_online());
+				connectionObject.setDatabasePassword(Config.getDBPass_online());
+				connectionObject.setDatabase(Config.getDB_online());
 				
-				if(!tmp.connectToDatabase()) {
+				if(!connectionObject.connectToDatabase()) {
 					Log.error("Cannot switch mainConnection to livedatabase.");
 					return false;
 				}
-				
 			}
 			else {
 				Log.info("Livedatabase already connected. Set it as mainConnection.");
 			}
-			
-			
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("DBType", "true");
-			Config.write(map);
-			
-			Main.mainConnection = tmp;
-			return true;
+
+			ConfigMapper.put("DBType", "true");
 		}
-		else {
-			tmp = MySQLConnection.getInstance(DBType);
-			try {
-				
-				if(tmp.getConnection() != null && tmp.getConnection().isValid(0)) {
-					hasValidConnection = true;
-				}
-			} catch (SQLException e) {
-				Log.debug("Ignorable error:" + e.getMessage() + ".");
-			}
-			
+		else {		
 			if(!hasValidConnection) {
-				tmp.setDatabaseHost(Config.getDBIp_offline());
-				tmp.setDatabaseUser(Config.getDBUser_offline());
-				tmp.setDatabasePassword(Config.getDBPass_offline());
-				tmp.setDatabase(""); // prevent to be null
+				connectionObject.setDatabaseHost(Config.getDBIp_offline());
+				connectionObject.setDatabaseUser(Config.getDBUser_offline());
+				connectionObject.setDatabasePassword(Config.getDBPass_offline());
+				connectionObject.setDatabase(""); // prevent to be null
 				
-				if(!tmp.connectToDatabase()) {
+				if(!connectionObject.connectToDatabase()) {
 					Log.error("Cannot switch mainConnection to testdatabase.");
 					
 					return false;
 				}
 				
-				tmp.setDatabase(Config.getDB_offline());
+				connectionObject.setDatabase(Config.getDB_offline());
 				
-				if(!tmp.connectToDatabase()) {
-					int selectedOption = JOptionPane.showConfirmDialog(null, "Datenbank '" + tmp.getDatabase() + "' existiert nicht auf dem Testserver.\n" 
+				if(!connectionObject.connectToDatabase()) {
+					int selectedOption = JOptionPane.showConfirmDialog(null, "Datenbank '" + connectionObject.getDatabase() + "' existiert nicht auf dem Testserver.\n" 
 							+ "Möchten Sie diese anlegen und das Verwaltungstool öffnen?\n","Datenbank anlegen?", JOptionPane.YES_NO_OPTION);
 					if (selectedOption == JOptionPane.YES_OPTION) {
-						DatabaseManagement.createDB(tmp);
+						DatabaseManagement.createDB(connectionObject);
 
 						Log.error("Create Database");
 					}
@@ -169,13 +168,13 @@ public class Main {
 			else {
 				Log.info("Testdatabase already connected. Set it as mainConnection.");
 			}
-			
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("DBType", "false");
-			Config.write(map);
-			
-			Main.mainConnection = tmp;
-			return true;
+
+			ConfigMapper.put("DBType", "false");
 		}
+		
+		Config.write(ConfigMapper);
+		
+		Main.mainConnection = connectionObject;
+		return true;
 	}
 }
