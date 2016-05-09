@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
+import whs.gdi2.tippspiel.database.models.Spiele;
 import whs.gdi2.tippspiel.log.Log;
 
 /**
@@ -26,10 +27,7 @@ public class DatabaseManagement {
 
 	static int offset = 0;
 	static int spieleIDinErgebnisFrame = 0;
-	static String heimmannschafthz, gastmannschafthz, heimmannschaftende, gastmannschaftende, heimmannschaftverl,
-			gastmannschaftverl, heimmannschaftelf, gastmannschaftelf, gelbekartenheim, gelbekartengast, rotekartenheim,
-			rotekartengast;
-	static boolean verlaengerung, elfmeter;
+	static Spiele spiele = null;
 
 	/** Creates necessary db */
 	public static String createDB(MySQLConnection connection) {
@@ -389,7 +387,7 @@ public class DatabaseManagement {
 	}
 
 	public static DefaultTableModel getGamesWithInfoData() {
-
+		
 		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		int i = 0;
@@ -402,21 +400,20 @@ public class DatabaseManagement {
 					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit DESC LIMIT 1 OFFSET "
 							+ tempInt);
 			while (rs.next()) {
-				setVerlaengerung(rs.getBoolean("verlaengerung"));
-				setElfmeter(rs.getBoolean("elfmeter"));
-				setHeimmannschafthz(rs.getString("heimmannschafthz"));
-				System.out.println(getHeimmannschafthz());
-				setGastmannschafthz(rs.getString("gastmannschafthz"));
-				setHeimmannschaftende(rs.getString("heimmannschaftende"));
-				setGastmannschaftende(rs.getString("gastmannschaftende"));
-				setHeimmannschaftverl(rs.getString("heimmannschaftverl"));
-				setGastmannschaftverl(rs.getString("gastmannschaftverl"));
-				setHeimmannschaftelf(rs.getString("heimmannschaftelf"));
-				setGastmannschaftelf(rs.getString("gastmannschaftelf"));
-				setGelbekartenheim(rs.getString("gelbekartenheim"));
-				setGelbekartengast(rs.getString("gelbekartengast"));
-				setRotekartenheim(rs.getString("rotekartenheim"));
-				setRotekartengast(rs.getString("rotekartengast"));
+				Spiele.setVerlaengerung(rs.getBoolean("verlaengerung"));
+				Spiele.setElfmeter(rs.getBoolean("elfmeter"));
+				Spiele.setHeimmannschafthz(rs.getString("heimmannschafthz"));
+				Spiele.setGastmannschafthz(rs.getString("gastmannschafthz"));
+				Spiele.setHeimmannschaftende(rs.getString("heimmannschaftende"));
+				Spiele.setGastmannschaftende(rs.getString("gastmannschaftende"));
+				Spiele.setHeimmannschaftverl(rs.getString("heimmannschaftverl"));
+				Spiele.setGastmannschaftverl(rs.getString("gastmannschaftverl"));
+				Spiele.setHeimmannschaftelf(rs.getString("heimmannschaftelf"));
+				Spiele.setGastmannschaftelf(rs.getString("gastmannschaftelf"));
+				Spiele.setGelbekartenheim(rs.getString("gelbekartenheim"));
+				Spiele.setGelbekartengast(rs.getString("gelbekartengast"));
+				Spiele.setRotekartenheim(rs.getString("rotekartenheim"));
+				Spiele.setRotekartengast(rs.getString("rotekartengast"));
 
 				Object[] objs = new Object[5];
 
@@ -436,20 +433,20 @@ public class DatabaseManagement {
 			}
 			if (i == 0) {
 				Object[] dobjs = { "", "", "", "", "" };
-				setVerlaengerung(false);
-				setElfmeter(false);
-				setHeimmannschafthz("");
-				setGastmannschafthz("");
-				setHeimmannschaftende("");
-				setGastmannschaftende("");
-				setHeimmannschaftverl("");
-				setGastmannschaftverl("");
-				setHeimmannschaftelf("");
-				setGastmannschaftelf("");
-				setGelbekartenheim("");
-				setGelbekartengast("");
-				setRotekartenheim("");
-				setRotekartengast("");
+				Spiele.setVerlaengerung(false);
+				Spiele.setElfmeter(false);
+				Spiele.setHeimmannschafthz("");
+				Spiele.setGastmannschafthz("");
+				Spiele.setHeimmannschaftende("");
+				Spiele.setGastmannschaftende("");
+				Spiele.setHeimmannschaftverl("");
+				Spiele.setGastmannschaftverl("");
+				Spiele.setHeimmannschaftelf("");
+				Spiele.setGastmannschaftelf("");
+				Spiele.setGelbekartenheim("");
+				Spiele.setGelbekartengast("");
+				Spiele.setRotekartenheim("");
+				Spiele.setRotekartengast("");
 				dtm.addRow(dobjs);
 			}
 		} catch (Exception e) {
@@ -617,115 +614,4 @@ public class DatabaseManagement {
 		return dtm;
 	}
 
-	public static boolean isVerlaengerung() {
-		return verlaengerung;
-	}
-
-	public static void setVerlaengerung(boolean verlaengerung) {
-		DatabaseManagement.verlaengerung = verlaengerung;
-	}
-
-	public static boolean isElfmeter() {
-		return elfmeter;
-	}
-
-	public static void setElfmeter(boolean elfmeter) {
-		DatabaseManagement.elfmeter = elfmeter;
-	}
-
-	public static String getHeimmannschafthz() {
-		return heimmannschafthz;
-	}
-
-	public static void setHeimmannschafthz(String heimmannschafthz) {
-		DatabaseManagement.heimmannschafthz = heimmannschafthz;
-	}
-
-	public static String getGastmannschafthz() {
-		return gastmannschafthz;
-	}
-
-	public static void setGastmannschafthz(String gastmannschafthz) {
-		DatabaseManagement.gastmannschafthz = gastmannschafthz;
-	}
-
-	public static String getHeimmannschaftende() {
-		return heimmannschaftende;
-	}
-
-	public static void setHeimmannschaftende(String heimmannschaftende) {
-		DatabaseManagement.heimmannschaftende = heimmannschaftende;
-	}
-
-	public static String getGastmannschaftende() {
-		return gastmannschaftende;
-	}
-
-	public static void setGastmannschaftende(String gastmannschaftende) {
-		DatabaseManagement.gastmannschaftende = gastmannschaftende;
-	}
-
-	public static String getHeimmannschaftverl() {
-		return heimmannschaftverl;
-	}
-
-	public static void setHeimmannschaftverl(String heimmannschaftverl) {
-		DatabaseManagement.heimmannschaftverl = heimmannschaftverl;
-	}
-
-	public static String getGastmannschaftverl() {
-		return gastmannschaftverl;
-	}
-
-	public static void setGastmannschaftverl(String gastmannschaftverl) {
-		DatabaseManagement.gastmannschaftverl = gastmannschaftverl;
-	}
-
-	public static String getHeimmannschaftelf() {
-		return heimmannschaftelf;
-	}
-
-	public static void setHeimmannschaftelf(String heimmannschaftelf) {
-		DatabaseManagement.heimmannschaftelf = heimmannschaftelf;
-	}
-
-	public static String getGastmannschaftelf() {
-		return gastmannschaftelf;
-	}
-
-	public static void setGastmannschaftelf(String gastmannschaftelf) {
-		DatabaseManagement.gastmannschaftelf = gastmannschaftelf;
-	}
-
-	public static String getGelbekartenheim() {
-		return gelbekartenheim;
-	}
-
-	public static void setGelbekartenheim(String gelbekartenheim) {
-		DatabaseManagement.gelbekartenheim = gelbekartenheim;
-	}
-
-	public static String getGelbekartengast() {
-		return gelbekartengast;
-	}
-
-	public static void setGelbekartengast(String gelbekartengast) {
-		DatabaseManagement.gelbekartengast = gelbekartengast;
-	}
-
-	public static String getRotekartenheim() {
-		return rotekartenheim;
-	}
-
-	public static void setRotekartenheim(String rotekartenheim) {
-		DatabaseManagement.rotekartenheim = rotekartenheim;
-	}
-
-	public static String getRotekartengast() {
-		return rotekartengast;
-	}
-
-	public static void setRotekartengast(String rotekartengast) {
-		DatabaseManagement.rotekartengast = rotekartengast;
-	}
 }
