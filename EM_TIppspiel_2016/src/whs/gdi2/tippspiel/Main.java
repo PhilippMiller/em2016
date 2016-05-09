@@ -73,8 +73,7 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-		Log.info("Application has reached its end.");	
+		
 	}
 
 	/**

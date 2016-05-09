@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -87,7 +88,9 @@ public class MainFrame extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 983, 510);
+        Dimension windowSize = this.getSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setBounds(screenSize.width/2 - 451, screenSize.height/2 - 255, 983, 510);
 
 		InitializeGui();
 		InitializeEvents();
@@ -280,7 +283,7 @@ public class MainFrame extends JFrame {
 		
 		mntmErgebnisseEingeben.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ErgebnisFrame ergebnisFrame = new ErgebnisFrame(classContext);
+				OffeneErgebnisseFrame ergebnisFrame = new OffeneErgebnisseFrame(classContext);
 				ergebnisFrame.setVisible(true);
 				ergebnisFrame.setModal(true);
 				Log.info("Menue item 'Ergebnis Eingabe' clicked.");

@@ -1,4 +1,4 @@
-package whs.gdi2.tippspiel.database;
+ package whs.gdi2.tippspiel.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

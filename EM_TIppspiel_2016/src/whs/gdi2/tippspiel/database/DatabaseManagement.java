@@ -381,6 +381,43 @@ public class DatabaseManagement {
 			}
 		} catch (Exception e) {
 			Log.error(e.getMessage());
+			
+		}
+
+		return dtm;
+	}
+
+	public static DefaultTableModel getGameIncompleteGamesModel() {
+
+		String col[] = { "Spiel-ID", "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+
+		Object[] defaultObj = { "", "", "", "", "", "" };
+
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery(
+					"SELECT spiele.spieleid, spiele.spielbezeichnung,spiele.spielort, spiele.gastmannschaft,	spiele.heimmannschaft, spiele.datumuhrzeit FROM spiele WHERE (gelbekartenheim IS NULL OR gelbekartengast IS NULL OR rotekartenheim IS NULL OR rotekartengast IS NULL OR gastmannschafthz IS NULL OR heimmannschafthz IS NULL OR gastmannschaftende IS NULL OR heimmannschaftende IS NULL OR heimmannschaftende IS NULL) AND datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit");
+			while (rs.next()) {
+				Object[] objs = new Object[6];
+
+				spieleIDinErgebnisFrame = rs.getInt("spieleid");
+
+				Date datumSQL = rs.getDate("datumuhrzeit");
+				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
+
+				objs[0] = rs.getString("spieleid");
+				objs[1] = rs.getString("spielbezeichnung");
+				objs[2] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
+				objs[3] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
+				objs[4] = rs.getString("gastmannschaft");
+				objs[5] = rs.getString("heimmannschaft");
+
+				dtm.addRow(objs);
+			}
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+			e.printStackTrace();
 		}
 
 		return dtm;
@@ -613,5 +650,33 @@ public class DatabaseManagement {
 
 		return dtm;
 	}
+	
+	public static DefaultTableModel getGameTableModel(int spielId) {
+		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
+		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+		
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs = statement.executeQuery("SELECT * FROM spiele WHERE spieleid = " + spielId);
+			while (rs.next()) {
+				Object[] objs = new Object[5];
 
+				Date datumSQL = rs.getDate("datumuhrzeit");
+				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
+
+				objs[0] = rs.getString("spielbezeichnung");
+				objs[1] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
+				objs[2] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
+				objs[4] = rs.getString("gastmannschaft");
+				objs[3] = rs.getString("heimmannschaft");
+
+				dtm.addRow(objs);
+			}
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+		return dtm;
+		
+	}
+	
 }

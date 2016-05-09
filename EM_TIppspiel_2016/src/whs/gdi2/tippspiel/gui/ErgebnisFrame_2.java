@@ -42,6 +42,7 @@ public class ErgebnisFrame_2 extends JDialog {
 	private JTextField textField_11;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JLabel lblGast;
 
 	public ErgebnisFrame_2(JFrame parent) {
 
@@ -82,8 +83,8 @@ public class ErgebnisFrame_2 extends JDialog {
 					ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
 					ef_2.setVisible(true);
 				} else {
-					ErgebnisFrame ef = new ErgebnisFrame(parent);
-					ef.setVisible(true);
+					//ErgebnisFrame ef = new ErgebnisFrame(parent);
+//					ef.setVisible(true);
 				}
 				Log.info("Button '<<<' clicked.");
 			}
@@ -102,8 +103,8 @@ public class ErgebnisFrame_2 extends JDialog {
 					ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
 					ef_2.setVisible(true);
 				} else {
-					ErgebnisFrame ef = new ErgebnisFrame(parent);
-					ef.setVisible(true);
+					//ErgebnisFrame ef = new ErgebnisFrame(parent);
+//					ef.setVisible(true);
 				}
 				Log.info("Button '>>>' clicked.");
 			}
@@ -312,7 +313,7 @@ public class ErgebnisFrame_2 extends JDialog {
 		lblHeim.setBounds(50, 115, 89, 14);
 		contentPane.add(lblHeim);
 
-		JLabel lblGast = new JLabel("Gast");
+		lblGast = new JLabel("Gast");
 		lblGast.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGast.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		lblGast.setBounds(311, 115, 89, 14);
