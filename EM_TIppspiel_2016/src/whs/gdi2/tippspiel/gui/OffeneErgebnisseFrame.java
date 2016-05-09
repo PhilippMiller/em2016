@@ -105,6 +105,7 @@ public class OffeneErgebnisseFrame extends JDialog {
 		panel.add(btnOpenGame);
 		
 		btnSchlieen = new JButton("Schlie\u00DFen");
+
 		btnSchlieen.setBackground(Config.getGuiColor());
 		panel.add(btnSchlieen);
 	}
@@ -125,6 +126,11 @@ public class OffeneErgebnisseFrame extends JDialog {
 				else {
 					JOptionPane.showMessageDialog(classContext, "Bitte wähle ein Spiel aus.");
 				}
+			}
+		});
+		btnSchlieen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				classContext.dispose();
 			}
 		});
 	}

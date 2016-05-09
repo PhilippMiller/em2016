@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 
 public class SpielplanEM2016Frame extends JDialog {
 
@@ -54,10 +55,9 @@ public class SpielplanEM2016Frame extends JDialog {
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 0, 1006, 400);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();

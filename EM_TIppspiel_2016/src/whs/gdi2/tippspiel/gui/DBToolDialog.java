@@ -109,39 +109,39 @@ public class DBToolDialog extends JDialog {
 		panel_1.add(lblHost);
 		
 		lblHostPlaceholder = new JLabel("host placeholder");
-		lblHostPlaceholder.setBounds(46, 32, 151, 14);
+		lblHostPlaceholder.setBounds(7, 50, 151, 14);
 		panel_1.add(lblHostPlaceholder);
 		
 		lblUser = new JLabel("User:");
-		lblUser.setBounds(7, 57, 36, 14);
+		lblUser.setBounds(7, 72, 36, 14);
 		panel_1.add(lblUser);
 		
 		lblUserPlaceholder = new JLabel("user placeholder");
-		lblUserPlaceholder.setBounds(46, 57, 123, 14);
+		lblUserPlaceholder.setBounds(7, 90, 123, 14);
 		panel_1.add(lblUserPlaceholder);
 		
 		lblDatabase = new JLabel("Datenbank:");
-		lblDatabase.setBounds(7, 82, 86, 14);
+		lblDatabase.setBounds(7, 115, 86, 14);
 		panel_1.add(lblDatabase);
 		
 		lblDbPlaceholder = new JLabel("db placeholder");
-		lblDbPlaceholder.setBounds(82, 82, 76, 14);
+		lblDbPlaceholder.setBounds(7, 133, 76, 14);
 		panel_1.add(lblDbPlaceholder);
 		
 		lblDBExistiert = new JLabel("Datenbank existiert: ");
-		lblDBExistiert.setBounds(7, 107, 123, 14);
+		lblDBExistiert.setBounds(7, 165, 123, 14);
 		panel_1.add(lblDBExistiert);
 		
 		lblDatenbankExistiert = new JLabel("ja");
-		lblDatenbankExistiert.setBounds(131, 107, 48, 14);
+		lblDatenbankExistiert.setBounds(131, 165, 48, 14);
 		panel_1.add(lblDatenbankExistiert);
 		
 		lblTabellenExistieren = new JLabel("Tabellen existieren:");
-		lblTabellenExistieren.setBounds(7, 132, 123, 14);
+		lblTabellenExistieren.setBounds(7, 190, 123, 14);
 		panel_1.add(lblTabellenExistieren);
 		
 		lblTableplaceholder = new JLabel("tableplaceholder");
-		lblTableplaceholder.setBounds(131, 132, 101, 14);
+		lblTableplaceholder.setBounds(131, 190, 101, 14);
 		panel_1.add(lblTableplaceholder);
 		
 		panel = new JPanel();

@@ -308,7 +308,7 @@ public class ErgebnisFrame extends JDialog {
 		contentPane.add(lblGast);
 		
 		JTextPane txtpnButte = new JTextPane();
-		txtpnButte.setText("Hier k\u00F6nnen Sie das Ergebniss gespielter Spiele, die mindestens 3 Stunden zur\u00FCck liegen, vervollst\u00E4ndigen.\r\nRot hinterlegte Felder m\u00FCssen ausgef\u00FCllt werden.\r\n");
+		txtpnButte.setText("Hier k\u00F6nnen Sie das Ergebnis gespielter Spiele, die mindestens 3 Stunden zur\u00FCck liegen, vervollst\u00E4ndigen.\r\nRot hinterlegte Felder m\u00FCssen ausgef\u00FCllt werden.\r\n");
 		txtpnButte.setBounds(50, 11, 350, 52);
 		contentPane.add(txtpnButte);
 	}

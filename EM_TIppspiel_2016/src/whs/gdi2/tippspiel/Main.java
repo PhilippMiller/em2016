@@ -49,7 +49,7 @@ public class Main {
 		SplashFrame.main(null);
 
 		try {
-			Thread.sleep(100); // cz nullpointerexception in splashscreen
+			Thread.sleep(500); // cz nullpointerexception in splashscreen
 			
 			SplashFrame.setWorkOnIt("Initialize main components...");
 			Main.Initialize();
