@@ -30,6 +30,13 @@ import javax.swing.JRadioButton;
 import java.awt.FlowLayout;
 import java.util.HashMap;
 
+
+/**
+ * Einstellungen für die D.atenbank
+ * 
+ * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
+ * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
+ */
 public class DBConfigFrame extends JDialog {
 
 	private JPanel contentPane;
@@ -62,7 +69,7 @@ public class DBConfigFrame extends JDialog {
 	private JLabel dBUser_online;
 	private JLabel dBPass_online;
 	private JButton btnVerbindungTestenOnline;
-	
+	private DBConfigFrame classContext;
 
 	/**
 	 * Create the frame.
@@ -70,7 +77,8 @@ public class DBConfigFrame extends JDialog {
 	public DBConfigFrame(JFrame parent) {
 		super(parent);
 		
-		DBConfigFrame classContext = this;
+		classContext = this;
+		
 		setModal(true);
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DBConfigFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
