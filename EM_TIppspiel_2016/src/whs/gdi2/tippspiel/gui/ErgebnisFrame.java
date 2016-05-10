@@ -339,15 +339,16 @@ public class ErgebnisFrame extends JDialog {
 				int redCardsHomeInt = Integer.parseInt(redCardsHome);
 				String yellowCardsHome = textYellowCardHome.getText();
 				int yellowCardsHomeInt = Integer.parseInt(yellowCardsHome);
-				String goalsGuestAfterPenalty = textGoalsAfterPenaltyGuest.getText();
-				int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
-				String goalsHomeAfterPenalty = textGoalsAfterPentlyHome.getText();
-				int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
 // ACHTUNG NUMBER FORMAT EXCEPTION!!!!
-				String goalsGuestAfterOvertime = textGoalsOvertimeGuest.getText();
-				int goalsGuestAfterOvertimeInt = Integer.parseInt(goalsGuestAfterOvertime);
-				String goalsHomeAfterOvertime = textGoalsOvertimeHome.getText();
-				int goalsHomeAfterOvertimeInt = Integer.parseInt(goalsHomeAfterOvertime);
+/**/			String goalsGuestAfterPenalty = textGoalsAfterPenaltyGuest.getText();
+/**/			int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
+/**/			String goalsHomeAfterPenalty = textGoalsAfterPentlyHome.getText();
+/**/			int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
+/**/			String goalsGuestAfterOvertime = textGoalsOvertimeGuest.getText();
+/**/			int goalsGuestAfterOvertimeInt = Integer.parseInt(goalsGuestAfterOvertime);
+/**/			String goalsHomeAfterOvertime = textGoalsOvertimeHome.getText();
+/**/			int goalsHomeAfterOvertimeInt = Integer.parseInt(goalsHomeAfterOvertime);
+// ACHTUNG NUMBER FORMAT EXCEPTION!!!!
 				String goalsGuestAfterSecondHalf = textGoalsAfterSecondHalftimeGuest.getText();
 				int goalsGuestAfterSecondHalfInt = Integer.parseInt(goalsGuestAfterSecondHalf);
 				String goalsHomeAfterSecondHalf = textGoalsAfterSecondHalftimeHome.getText();
