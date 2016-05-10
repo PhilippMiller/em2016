@@ -243,7 +243,7 @@ public class MainFrame extends JFrame {
 		tableTopTenBetters = new JTable();
 		tableTopTenBetters.setShowGrid(false);
 		tableTopTenBetters.setFillsViewportHeight(true);
-		tableTopTenBetters.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
+		tableTopTenBetters.setFont(new Font(Config.getFont(), Font.PLAIN, 16));
 		tableTopTenBetters.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(tableTopTenBetters);
 
@@ -254,7 +254,7 @@ public class MainFrame extends JFrame {
 		tableNextGames = new JTable();
 		tableNextGames.setShowGrid(false);
 		tableNextGames.setFillsViewportHeight(true);
-		tableNextGames.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
+		tableNextGames.setFont(new Font(Config.getFont(), Font.PLAIN, 16));
 		tableNextGames.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(tableNextGames);
 
