@@ -283,9 +283,10 @@ public class MainFrame extends JFrame {
 		
 		mntmErgebnisseEingeben.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				OffeneErgebnisseFrame ergebnisFrame = new OffeneErgebnisseFrame(classContext);
+				ErgebnisFrame ergebnisFrame = new ErgebnisFrame(classContext);
 				ergebnisFrame.setVisible(true);
 				ergebnisFrame.setModal(true);
+
 				Log.info("Menue item 'Ergebnis Eingabe' clicked.");
 			}
 		});

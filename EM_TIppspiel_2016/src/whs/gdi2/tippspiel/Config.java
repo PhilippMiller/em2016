@@ -188,6 +188,9 @@ public class Config {
 		try {
 			pt = new Properties();
 			pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
+			
+			System.out.println(Config.getHomeDir() + "/" + Config.getConfigfile());
+
 			Log.info("Loading config file succesful.");
 			return pt;
 		} catch (Exception e) {
