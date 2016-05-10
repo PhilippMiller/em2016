@@ -60,7 +60,7 @@ public class ErgebnisFrame extends JDialog {
 	private JTextField textGoalsOvertimeHome;
 	private JTextField textGoalsOvertimeGuest;
 	private JTextField textGoalsAfterPentlyHome;
-	private JTextField textGoalsAfterPentlyGuest;
+	private JTextField textGoalsAfterPenaltyGuest;
 	private JTextField textYellowCardHome;
 	private JTextField textYellowCardGuest;
 	private JTextField textRedcardHome;
@@ -193,14 +193,14 @@ public class ErgebnisFrame extends JDialog {
 		textGoalsAfterPentlyHome.setBounds(50, 301, 86, 20);
 		contentPane.add(textGoalsAfterPentlyHome);
 
-		textGoalsAfterPentlyGuest = new JTextField();
-		textGoalsAfterPentlyGuest.setText("0");
-		textGoalsAfterPentlyGuest.setHorizontalAlignment(SwingConstants.CENTER);
-		textGoalsAfterPentlyGuest.setEnabled(false);
-		textGoalsAfterPentlyGuest.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
-		textGoalsAfterPentlyGuest.setColumns(10);
-		textGoalsAfterPentlyGuest.setBounds(314, 301, 86, 20);
-		contentPane.add(textGoalsAfterPentlyGuest);
+		textGoalsAfterPenaltyGuest = new JTextField();
+		textGoalsAfterPenaltyGuest.setText("0");
+		textGoalsAfterPenaltyGuest.setHorizontalAlignment(SwingConstants.CENTER);
+		textGoalsAfterPenaltyGuest.setEnabled(false);
+		textGoalsAfterPenaltyGuest.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
+		textGoalsAfterPenaltyGuest.setColumns(10);
+		textGoalsAfterPenaltyGuest.setBounds(314, 301, 86, 20);
+		contentPane.add(textGoalsAfterPenaltyGuest);
 
 		lblGabEsElfmeterschieen = new JLabel("Gab es Elfmeterschie\u00DFen?");
 		lblGabEsElfmeterschieen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
@@ -317,7 +317,7 @@ public class ErgebnisFrame extends JDialog {
 		cbIsPenalty.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				textGoalsAfterPentlyHome.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
-				textGoalsAfterPentlyGuest.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+				textGoalsAfterPenaltyGuest.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
 			}
 		});
 		
@@ -339,7 +339,7 @@ public class ErgebnisFrame extends JDialog {
 				int redCardsHomeInt = Integer.parseInt(redCardsHome);
 				String yellowCardsHome = textYellowCardHome.getText();
 				int yellowCardsHomeInt = Integer.parseInt(yellowCardsHome);
-				String goalsGuestAfterPenalty = textGoalsAfterPentlyGuest.getText();
+				String goalsGuestAfterPenalty = textGoalsAfterPenaltyGuest.getText();
 				int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
 				String goalsHomeAfterPenalty = textGoalsAfterPentlyHome.getText();
 				int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
@@ -440,9 +440,9 @@ public class ErgebnisFrame extends JDialog {
 					textRedcardHome.setText(null);
 				}
 
-				textGoalsAfterPentlyGuest.setText(rs.getString("gastmannschaftelf"));
+				textGoalsAfterPenaltyGuest.setText(rs.getString("gastmannschaftelf"));
 				if(rs.wasNull()) {
-					textGoalsAfterPentlyGuest.setText(null);
+					textGoalsAfterPenaltyGuest.setText(null);
 				}
 
 
