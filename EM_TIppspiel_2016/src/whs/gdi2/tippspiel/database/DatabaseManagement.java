@@ -643,7 +643,6 @@ public class DatabaseManagement {
 
 			dtm.addRow(objfr);
 			
-			
 		} catch (Exception e) {
 			Log.error(e.getMessage());
 		}

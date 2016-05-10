@@ -150,6 +150,18 @@ public class ErgebnisFrame extends JDialog {
 		lblGabEsEine.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		lblGabEsEine.setBounds(50, 202, 184, 23);
 		contentPane.add(lblGabEsEine);
+		
+		JCheckBox checkBox_1 = new JCheckBox("");
+		checkBox_1.setEnabled(false);
+		checkBox_1.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				textField_8.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+				textField_9.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+			}
+		});
+		checkBox_1.setBounds(240, 270, 21, 23);
+		checkBox_1.setBackground(Config.getGuiColor());
+		contentPane.add(checkBox_1);
 
 		JCheckBox checkBox = new JCheckBox("");
 		checkBox.setEnabled(DatabaseManagement.isGroupPhase());
@@ -157,6 +169,8 @@ public class ErgebnisFrame extends JDialog {
 			public void itemStateChanged(ItemEvent e) {
 				textField_6.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
 				textField_7.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+				checkBox_1.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
+				
 			}
 		});
 		checkBox.setBounds(240, 205, 21, 23);
@@ -203,18 +217,6 @@ public class ErgebnisFrame extends JDialog {
 		lblGabEsElfmeterschieen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		lblGabEsElfmeterschieen.setBounds(50, 267, 184, 23);
 		contentPane.add(lblGabEsElfmeterschieen);
-
-		JCheckBox checkBox_1 = new JCheckBox("");
-		checkBox_1.setEnabled(DatabaseManagement.isGroupPhase());
-		checkBox_1.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				textField_8.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
-				textField_9.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
-			}
-		});
-		checkBox_1.setBounds(240, 270, 21, 23);
-		checkBox_1.setBackground(Config.getGuiColor());
-		contentPane.add(checkBox_1);
 
 		textField_10 = new JTextField();
 		textField_10.setText("0");
