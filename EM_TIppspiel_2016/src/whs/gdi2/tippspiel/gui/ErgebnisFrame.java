@@ -343,6 +343,7 @@ public class ErgebnisFrame extends JDialog {
 				int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
 				String goalsHomeAfterPenalty = textGoalsAfterPentlyHome.getText();
 				int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
+// ACHTUNG NUMBER FORMAT EXCEPTION!!!!
 				String goalsGuestAfterOvertime = textGoalsOvertimeGuest.getText();
 				int goalsGuestAfterOvertimeInt = Integer.parseInt(goalsGuestAfterOvertime);
 				String goalsHomeAfterOvertime = textGoalsOvertimeHome.getText();
