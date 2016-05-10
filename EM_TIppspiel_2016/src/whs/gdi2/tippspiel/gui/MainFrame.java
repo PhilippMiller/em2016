@@ -90,7 +90,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension windowSize = this.getSize();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/2 - 451, screenSize.height/2 - 255, 983, 510);
+		setBounds(screenSize.width/2 - 451, screenSize.height/2 - 255, 1024, 520);
 
 		InitializeGui();
 		InitializeEvents();
