@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
+import whs.gdi2.tippspiel.database.models.ParticipantsField;
 import whs.gdi2.tippspiel.database.models.Spiele;
 import whs.gdi2.tippspiel.log.Log;
 
@@ -247,7 +248,7 @@ public class DatabaseManagement {
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit");
+					"SELECT * FROM spiele WHERE datumuhrzeit < ADDTIME(NOW(), '03:00:00') ORDER BY datumuhrzeit");
 			while (rs.next()) {
 
 				String spielbezeichnung = rs.getString("spielbezeichnung");
@@ -574,13 +575,16 @@ public class DatabaseManagement {
 		return dtm;
 	}
 
+	
+	// In arbeit die ich noch nicht verstehe
 	public static DefaultTableModel groupARanking() {
 
 		String col[] = { "Mannschaft", "Spiele", "Siege", "Unentschieden", "Niederlagen", "Erzielte Tore", "Gegentore",
 				"Tordifferenz", "Punkte" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		Object[] objfr = new Object[9];
-
+		ParticipantsField pf = new ParticipantsField();
+		
 		int matchCounter = 0;
 
 		int allScoredGoals = 0;
@@ -594,9 +598,10 @@ public class DatabaseManagement {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs = statement
 					.executeQuery("SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND "
-							+ "gelbekartenheim IS NOT NULL AND spielbezeichnung='Gruppe A' AND (heimmannschaft='Frankreich' OR gastmannschaft='Frankreich')");
-
-			while (rs.next()) {
+							+ "gelbekartenheim IS NOT NULL AND spielbezeichnung='Gruppe A'");
+			pf.setGroupName("Gruppe A");
+			while (rs.next()) {	
+				
 				int scoredGoals = 0;
 				int goalAgainst = 0;
 				matchCounter++;
