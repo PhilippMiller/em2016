@@ -248,7 +248,7 @@ public class DatabaseManagement {
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM spiele WHERE datumuhrzeit < ADDTIME(NOW(), '03:00:00') ORDER BY datumuhrzeit");
+					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_SUB(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit");
 			while (rs.next()) {
 
 				String spielbezeichnung = rs.getString("spielbezeichnung");
