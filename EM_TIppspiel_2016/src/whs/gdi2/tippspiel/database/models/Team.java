@@ -6,7 +6,7 @@ import java.util.List;
 public class Team {
 	
 	protected String teamName;
-	protected ParticipantsField pf = null;
+	protected Group pf = null;
 	protected List<Match> match;
 	
 	public Team () {
@@ -18,7 +18,7 @@ public class Team {
 		match.team.add(this);
 	}
 	
-	public void isPartOf (ParticipantsField pf) {
+	public void isPartOf (Group pf) {
 		this.setPf(pf);
 		pf.includesTeam(this);
 	}
@@ -31,11 +31,11 @@ public class Team {
 		this.teamName = teamName;
 	}
 
-	public ParticipantsField getPf() {
+	public Group getPf() {
 		return pf;
 	}
 
-	public void setPf(ParticipantsField pf) {
+	public void setPf(Group pf) {
 		this.pf = pf;
 	}
 

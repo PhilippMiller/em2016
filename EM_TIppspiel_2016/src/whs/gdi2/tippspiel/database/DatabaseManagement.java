@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
-import whs.gdi2.tippspiel.database.models.ParticipantsField;
+import whs.gdi2.tippspiel.database.models.Group;
 import whs.gdi2.tippspiel.database.models.Spiele;
 import whs.gdi2.tippspiel.log.Log;
 
@@ -583,7 +583,7 @@ public class DatabaseManagement {
 				"Tordifferenz", "Punkte" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		Object[] objfr = new Object[9];
-		ParticipantsField pf = new ParticipantsField();
+		Group pf = new Group();
 		
 		int matchCounter = 0;
 

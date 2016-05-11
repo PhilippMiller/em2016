@@ -3,12 +3,12 @@ package whs.gdi2.tippspiel.database.models;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ParticipantsField {
+public class Group {
 	
 	protected String groupName;
 	protected List<Team> team;
 	
-	public ParticipantsField () {
+	public Group () {
 		team = new LinkedList<Team>();
 	}
 	
