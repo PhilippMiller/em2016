@@ -7,9 +7,11 @@ public class Group {
 	
 	protected String groupName;
 	protected List<Team> team;
+	protected ParticipantsField pf;
 	
 	public Group () {
-		team = new LinkedList<Team>();
+		this.team = new LinkedList<Team>();
+		this.pf = null;
 	}
 	
 	public void includesTeam (Team team) {
@@ -22,6 +24,14 @@ public class Group {
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+
+	public ParticipantsField getPf() {
+		return pf;
+	}
+
+	public void setPf(ParticipantsField pf) {
+		this.pf = pf;
 	}
 
 }

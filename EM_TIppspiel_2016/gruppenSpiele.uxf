@@ -4,21 +4,26 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>180</y>
+      <x>240</x>
+      <y>200</y>
       <w>210</w>
-      <h>70</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>_object: Team_
 --
-String teamName</panel_attributes>
+String teamName
+int goals
+int counterGoals
+int points
+int yellowCards
+int redCards</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>350</y>
+      <x>240</x>
+      <y>440</y>
       <w>210</w>
       <h>170</h>
     </coordinates>
@@ -38,34 +43,34 @@ int rotekartengast</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
+      <x>330</x>
       <y>70</y>
       <w>40</w>
-      <h>130</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1= 4
 m2= 1
 </panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>240</y>
+      <x>330</x>
+      <y>320</y>
       <w>40</w>
-      <h>130</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1= 3
 m2= 2</panel_attributes>
-    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
+      <x>240</x>
       <y>10</y>
       <w>210</w>
       <h>70</h>
@@ -73,37 +78,34 @@ m2= 2</panel_attributes>
     <panel_attributes>_object: Group_
 --
 String groupName
---
-compareTo()</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>580</x>
-      <y>10</y>
+      <x>570</x>
+      <y>20</y>
       <w>210</w>
-      <h>70</h>
+      <h>40</h>
     </coordinates>
     <panel_attributes>_object: ParticipantsField_
---
-String contestName
---
-compareTo()</panel_attributes>
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>430</x>
+      <x>440</x>
       <y>20</y>
-      <w>170</w>
+      <w>150</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m1= 6
 m2= 1
 </panel_attributes>
-    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
   </element>
 </diagram>

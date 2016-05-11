@@ -78,7 +78,7 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		table.setRowSelectionAllowed(false);
 		table.setShowGrid(false);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
-		table.setModel(DatabaseManagement.groupARanking());
+		table.setModel(DatabaseManagement.groupRanking());
 		scrollPane.setViewportView(table);
 		
 		JLabel lblGruppeA = new JLabel("Gruppe A");

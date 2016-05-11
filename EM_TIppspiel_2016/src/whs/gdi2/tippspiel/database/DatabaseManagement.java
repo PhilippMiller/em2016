@@ -6,13 +6,14 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
-import whs.gdi2.tippspiel.database.models.Group;
-import whs.gdi2.tippspiel.database.models.Spiele;
+import whs.gdi2.tippspiel.database.models.*;
 import whs.gdi2.tippspiel.log.Log;
 
 /**
@@ -382,7 +383,7 @@ public class DatabaseManagement {
 			}
 		} catch (Exception e) {
 			Log.error(e.getMessage());
-			
+
 		}
 
 		return dtm;
@@ -425,7 +426,7 @@ public class DatabaseManagement {
 	}
 
 	public static DefaultTableModel getGamesWithInfoData() {
-		
+
 		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		int i = 0;
@@ -575,90 +576,45 @@ public class DatabaseManagement {
 		return dtm;
 	}
 
-	
 	// In arbeit die ich noch nicht verstehe
-	public static DefaultTableModel groupARanking() {
+	public static DefaultTableModel groupRanking() {
 
 		String col[] = { "Mannschaft", "Spiele", "Siege", "Unentschieden", "Niederlagen", "Erzielte Tore", "Gegentore",
 				"Tordifferenz", "Punkte" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
-		Object[] objfr = new Object[9];
-		Group pf = new Group();
-		
-		int matchCounter = 0;
+		Object[] obj = new Object[9];
 
-		int allScoredGoals = 0;
-		int allGoalAgainst = 0;
-		int win = 0;
-		int remis = 0;
-		int defeat = 0;
-		int points = 0;
+
 
 		try {
+			ParticipantsField pf = new ParticipantsField();
+			Group groupA = new Group();
+			
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement
-					.executeQuery("SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND "
-							+ "gelbekartenheim IS NOT NULL AND spielbezeichnung='Gruppe A'");
-			pf.setGroupName("Gruppe A");
-			while (rs.next()) {	
-				
-				int scoredGoals = 0;
-				int goalAgainst = 0;
-				matchCounter++;
-				if (rs.getString("heimmannschaft").equals("Frankreich")) {
-					scoredGoals = rs.getInt("heimmannschafthz") + rs.getInt("heimmannschaftende");
-					goalAgainst = rs.getInt("gastmannschafthz") + rs.getInt("gastmannschaftende");
-					if (scoredGoals > goalAgainst) {
-						win++;
-						points += 3;
-					} else if (scoredGoals < goalAgainst) {
-						defeat++;
-					} else {
-						remis++;
-						points += 1;
-					}
-					allScoredGoals += scoredGoals;
-					allGoalAgainst += goalAgainst;
-				} else {
-					goalAgainst = rs.getInt("heimmannschafthz") + rs.getInt("heimmannschaftende");
-					scoredGoals = rs.getInt("gastmannschafthz") + rs.getInt("gastmannschaftende");
-					if (scoredGoals > goalAgainst) {
-						win++;
-						points += 3;
-					} else if (scoredGoals < goalAgainst) {
-						defeat++;
-					} else {
-						remis++;
-						points += 1;
-					}
-					allScoredGoals += scoredGoals;
-					allGoalAgainst += goalAgainst;
+			ResultSet rs = statement.executeQuery("SELECT * FROM spiele WHERE gelbekartenheim IS NOT NULL AND (spielbezeichnung LIKE '%Gruppe A%' OR spielbezeichnung LIKE"
+							+ " '%Gruppe B%' OR spielbezeichnung LIKE '%Gruppe C%' OR spielbezeichnung LIKE '%Gruppe D%' OR spielbezeichnung LIKE '%Gruppe E%'"
+							+ " OR spielbezeichnung LIKE '%Gruppe F%')");
+
+			while (rs.next()) {
+				groupA.setGroupName(rs.getString("spielbezeichnung"));
+				if (pf.getGroup().size() == 0) {
+					pf.containsGroup(groupA);
 				}
 			}
-			
-			objfr[0] = "Frankreich";
-			objfr[1] = matchCounter;
-			objfr[2] = win;
-			objfr[3] = remis;
-			objfr[4] = defeat;
-			objfr[5] = allScoredGoals;
-			objfr[6] = allGoalAgainst;
-			objfr[7] = allScoredGoals - allGoalAgainst;
-			objfr[8] = points;			
 
-			dtm.addRow(objfr);
-			
+			// dtm.addRow(obj);
+
 		} catch (Exception e) {
 			Log.error(e.getMessage());
 		}
 
 		return dtm;
 	}
-	
+
 	public static DefaultTableModel getGameTableModel(int spielId) {
 		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
-		
+
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM spiele WHERE spieleid = " + spielId);
@@ -680,7 +636,7 @@ public class DatabaseManagement {
 			Log.error(e.getMessage());
 		}
 		return dtm;
-		
+
 	}
-	
+
 }
