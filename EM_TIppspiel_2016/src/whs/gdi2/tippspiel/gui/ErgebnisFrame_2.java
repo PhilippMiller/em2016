@@ -6,7 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
-import whs.gdi2.tippspiel.database.models.Spiele;
+import whs.gdi2.tippspiel.database.models.SpieleStatic;
 import whs.gdi2.tippspiel.log.Log;
 
 import java.awt.Font;
@@ -123,7 +123,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setText(Spiele.getHeimmannschafthz());
+		textField.setText(SpieleStatic.getHeimmannschafthz());
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField.setBounds(50, 140, 86, 20);
@@ -132,7 +132,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
-		textField_1.setText(Spiele.getGastmannschafthz());
+		textField_1.setText(SpieleStatic.getGastmannschafthz());
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_1.setColumns(10);
@@ -141,7 +141,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
-		textField_2.setText(Spiele.getHeimmannschaftende());
+		textField_2.setText(SpieleStatic.getHeimmannschaftende());
 		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_2.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_2.setColumns(10);
@@ -150,7 +150,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
-		textField_3.setText(Spiele.getGastmannschaftende());
+		textField_3.setText(SpieleStatic.getGastmannschaftende());
 		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_3.setColumns(10);
@@ -176,7 +176,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
-		textField_6.setText(Spiele.getHeimmannschaftverl());
+		textField_6.setText(SpieleStatic.getHeimmannschaftverl());
 		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_6.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_6.setEnabled(false);
@@ -186,7 +186,7 @@ public class ErgebnisFrame_2 extends JDialog {
 		
 		textField_7 = new JTextField();
 		textField_7.setEditable(false);
-		textField_7.setText(Spiele.getGastmannschaftverl());
+		textField_7.setText(SpieleStatic.getGastmannschaftverl());
 		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_7.setEnabled(false);
 		textField_7.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
@@ -196,7 +196,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_8 = new JTextField();
 		textField_8.setEditable(false);
-		textField_8.setText(Spiele.getHeimmannschaftelf());
+		textField_8.setText(SpieleStatic.getHeimmannschaftelf());
 		textField_8.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_8.setEnabled(false);
 		textField_8.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
@@ -206,7 +206,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_9 = new JTextField();
 		textField_9.setEditable(false);
-		textField_9.setText(Spiele.getGastmannschaftelf());
+		textField_9.setText(SpieleStatic.getGastmannschaftelf());
 		textField_9.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_9.setEnabled(false);
 		textField_9.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
@@ -233,7 +233,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_10 = new JTextField();
 		textField_10.setEditable(false);
-		textField_10.setText(Spiele.getGelbekartenheim());
+		textField_10.setText(SpieleStatic.getGelbekartenheim());
 		textField_10.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_10.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_10.setColumns(10);
@@ -242,7 +242,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_11 = new JTextField();
 		textField_11.setEditable(false);
-		textField_11.setText(Spiele.getGelbekartengast());
+		textField_11.setText(SpieleStatic.getGelbekartengast());
 		textField_11.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_11.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_11.setColumns(10);
@@ -251,7 +251,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_4 = new JTextField();
 		textField_4.setEditable(false);
-		textField_4.setText(Spiele.getRotekartenheim());
+		textField_4.setText(SpieleStatic.getRotekartenheim());
 		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_4.setColumns(10);
@@ -260,7 +260,7 @@ public class ErgebnisFrame_2 extends JDialog {
 
 		textField_5 = new JTextField();
 		textField_5.setEditable(false);
-		textField_5.setText(Spiele.getRotekartengast());
+		textField_5.setText(SpieleStatic.getRotekartengast());
 		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_5.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_5.setColumns(10);

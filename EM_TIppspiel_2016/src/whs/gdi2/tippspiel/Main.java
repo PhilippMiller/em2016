@@ -48,15 +48,23 @@ public class Main {
 		Log.info("Application started.");
 		SplashFrame.main(null);
 
+		
 		try {
-			Thread.sleep(500); // cz nullpointerexception in splashscreen
+			// Try until the initial text can be set
+			// Dirty but it works.
+			while(true) {
+				try {
+					SplashFrame.setWorkOnIt("Initialize main components...");
+					break;
+				}
+				catch(Exception e) {
+					continue;
+				}
+			}
 			
-			SplashFrame.setWorkOnIt("Initialize main components...");
 			Main.Initialize();
-			
-			Thread.sleep(1000);
-
 			SplashFrame.setWorkOnIt("Setup database...");
+			
 			MainFrame mainFrame;
 			if(switchDatabaseConnection(Config.isDBType())) {
 				SplashFrame.setWorkOnIt("Antwort auf alle Fragen: 42");

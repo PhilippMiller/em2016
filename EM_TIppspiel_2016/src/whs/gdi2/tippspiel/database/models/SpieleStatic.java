@@ -1,6 +1,6 @@
 package whs.gdi2.tippspiel.database.models;
 
-public class Spiele {
+public class SpieleStatic {
 	
 	private static String heimmannschafthz, gastmannschafthz, heimmannschaftende, gastmannschaftende, heimmannschaftverl,
 	gastmannschaftverl, heimmannschaftelf, gastmannschaftelf, gelbekartenheim, gelbekartengast, rotekartenheim,
@@ -16,7 +16,7 @@ public class Spiele {
 
 
 	public static void setHeimmannschafthz(String heimmannschafthz) {
-		Spiele.heimmannschafthz = heimmannschafthz;
+		SpieleStatic.heimmannschafthz = heimmannschafthz;
 	}
 
 
@@ -26,7 +26,7 @@ public class Spiele {
 
 
 	public static void setGastmannschafthz(String gastmannschafthz) {
-		Spiele.gastmannschafthz = gastmannschafthz;
+		SpieleStatic.gastmannschafthz = gastmannschafthz;
 	}
 
 
@@ -36,7 +36,7 @@ public class Spiele {
 
 
 	public static void setHeimmannschaftende(String heimmannschaftende) {
-		Spiele.heimmannschaftende = heimmannschaftende;
+		SpieleStatic.heimmannschaftende = heimmannschaftende;
 	}
 
 
@@ -46,7 +46,7 @@ public class Spiele {
 
 
 	public static void setGastmannschaftende(String gastmannschaftende) {
-		Spiele.gastmannschaftende = gastmannschaftende;
+		SpieleStatic.gastmannschaftende = gastmannschaftende;
 	}
 
 
@@ -56,7 +56,7 @@ public class Spiele {
 
 
 	public static void setHeimmannschaftverl(String heimmannschaftverl) {
-		Spiele.heimmannschaftverl = heimmannschaftverl;
+		SpieleStatic.heimmannschaftverl = heimmannschaftverl;
 	}
 
 
@@ -66,7 +66,7 @@ public class Spiele {
 
 
 	public static void setGastmannschaftverl(String gastmannschaftverl) {
-		Spiele.gastmannschaftverl = gastmannschaftverl;
+		SpieleStatic.gastmannschaftverl = gastmannschaftverl;
 	}
 
 
@@ -76,7 +76,7 @@ public class Spiele {
 
 
 	public static void setHeimmannschaftelf(String heimmannschaftelf) {
-		Spiele.heimmannschaftelf = heimmannschaftelf;
+		SpieleStatic.heimmannschaftelf = heimmannschaftelf;
 	}
 
 
@@ -86,7 +86,7 @@ public class Spiele {
 
 
 	public static void setGastmannschaftelf(String gastmannschaftelf) {
-		Spiele.gastmannschaftelf = gastmannschaftelf;
+		SpieleStatic.gastmannschaftelf = gastmannschaftelf;
 	}
 
 
@@ -96,7 +96,7 @@ public class Spiele {
 
 
 	public static void setGelbekartenheim(String gelbekartenheim) {
-		Spiele.gelbekartenheim = gelbekartenheim;
+		SpieleStatic.gelbekartenheim = gelbekartenheim;
 	}
 
 
@@ -106,7 +106,7 @@ public class Spiele {
 
 
 	public static void setGelbekartengast(String gelbekartengast) {
-		Spiele.gelbekartengast = gelbekartengast;
+		SpieleStatic.gelbekartengast = gelbekartengast;
 	}
 
 
@@ -116,7 +116,7 @@ public class Spiele {
 
 
 	public static void setRotekartenheim(String rotekartenheim) {
-		Spiele.rotekartenheim = rotekartenheim;
+		SpieleStatic.rotekartenheim = rotekartenheim;
 	}
 
 
@@ -126,7 +126,7 @@ public class Spiele {
 
 
 	public static void setRotekartengast(String rotekartengast) {
-		Spiele.rotekartengast = rotekartengast;
+		SpieleStatic.rotekartengast = rotekartengast;
 	}
 
 
@@ -136,7 +136,7 @@ public class Spiele {
 
 
 	public static void setVerlaengerung(boolean verlaengerung) {
-		Spiele.verlaengerung = verlaengerung;
+		SpieleStatic.verlaengerung = verlaengerung;
 	}
 
 
@@ -146,6 +146,6 @@ public class Spiele {
 
 
 	public static void setElfmeter(boolean elfmeter) {
-		Spiele.elfmeter = elfmeter;
+		SpieleStatic.elfmeter = elfmeter;
 	}
 }

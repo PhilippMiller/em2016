@@ -1,4 +1,4 @@
-package whs.gdi2.tippspiel;
+package whs.gdi2.tippspiel.database;
 
 public enum RankingPoints {
 	EXACT_AFTER_HALFTIME(6),
@@ -10,9 +10,10 @@ public enum RankingPoints {
 	EXACT_AFTER_PENALTY(11),
 	TEMDEMCY_AFTER_PENALTY(5),
 	CORRECT_AMOUNT_YELLOW_CARD(3),
-	CORRECT_AMOUNT_RED_CARD_IF_AMOUNT_NE_ZERO(5);
+	CORRECT_AMOUNT_RED_CARD_IF_AMOUNT_NE_ZERO(5),
+	ZERO(0);
 	
-	private int scoring;
+	public int scoring;
 	
 	private RankingPoints(int scoring) {
 		this.scoring = scoring;

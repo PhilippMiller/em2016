@@ -29,7 +29,7 @@ public class DatabaseManagement {
 
 	static int offset = 0;
 	static int spieleIDinErgebnisFrame = 0;
-	static Spiele spiele = null;
+	static SpieleStatic spiele = null;
 
 	/** Creates necessary db */
 	public static String createDB(MySQLConnection connection) {
@@ -439,20 +439,20 @@ public class DatabaseManagement {
 					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit DESC LIMIT 1 OFFSET "
 							+ tempInt);
 			while (rs.next()) {
-				Spiele.setVerlaengerung(rs.getBoolean("verlaengerung"));
-				Spiele.setElfmeter(rs.getBoolean("elfmeter"));
-				Spiele.setHeimmannschafthz(rs.getString("heimmannschafthz"));
-				Spiele.setGastmannschafthz(rs.getString("gastmannschafthz"));
-				Spiele.setHeimmannschaftende(rs.getString("heimmannschaftende"));
-				Spiele.setGastmannschaftende(rs.getString("gastmannschaftende"));
-				Spiele.setHeimmannschaftverl(rs.getString("heimmannschaftverl"));
-				Spiele.setGastmannschaftverl(rs.getString("gastmannschaftverl"));
-				Spiele.setHeimmannschaftelf(rs.getString("heimmannschaftelf"));
-				Spiele.setGastmannschaftelf(rs.getString("gastmannschaftelf"));
-				Spiele.setGelbekartenheim(rs.getString("gelbekartenheim"));
-				Spiele.setGelbekartengast(rs.getString("gelbekartengast"));
-				Spiele.setRotekartenheim(rs.getString("rotekartenheim"));
-				Spiele.setRotekartengast(rs.getString("rotekartengast"));
+				SpieleStatic.setVerlaengerung(rs.getBoolean("verlaengerung"));
+				SpieleStatic.setElfmeter(rs.getBoolean("elfmeter"));
+				SpieleStatic.setHeimmannschafthz(rs.getString("heimmannschafthz"));
+				SpieleStatic.setGastmannschafthz(rs.getString("gastmannschafthz"));
+				SpieleStatic.setHeimmannschaftende(rs.getString("heimmannschaftende"));
+				SpieleStatic.setGastmannschaftende(rs.getString("gastmannschaftende"));
+				SpieleStatic.setHeimmannschaftverl(rs.getString("heimmannschaftverl"));
+				SpieleStatic.setGastmannschaftverl(rs.getString("gastmannschaftverl"));
+				SpieleStatic.setHeimmannschaftelf(rs.getString("heimmannschaftelf"));
+				SpieleStatic.setGastmannschaftelf(rs.getString("gastmannschaftelf"));
+				SpieleStatic.setGelbekartenheim(rs.getString("gelbekartenheim"));
+				SpieleStatic.setGelbekartengast(rs.getString("gelbekartengast"));
+				SpieleStatic.setRotekartenheim(rs.getString("rotekartenheim"));
+				SpieleStatic.setRotekartengast(rs.getString("rotekartengast"));
 
 				Object[] objs = new Object[5];
 
@@ -472,20 +472,20 @@ public class DatabaseManagement {
 			}
 			if (i == 0) {
 				Object[] dobjs = { "", "", "", "", "" };
-				Spiele.setVerlaengerung(false);
-				Spiele.setElfmeter(false);
-				Spiele.setHeimmannschafthz("");
-				Spiele.setGastmannschafthz("");
-				Spiele.setHeimmannschaftende("");
-				Spiele.setGastmannschaftende("");
-				Spiele.setHeimmannschaftverl("");
-				Spiele.setGastmannschaftverl("");
-				Spiele.setHeimmannschaftelf("");
-				Spiele.setGastmannschaftelf("");
-				Spiele.setGelbekartenheim("");
-				Spiele.setGelbekartengast("");
-				Spiele.setRotekartenheim("");
-				Spiele.setRotekartengast("");
+				SpieleStatic.setVerlaengerung(false);
+				SpieleStatic.setElfmeter(false);
+				SpieleStatic.setHeimmannschafthz("");
+				SpieleStatic.setGastmannschafthz("");
+				SpieleStatic.setHeimmannschaftende("");
+				SpieleStatic.setGastmannschaftende("");
+				SpieleStatic.setHeimmannschaftverl("");
+				SpieleStatic.setGastmannschaftverl("");
+				SpieleStatic.setHeimmannschaftelf("");
+				SpieleStatic.setGastmannschaftelf("");
+				SpieleStatic.setGelbekartenheim("");
+				SpieleStatic.setGelbekartengast("");
+				SpieleStatic.setRotekartenheim("");
+				SpieleStatic.setRotekartengast("");
 				dtm.addRow(dobjs);
 			}
 		} catch (Exception e) {
@@ -518,6 +518,13 @@ public class DatabaseManagement {
 		}
 	}
 
+	/**
+	 * Note: Warum wird die SpieleID nicht als Parameter übergeben? Das würde nämlich
+	 * part die statische Variable und ist sauberer vom code her.
+	 * 
+	 * TODO: refactoring der funktion
+	 * @return
+	 */
 	public static boolean isGroupPhase() {
 		String tempString = null;
 		try {
@@ -639,4 +646,5 @@ public class DatabaseManagement {
 
 	}
 
+	
 }
