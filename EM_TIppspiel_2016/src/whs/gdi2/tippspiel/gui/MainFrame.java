@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
+import whs.gdi2.tippspiel.database.RankingHelper;
 import whs.gdi2.tippspiel.log.Log;
 
 import javax.swing.ButtonGroup;
@@ -78,6 +79,7 @@ public class MainFrame extends JFrame {
 	private JSeparator separator;
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPane_1;
+	private JMenuItem mntmRankingBerechnen;
 
 	public MainFrame(boolean showDBSettings) {
 		classContext = this;
@@ -170,6 +172,9 @@ public class MainFrame extends JFrame {
 		separator_1 = new JSeparator();
 		mnMen.add(separator_1);
 		mnMen.add(mntmErgebnisseEingeben);
+		
+		mntmRankingBerechnen = new JMenuItem("Ranking berechnen");
+		mnMen.add(mntmRankingBerechnen);
 
 		separator_2 = new JSeparator();
 		mnMen.add(separator_2);
@@ -290,6 +295,21 @@ public class MainFrame extends JFrame {
 				Log.info("Menue item 'Ergebnis Eingabe' clicked.");
 			}
 		});
+		
+		mntmRankingBerechnen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				Log.info("Menue item 'Ranking berechnen' clicked.");
+				
+				if(RankingHelper.calculateRanking(Main.mainConnection)) {
+					JOptionPane.showMessageDialog(classContext, "Ranking konnte nicht berechnet werden.\nFehler: ");				
+				}
+				else {
+					JOptionPane.showMessageDialog(classContext, "Ranking konnte nicht berechnet werden.\nFehler: ");
+				}
+			}
+		});
+
 		
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

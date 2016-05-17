@@ -563,13 +563,11 @@ public class DatabaseManagement {
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NULL ORDER BY datumuhrzeit LIMIT 1 OFFSET "
-							+ getOffset());
+			ResultSet rs = statement.executeQuery("");
 			while (rs.next()) {
 				Object[] objs = new Object[5];
 
-				spieleIDinErgebnisFrame = rs.getInt("spieleid");
+				objs[0] = rs.getInt("spieleid");
 
 				Date datumSQL = rs.getDate("datumuhrzeit");
 				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
