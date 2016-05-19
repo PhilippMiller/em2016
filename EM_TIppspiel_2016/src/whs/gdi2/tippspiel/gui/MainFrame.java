@@ -29,6 +29,8 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JRadioButtonMenuItem;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 /**
  * 
@@ -90,9 +92,11 @@ public class MainFrame extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(665, 365);
+		
         Dimension windowSize = this.getSize();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(screenSize.width/2 - 451, screenSize.height/2 - 255, 1024, 520);
+		setLocation(screenSize.width/2 - windowSize.width/2, screenSize.height/2 - windowSize.height/2);
 
 		InitializeGui();
 		InitializeEvents();
@@ -174,6 +178,8 @@ public class MainFrame extends JFrame {
 		mnMen.add(mntmErgebnisseEingeben);
 		
 		mntmRankingBerechnen = new JMenuItem("Ranking berechnen");
+		mntmRankingBerechnen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
+		
 		mnMen.add(mntmRankingBerechnen);
 
 		separator_2 = new JSeparator();
@@ -226,26 +232,51 @@ public class MainFrame extends JFrame {
 		content = new JPanel();
 		content.setBackground(Config.getGuiColor());
 		content.setBorder(new EmptyBorder(5, 5, 5, 5));
-		content.setLayout(null);
 		setContentPane(content);
+		content.setLayout(new BorderLayout(0, 0));
+		
+		JPanel topPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) topPanel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		content.add(topPanel, BorderLayout.NORTH);
+		topPanel.setBackground(Config.getGuiColor());
+		
+		JLabel lblDashboard = new JLabel("Dashboard");
+		lblDashboard.setFont(new Font(Config.getFont(), Font.PLAIN, 20));
+		topPanel.add(lblDashboard);
+		
+		JPanel btnPanel = new JPanel();
+		content.add(btnPanel, BorderLayout.SOUTH);
+		btnPanel.setBackground(Config.getGuiColor());
+
+		btnAktualisieren = new JButton("Aktualisieren");
+		btnPanel.add(btnAktualisieren);
+		btnAktualisieren.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
+		btnAktualisieren.setBackground(Config.getGuiColor());
+
+		JPanel tablePanel = new JPanel();
+		content.add(tablePanel);
+		tablePanel.setLayout(null);
+		tablePanel.setBackground(Config.getGuiColor());
 
 		lblTop = new JLabel("Top 10 - Tipper");
-		lblTop.setBounds(10, 40, 504, 20);
+		lblTop.setBounds(10, 0, 109, 23);
+		tablePanel.add(lblTop);
 		lblTop.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
 		lblTop.setHorizontalAlignment(SwingConstants.CENTER);
-		content.add(lblTop);
 
 		lblDieNchsten = new JLabel("Die n\u00E4chsten 10 Spiele");
-		lblDieNchsten.setBounds(509, 40, 504, 20);
+		lblDieNchsten.setBounds(340, 0, 162, 23);
+		tablePanel.add(lblDieNchsten);
 		lblDieNchsten.setFont(new Font(Config.getFont(), Font.PLAIN, 18));
 		lblDieNchsten.setHorizontalAlignment(SwingConstants.CENTER);
-		content.add(lblDieNchsten);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(59, 63, 404, 350);
-		content.add(scrollPane);
-
+		scrollPane.setBounds(10, 25, 300, 185);
+		tablePanel.add(scrollPane);
+		
 		tableTopTenBetters = new JTable();
+		tableTopTenBetters.setBounds(642, 16, 0, 0);
 		tableTopTenBetters.setShowGrid(false);
 		tableTopTenBetters.setFillsViewportHeight(true);
 		tableTopTenBetters.setFont(new Font(Config.getFont(), Font.PLAIN, 16));
@@ -253,21 +284,16 @@ public class MainFrame extends JFrame {
 		scrollPane.setViewportView(tableTopTenBetters);
 
 		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(559, 63, 404, 350);
-		content.add(scrollPane_1);
+		scrollPane_1.setBounds(340, 25, 300, 185);
+		tablePanel.add(scrollPane_1);
 
 		tableNextGames = new JTable();
+		tableNextGames.setBounds(654, 16, 0, 0);
 		tableNextGames.setShowGrid(false);
 		tableNextGames.setFillsViewportHeight(true);
 		tableNextGames.setFont(new Font(Config.getFont(), Font.PLAIN, 16));
 		tableNextGames.setAutoCreateRowSorter(true);
 		scrollPane_1.setViewportView(tableNextGames);
-
-		btnAktualisieren = new JButton("Aktualisieren");
-		btnAktualisieren.setBounds(831, 424, 132, 23);
-		btnAktualisieren.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
-		btnAktualisieren.setBackground(Config.getGuiColor());
-		content.add(btnAktualisieren);
 	}
 	
 	public void InitializeEvents() {

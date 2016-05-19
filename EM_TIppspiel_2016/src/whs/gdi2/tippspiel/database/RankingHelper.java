@@ -123,14 +123,24 @@ public class RankingHelper {
 				 Log.info("User " + rs.getInt("benutzerid") + " has guess the correct tendency of the results after penalty for game " + rs.getInt("spieleid"));
 			 }
 		 }			
-		 
-		 if(rs.getInt("tippgelbeheim") == rs.getInt("tippgelbeheim") && rs.getInt("tippgelbegast") == rs.getInt("tippgelbegast")) {
-			 points += RankingPoints.CORRECT_AMOUNT_YELLOW_CARD.scoring;
+
+		 if(rs.getInt("tippgelbeheim") == rs.getInt("tippgelbeheim")) {
+			 points += RankingPoints.CORRECT_AMOUNT_YELLOW_CARD_HOME.scoring;
 			 Log.info("User " + rs.getInt("benutzerid") + " has guess the correct amount of yellow cards for game " + rs.getInt("spieleid"));
 
 		 }	
-		 if((rs.getInt("tipproteheim") == rs.getInt("tipproteheim") && rs.getInt("tipproteheim") != 0) && (rs.getInt("tipprotegast") == rs.getInt("tipprotegast") && rs.getInt("tipprotegast") != 0)) {
-			 points += RankingPoints.CORRECT_AMOUNT_RED_CARD_IF_AMOUNT_NE_ZERO.scoring;
+		 if(rs.getInt("tippgelbegast") == rs.getInt("tippgelbegast")) {
+			 points += RankingPoints.CORRECT_AMOUNT_YELLOW_CARD_GUEST.scoring;
+			 Log.info("User " + rs.getInt("benutzerid") + " has guess the correct amount of yellow cards for game " + rs.getInt("spieleid"));
+
+		 }	
+		 if((rs.getInt("tipproteheim") == rs.getInt("tipproteheim") && rs.getInt("tipproteheim") != 0)) {
+			 points += RankingPoints.CORRECT_AMOUNT_RED_CARD_IF_AMOUNT_NE_ZERO_HOME.scoring;
+			 Log.info("User " + rs.getInt("benutzerid") + " has guess the correct amount of red cards for game " + rs.getInt("spieleid"));
+
+		 }
+		 if(rs.getInt("tipprotegast") == rs.getInt("tipprotegast") && rs.getInt("tipprotegast") != 0) {
+			 points += RankingPoints.CORRECT_AMOUNT_RED_CARD_IF_AMOUNT_NE_ZERO_GUEST.scoring;
 			 Log.info("User " + rs.getInt("benutzerid") + " has guess the correct amount of red cards for game " + rs.getInt("spieleid"));
 
 		 }

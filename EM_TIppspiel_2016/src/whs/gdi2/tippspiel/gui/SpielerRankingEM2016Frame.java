@@ -95,7 +95,7 @@ public class SpielerRankingEM2016Frame extends JDialog {
 		try {
 			Statement statement1 = Main.mainConnection.getConnection().createStatement();
 			
-			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() LIMIT 1");
+			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
 			if(daters.next()) {
 				lblDatum.setText(daters.getString("datum"));
 			}

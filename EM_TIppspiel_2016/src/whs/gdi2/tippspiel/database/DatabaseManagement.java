@@ -298,7 +298,7 @@ public class DatabaseManagement {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			Statement statement1 = Main.mainConnection.getConnection().createStatement();
 			
-			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() LIMIT 1");
+			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
 			if(daters.next()) {
 				Log.debug("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz LIMIT 10");
 				
@@ -571,7 +571,7 @@ public class DatabaseManagement {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			Statement statement1 = Main.mainConnection.getConnection().createStatement();
 			
-			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() LIMIT 1");
+			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
 			if(daters.next()) {
 				ResultSet rs = statement.executeQuery("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz");
 				
