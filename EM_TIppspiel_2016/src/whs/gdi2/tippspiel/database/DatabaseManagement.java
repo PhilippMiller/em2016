@@ -296,20 +296,26 @@ public class DatabaseManagement {
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE r.platz < 11 ORDER BY platz LIMIT 10");
-			while (rs.next()) {
-				int ranking = rs.getInt("platz");
-				String punkte = rs.getString("punkte");
-				String benutzerid = rs.getString("benutzerid");
-				nickname = rs.getString("nickname");
-				gruppe = rs.getString("gruppenname");
-
-				objs[0] = ranking;
-				objs[1] = nickname;
-				objs[2] = punkte;
-				objs[3] = gruppe;
-				dtm.addRow(objs);
+			Statement statement1 = Main.mainConnection.getConnection().createStatement();
+			
+			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
+			if(daters.next()) {
+				Log.debug("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz LIMIT 10");
+				
+				ResultSet rs = statement.executeQuery("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz LIMIT 10");
+				while (rs.next()) {
+					int ranking = rs.getInt("platz");
+					String punkte = rs.getString("punkte");
+					String benutzerid = rs.getString("benutzerid");
+					nickname = rs.getString("nickname");
+					gruppe = rs.getString("gruppenname");
+	
+					objs[0] = ranking;
+					objs[1] = nickname;
+					objs[2] = punkte;
+					objs[3] = gruppe;
+					dtm.addRow(objs);
+				}
 			}
 			if (dtm.getRowCount() == 0) {
 				dtm.addRow(defaultObj);
@@ -563,18 +569,28 @@ public class DatabaseManagement {
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NULL ORDER BY datumuhrzeit LIMIT 1 OFFSET "
-							+ getOffset());
-			while (rs.next()) {
-				Object[] objs = new Object[5];
+			Statement statement1 = Main.mainConnection.getConnection().createStatement();
+			
+			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
+			if(daters.next()) {
+				ResultSet rs = statement.executeQuery("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz");
+				
+				while (rs.next()) {
+					int ranking = rs.getInt("platz");
+					String punkte = rs.getString("punkte");
+					String benutzerid = rs.getString("benutzerid");
+					String nickname = rs.getString("nickname");
+					String gruppe = rs.getString("gruppenname");
 
-				spieleIDinErgebnisFrame = rs.getInt("spieleid");
-
-				Date datumSQL = rs.getDate("datumuhrzeit");
-				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
-
-				dtm.addRow(objs);
+					Object[] objs = new Object[5];
+	
+					objs[0] = ranking;
+					objs[1] = nickname;
+					objs[2] = punkte;
+					objs[3] = gruppe;
+	
+					dtm.addRow(objs);
+				}
 			}
 		} catch (Exception e) {
 			Log.error(e.getMessage());

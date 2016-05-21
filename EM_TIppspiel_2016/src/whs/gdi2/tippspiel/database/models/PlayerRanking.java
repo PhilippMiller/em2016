@@ -2,7 +2,7 @@ package whs.gdi2.tippspiel.database.models;
 
 import java.util.Date;
 
-public class PlayerRanking {
+public class PlayerRanking implements Comparable<PlayerRanking> {
 	private int playerID = 0;
 	private int points = 0;
 	private int platz = 0;
@@ -32,6 +32,11 @@ public class PlayerRanking {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
+	@Override
+	public int compareTo(PlayerRanking arg0) {
+		if(arg0.points > this.points) return 1;
+		if(arg0.points < this.points) return -1;
+		
+		return 0;
+	}
 }
