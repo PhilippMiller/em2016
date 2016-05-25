@@ -20,7 +20,7 @@ import javax.swing.ScrollPaneConstants;
 public class GruppenRankingEM2016Frame extends JDialog {
 
 	private JPanel contentPane;
-	private JTable table;
+	private JTable table_A;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -43,11 +43,11 @@ public class GruppenRankingEM2016Frame extends JDialog {
 	private JLabel lblGruppeE;
 	private JScrollPane scrollPane_5;
 	private JLabel lblGruppeF;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table_3;
-	private JTable table_4;
-	private JTable table_5;
+	private JTable table_B;
+	private JTable table_C;
+	private JTable table_D;
+	private JTable table_E;
+	private JTable table_F;
 
 	public GruppenRankingEM2016Frame(JFrame parent) {
 
@@ -73,13 +73,13 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		scrollPane.setBounds(10, 31, 711, 85);
 		contentPane.add(scrollPane);
 
-		table = new JTable();
-		table.setShowVerticalLines(false);
-		table.setRowSelectionAllowed(false);
-		table.setShowGrid(false);
-		table.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
-		table.setModel(DatabaseManagement.groupRanking());
-		scrollPane.setViewportView(table);
+		table_A = new JTable();
+		table_A.setShowVerticalLines(false);
+		table_A.setRowSelectionAllowed(false);
+		table_A.setShowGrid(false);
+		table_A.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
+		table_A.setModel(DatabaseManagement.groupRanking("A"));
+		scrollPane.setViewportView(table_A);
 		
 		JLabel lblGruppeA = new JLabel("Gruppe A");
 		lblGruppeA.setFont(new Font(Config.getFont(), Font.PLAIN, 14));
@@ -91,12 +91,13 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		scrollPane_1.setBounds(10, 152, 711, 85);
 		contentPane.add(scrollPane_1);
 		
-		table_1 = new JTable();
-		table_1.setShowVerticalLines(false);
-		table_1.setShowGrid(false);
-		table_1.setRowSelectionAllowed(false);
-		table_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		scrollPane_1.setViewportView(table_1);
+		table_B = new JTable();
+		table_B.setShowVerticalLines(false);
+		table_B.setShowGrid(false);
+		table_B.setRowSelectionAllowed(false);
+		table_B.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		table_B.setModel(DatabaseManagement.groupRanking("B"));
+		scrollPane_1.setViewportView(table_B);
 		
 		lblGruppeB = new JLabel("Gruppe B");
 		lblGruppeB.setFont(new Font("Calibri Light", Font.PLAIN, 14));
@@ -108,12 +109,13 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		scrollPane_2.setBounds(10, 273, 711, 85);
 		contentPane.add(scrollPane_2);
 		
-		table_2 = new JTable();
-		table_2.setShowVerticalLines(false);
-		table_2.setShowGrid(false);
-		table_2.setRowSelectionAllowed(false);
-		table_2.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		scrollPane_2.setViewportView(table_2);
+		table_C = new JTable();
+		table_C.setShowVerticalLines(false);
+		table_C.setShowGrid(false);
+		table_C.setRowSelectionAllowed(false);
+		table_C.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		table_C.setModel(DatabaseManagement.groupRanking("C"));
+		scrollPane_2.setViewportView(table_C);
 		
 		lblGruppeC = new JLabel("Gruppe C");
 		lblGruppeC.setFont(new Font("Calibri Light", Font.PLAIN, 14));
@@ -125,12 +127,13 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		scrollPane_3.setBounds(10, 394, 711, 85);
 		contentPane.add(scrollPane_3);
 		
-		table_3 = new JTable();
-		table_3.setShowVerticalLines(false);
-		table_3.setShowGrid(false);
-		table_3.setRowSelectionAllowed(false);
-		table_3.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		scrollPane_3.setViewportView(table_3);
+		table_D = new JTable();
+		table_D.setShowVerticalLines(false);
+		table_D.setShowGrid(false);
+		table_D.setRowSelectionAllowed(false);
+		table_D.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		table_D.setModel(DatabaseManagement.groupRanking("D"));
+		scrollPane_3.setViewportView(table_D);
 		
 		lblGruppeD = new JLabel("Gruppe D");
 		lblGruppeD.setFont(new Font("Calibri Light", Font.PLAIN, 14));
@@ -142,12 +145,13 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		scrollPane_4.setBounds(10, 515, 711, 85);
 		contentPane.add(scrollPane_4);
 		
-		table_4 = new JTable();
-		table_4.setShowVerticalLines(false);
-		table_4.setShowGrid(false);
-		table_4.setRowSelectionAllowed(false);
-		table_4.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		scrollPane_4.setViewportView(table_4);
+		table_E = new JTable();
+		table_E.setShowVerticalLines(false);
+		table_E.setShowGrid(false);
+		table_E.setRowSelectionAllowed(false);
+		table_E.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		table_E.setModel(DatabaseManagement.groupRanking("E"));
+		scrollPane_4.setViewportView(table_E);
 		
 		lblGruppeE = new JLabel("Gruppe E");
 		lblGruppeE.setFont(new Font("Calibri Light", Font.PLAIN, 14));
@@ -159,12 +163,13 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		scrollPane_5.setBounds(10, 636, 711, 85);
 		contentPane.add(scrollPane_5);
 		
-		table_5 = new JTable();
-		table_5.setShowVerticalLines(false);
-		table_5.setShowGrid(false);
-		table_5.setRowSelectionAllowed(false);
-		table_5.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		scrollPane_5.setViewportView(table_5);
+		table_F = new JTable();
+		table_F.setShowVerticalLines(false);
+		table_F.setShowGrid(false);
+		table_F.setRowSelectionAllowed(false);
+		table_F.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		table_F.setModel(DatabaseManagement.groupRanking("F"));
+		scrollPane_5.setViewportView(table_F);
 		
 		lblGruppeF = new JLabel("Gruppe F");
 		lblGruppeF.setFont(new Font("Calibri Light", Font.PLAIN, 14));

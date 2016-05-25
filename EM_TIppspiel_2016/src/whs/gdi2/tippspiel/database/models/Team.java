@@ -1,9 +1,14 @@
 package whs.gdi2.tippspiel.database.models;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-public class Team {
+import whs.gdi2.tippspiel.Config;
+
+public class Team implements Comparable<Team> {
 	
 	protected String teamName;
 	protected Group group = null;
@@ -86,5 +91,46 @@ public class Team {
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+
+	@Override
+	public int compareTo(Team o2) {
+		
+		// PUNKTE
+		if (this.getPoints() < o2.getPoints()) {
+			return 1;
+		} else if (this.getPoints() > o2.getPoints()) {
+			return -1;
+		} else {
+			// TORE
+			if (this.getGoals() < o2.getGoals()) {
+				return 1;
+			} else if (this.getGoals() > o2.getGoals()) {
+				return -1;
+			} else {
+				// TORVERHÄLTNIS
+				if (this.getGoals() - this.getGoalsAgainst() > o2.getGoals() - o2.getGoalsAgainst()) {
+					return 1;
+				} else if (this.getGoals() - this.getGoalsAgainst() < o2.getGoals() - o2.getGoalsAgainst()) {
+					return -1;
+				} else {
+					// FAIRPLAY
+					if (this.getRedCards() + this.getYellowCards() > o2.getRedCards() + o2.getYellowCards()) {
+						return 1;
+					} else if (this.getRedCards() + this.getYellowCards() < o2.getRedCards() + o2.getYellowCards()) {
+						return -1;
+					} else {
+						// KOEFFIZIENT
+						if (Config.getKoeffizienten().get(this.getTeamName()) < Config.getKoeffizienten().get(o2.getTeamName())) {
+							return 1;
+						} else if (Config.getKoeffizienten().get(this.getTeamName()) > Config.getKoeffizienten().get(o2.getTeamName())) {
+							return -1;
+						} else {
+							return 0;
+						}
+					}
+				}
+			}
+		}
 	}
 }

@@ -17,6 +17,10 @@ public class Group {
 	public void includesTeam (Team team) {
 		this.team.add(team);		
 	}
+	
+	public List<Team> getTeam() {
+		return team;
+	}
 
 	public String getGroupName() {
 		return groupName;

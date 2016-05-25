@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -297,19 +298,24 @@ public class DatabaseManagement {
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			Statement statement1 = Main.mainConnection.getConnection().createStatement();
-			
-			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
-			if(daters.next()) {
-				Log.debug("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz LIMIT 10");
-				
-				ResultSet rs = statement.executeQuery("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz LIMIT 10");
+
+			ResultSet daters = statement1
+					.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
+			if (daters.next()) {
+				Log.debug(
+						"SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '"
+								+ daters.getString("datum") + "' ORDER BY platz LIMIT 10");
+
+				ResultSet rs = statement.executeQuery(
+						"SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '"
+								+ daters.getString("datum") + "' ORDER BY platz LIMIT 10");
 				while (rs.next()) {
 					int ranking = rs.getInt("platz");
 					String punkte = rs.getString("punkte");
 					String benutzerid = rs.getString("benutzerid");
 					nickname = rs.getString("nickname");
 					gruppe = rs.getString("gruppenname");
-	
+
 					objs[0] = ranking;
 					objs[1] = nickname;
 					objs[2] = punkte;
@@ -525,10 +531,11 @@ public class DatabaseManagement {
 	}
 
 	/**
-	 * Note: Warum wird die SpieleID nicht als Parameter übergeben? Das würde nämlich
-	 * part die statische Variable und ist sauberer vom code her.
+	 * Note: Warum wird die SpieleID nicht als Parameter übergeben? Das würde
+	 * nämlich part die statische Variable und ist sauberer vom code her.
 	 * 
 	 * TODO: refactoring der funktion
+	 * 
 	 * @return
 	 */
 	public static boolean isGroupPhase() {
@@ -570,11 +577,14 @@ public class DatabaseManagement {
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			Statement statement1 = Main.mainConnection.getConnection().createStatement();
-			
-			ResultSet daters = statement1.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
-			if(daters.next()) {
-				ResultSet rs = statement.executeQuery("SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '" + daters.getString("datum")+ "' ORDER BY platz");
-				
+
+			ResultSet daters = statement1
+					.executeQuery("SELECT datum FROM ranking WHERE datum < now() ORDER BY datum DESC LIMIT 1");
+			if (daters.next()) {
+				ResultSet rs = statement.executeQuery(
+						"SELECT * FROM ranking AS r JOIN benutzer AS b ON (r.benutzerid = b.benutzerid) WHERE datum = '"
+								+ daters.getString("datum") + "' ORDER BY platz");
+
 				while (rs.next()) {
 					int ranking = rs.getInt("platz");
 					String punkte = rs.getString("punkte");
@@ -583,12 +593,12 @@ public class DatabaseManagement {
 					String gruppe = rs.getString("gruppenname");
 
 					Object[] objs = new Object[5];
-	
+
 					objs[0] = ranking;
 					objs[1] = nickname;
 					objs[2] = punkte;
 					objs[3] = gruppe;
-	
+
 					dtm.addRow(objs);
 				}
 			}
@@ -600,35 +610,168 @@ public class DatabaseManagement {
 	}
 
 	// In arbeit die ich noch nicht verstehe
-	public static DefaultTableModel groupRanking() {
+	public static DefaultTableModel groupRanking(String grp) {
 
 		String col[] = { "Mannschaft", "Spiele", "Siege", "Unentschieden", "Niederlagen", "Erzielte Tore", "Gegentore",
 				"Tordifferenz", "Punkte" };
-		DefaultTableModel dtm = new DefaultTableModel(col, 0);
+		DefaultTableModel dtm = new DefaultTableModel(col, 0) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		Object[] obj = new Object[9];
-
-
 
 		try {
 			ParticipantsField pf = new ParticipantsField();
-			Group groupA = new Group();
-			
+			Group group;
+			ArrayList<GroupRankingMatch> matches = null;
+			ArrayList<Team> teams;
+
 			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM spiele WHERE gelbekartenheim IS NOT NULL AND (spielbezeichnung LIKE '%Gruppe A%' OR spielbezeichnung LIKE"
-							+ " '%Gruppe B%' OR spielbezeichnung LIKE '%Gruppe C%' OR spielbezeichnung LIKE '%Gruppe D%' OR spielbezeichnung LIKE '%Gruppe E%'"
-							+ " OR spielbezeichnung LIKE '%Gruppe F%')");
+			
+				ResultSet rs = statement.executeQuery("SELECT * FROM spiele WHERE gelbekartenheim IS NOT NULL AND spielbezeichnung LIKE '%Gruppe "
+								+ grp + "%'");
+				group = new Group();
+				pf.containsGroup(group);
+				matches = new ArrayList<GroupRankingMatch>();
 
-			while (rs.next()) {
-				groupA.setGroupName(rs.getString("spielbezeichnung"));
-				if (pf.getGroup().size() == 0) {
-					pf.containsGroup(groupA);
+				try {
+					while (rs.next()) {
+						GroupRankingMatch match = new GroupRankingMatch();
+						
+						group.setGroupName(rs.getString("spielbezeichnung"));
+						
+						match.setGameId(rs.getInt("spieleid"));
+						match.setHomeTeamEnd(rs.getInt("heimmannschaftende"));
+						match.setGuestTeamEnd(rs.getInt("gastmannschaftende"));
+						match.setHomeTeamName(rs.getString("heimmannschaft"));
+						match.setGuestTeamName(rs.getString("gastmannschaft"));
+						match.setRedCardsHome(rs.getInt("rotekartenheim"));
+						match.setYellowCardsHome(rs.getInt("gelbekartenheim"));
+						match.setRedCardsGuest(rs.getInt("rotekartengast"));
+						match.setYellowCardsGuest(rs.getInt("gelbekartengast"));
+						match.setPenalty(rs.getBoolean("elfmeter"));
+	
+						matches.add(match);
+					}
+				} catch (SQLException e) {
+					Log.mysqlError("[GRP_RAN]Error while reading from database. | Error: " + e.getMessage());
 				}
-			}
+				teams = new ArrayList<Team>();
+				int i = 1;
+				for (GroupRankingMatch match : matches) {
+					Team team1 = new Team();					
+					team1.setTeamName(match.getHomeTeamName());
+					team1.setGoals(match.getHomeTeamEnd());
+					team1.setYellowCards(match.getYellowCardsHome());
+					team1.setRedCards(match.getRedCardsHome());
+					
+					Team team2 = new Team();
+					team2.setTeamName(match.getGuestTeamName());
+					team2.setGoals(match.getGuestTeamEnd());
+					team2.setYellowCards(match.getYellowCardsGuest());
+					team2.setRedCards(match.getRedCardsGuest());
+					
+					
+					//System.out.println(i++ + ") " + team1.getTeamName() + " : " + team2.getTeamName());
+					
+					boolean no1find = false;
+					boolean no2find = false;
+					if (group.getTeam().size() != 0) {
+						for (Team teamItem : group.getTeam()) {
+							if (teamItem.getTeamName().equals(team1.getTeamName())) {
+								teamItem.setGoals(teamItem.getGoals() + team1.getGoals());
+								teamItem.setGoalsAgainst(teamItem.getGoalsAgainst() + team2.getGoals());
+								teamItem.setYellowCards(teamItem.getYellowCards() + team1.getYellowCards());
+								teamItem.setRedCards(teamItem.getRedCards() + team1.getRedCards());
+								if (team1.getGoals() > team2.getGoals()) {
+									teamItem.setPoints(teamItem.getPoints() + 3);
+								} else if  (team1.getGoals() == team2.getGoals()) {
+									teamItem.setPoints(teamItem.getPoints() + 1);
+								}
+								no1find = true;
+							}
+							if (teamItem.getTeamName().equals(team2.getTeamName())) {
+								teamItem.setGoals(teamItem.getGoals() + team2.getGoals());
+								teamItem.setGoalsAgainst(teamItem.getGoalsAgainst() + team1.getGoals());
+								teamItem.setYellowCards(teamItem.getYellowCards() + team2.getYellowCards());
+								teamItem.setRedCards(teamItem.getRedCards() + team2.getRedCards());
+								if (team2.getGoals() > team1.getGoals()) {
+									teamItem.setPoints(teamItem.getPoints() + 3);
+								} else if  (team2.getGoals() == team1.getGoals()) {
+									teamItem.setPoints(teamItem.getPoints() + 1);
+								}
+								no2find = true;
+							}
+						}
+					}
+					if (!no1find) {
+						Team newTeam1 = new Team();
+						newTeam1.setPf(group);
+						group.includesTeam(newTeam1);
+						newTeam1.setTeamName(team1.getTeamName());
+						System.out.println("1_INSERT: " + team1.getTeamName());
+						newTeam1.setGoals(team1.getGoals());
+						newTeam1.setGoalsAgainst(team2.getGoals());
+						newTeam1.setYellowCards(team1.getYellowCards());
+						newTeam1.setRedCards(team1.getRedCards());
+						
+						if (team1.getGoals() > team2.getGoals()) {
+							newTeam1.setPoints(newTeam1.getPoints() + 3);
+						} else if  (team1.getGoals() == team2.getGoals()) {
+							newTeam1.setPoints(newTeam1.getPoints() + 1);
+						}
+						teams.add(newTeam1);
+					}
+					if (!no2find) {
+						Team newTeam2 = new Team();
+						newTeam2.setPf(group);
+						group.includesTeam(newTeam2);
+						newTeam2.setTeamName(team2.getTeamName());
+						System.out.println("2_INSERT: " + team2.getTeamName());
+						newTeam2.setGoals(team2.getGoals());
+						newTeam2.setGoalsAgainst(team1.getGoals());
+						newTeam2.setYellowCards(team2.getYellowCards());
+						newTeam2.setRedCards(team2.getRedCards());
+						
+						if (team1.getGoals() > team2.getGoals()) {
+							newTeam2.setPoints(newTeam2.getPoints() + 3);
+						} else if  (team1.getGoals() == team2.getGoals()) {
+							newTeam2.setPoints(newTeam2.getPoints() + 1);
+						}
+						teams.add(newTeam2);
+					}
+				}
+				// INNERE GRUPPE VERGLEICHEN
+				Object[] myTeams = teams.toArray();
+				Arrays.sort(myTeams);
+				System.out.println(myTeams.length + "\n");
+				for (Object team : myTeams) {
+					Team myTeam = (Team)team;
+					obj[0] = myTeam.getTeamName();
+					obj[1] = "-";
+					obj[2] = "-";
+					obj[3] = "-";
+					obj[4] = "-";
+					obj[5] = myTeam.getGoals();
+					obj[6] = myTeam.getGoalsAgainst();
+					obj[7] = (myTeam.getGoals() - myTeam.getGoalsAgainst());
+					obj[8] = myTeam.getPoints();
+					dtm.addRow(obj);
+				}
+				
 
-			// dtm.addRow(obj);
+			/* 
+			 * Mannschaft | Spiele | Siege | Unentschieden | Niederlagen | Erzielte Tore | Gegentore | Tordifferenz | Punkte
+			 * Last thing to do!
+			 * dtm.addRow(obj);
+			 */
 
+		} catch (SQLException e) {
+			Log.mysqlError(e.getMessage());
 		} catch (Exception e) {
-			Log.error(e.getMessage());
+			Log.error("[GRP_RAN] Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 		return dtm;
@@ -662,5 +805,4 @@ public class DatabaseManagement {
 
 	}
 
-	
 }

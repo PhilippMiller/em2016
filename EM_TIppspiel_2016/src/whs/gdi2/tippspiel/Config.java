@@ -36,7 +36,7 @@ public class Config {
 	private static final String table_ranking = "ranking";
 	private static final String table_bets = "tipps";
 	private static final String font_Calibri = "Calibri Light";
-	
+
 	private static final Color gui_color = Color.WHITE;
 
 	private static Properties pt;
@@ -52,6 +52,34 @@ public class Config {
 	private static String DBUser_offline;
 	private static String DBPass_offline;
 	private static String DB_offline;
+
+	private static final Map<String, Float> koeffizienten = new HashMap<String, Float>();
+	static {
+		koeffizienten.put("Deutschland", 40.236f);
+		koeffizienten.put("Spanien", 37.962f);
+		koeffizienten.put("England", 35.963f);
+		koeffizienten.put("Portugal", 35.138f);
+		koeffizienten.put("Belgien", 34.442f);
+		koeffizienten.put("Frankreich", 33.599f);
+		koeffizienten.put("Italien", 34.345f);
+		koeffizienten.put("Russland", 31.345f);
+		koeffizienten.put("Schweiz", 31.254f);
+		koeffizienten.put("Österreich", 30.932f);
+		koeffizienten.put("Kroatien", 30.642f);
+		koeffizienten.put("Ukraine", 30.313f);
+		koeffizienten.put("Tschechien", 29.403f);
+		koeffizienten.put("Schweden", 29.028f);
+		koeffizienten.put("Polen", 28.306f);
+		koeffizienten.put("Rumänien", 28.038f);
+		koeffizienten.put("Slowakei", 27.171f);
+		koeffizienten.put("Ungarn", 27.142f);
+		koeffizienten.put("Türkei", 27.033f);
+		koeffizienten.put("Irland", 26.902f);
+		koeffizienten.put("Island", 25.388f);
+		koeffizienten.put("Wales", 24.521f);
+		koeffizienten.put("Albanien", 23.216f);
+		koeffizienten.put("Nordirland", 22.610f);
+	};
 
 	public static String getConfigfile() {
 		return configFile;
@@ -92,7 +120,7 @@ public class Config {
 	public static String getFont() {
 		return font_Calibri;
 	}
-	
+
 	public static Color getGuiColor() {
 		return gui_color;
 	}
@@ -188,7 +216,7 @@ public class Config {
 		try {
 			pt = new Properties();
 			pt.load(new FileInputStream(new File(Config.getHomeDir() + "/" + Config.getConfigfile())));
-			
+
 			System.out.println(Config.getHomeDir() + "/" + Config.getConfigfile());
 
 			Log.info("Loading config file succesful.");
@@ -291,7 +319,8 @@ public class Config {
 				String defaultConfig = "DBType = false" + "\n" + "DBIp_online = " + "\n" + "DBUser_online = " + "\n"
 						+ "DBPass_online = " + "\n" + "DB_online = " + "\n"
 
-						+ "DBIp_offline = " + "\n" + "DBUser_offline = " + "\n" + "DBPass_offline = " + "\n" + "DB_offline = ";
+						+ "DBIp_offline = " + "\n" + "DBUser_offline = " + "\n" + "DBPass_offline = " + "\n"
+						+ "DB_offline = ";
 
 				bos.write(defaultConfig);
 				bos.close();
@@ -305,6 +334,10 @@ public class Config {
 			Log.error("Can't create default configuration!");
 			return false;
 		}
+	}
+
+	public static Map<String, Float> getKoeffizienten() {
+		return koeffizienten;
 	}
 
 	/*
