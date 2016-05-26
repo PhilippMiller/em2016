@@ -1,10 +1,7 @@
 package whs.gdi2.tippspiel.database.models;
 
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import whs.gdi2.tippspiel.Config;
 
@@ -13,7 +10,7 @@ public class Team implements Comparable<Team> {
 	protected String teamName;
 	protected Group group = null;
 	protected List<Match> match;
-	protected int goals, goalsAgainst, yellowCards, redCards, points;
+	protected int goals, goalsAgainst, yellowCards, redCards, points, wins, fails, draw;
 	
 	public Team () {
 		match = new LinkedList<Match>();
@@ -132,5 +129,29 @@ public class Team implements Comparable<Team> {
 				}
 			}
 		}
+	}
+
+	public int getWins() {
+		return wins;
+	}
+
+	public void setWins(int wins) {
+		this.wins = wins;
+	}
+
+	public int getFails() {
+		return fails;
+	}
+
+	public void setFails(int fails) {
+		this.fails = fails;
+	}
+
+	public int getDraw() {
+		return draw;
+	}
+
+	public void setDraw(int draw) {
+		this.draw = draw;
 	}
 }
