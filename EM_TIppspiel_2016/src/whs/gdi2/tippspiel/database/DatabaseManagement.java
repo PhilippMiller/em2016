@@ -658,7 +658,6 @@ public class DatabaseManagement {
 					Log.mysqlError("[GRP_RAN]Error while reading from database. | Error: " + e.getMessage());
 				}
 				teams = new ArrayList<Team>();
-				int i = 1;
 				for (GroupRankingMatch match : matches) {
 					Team team1 = new Team();					
 					team1.setTeamName(match.getHomeTeamName());
@@ -673,8 +672,6 @@ public class DatabaseManagement {
 					team2.setRedCards(match.getRedCardsGuest());
 					
 					
-					//System.out.println(i++ + ") " + team1.getTeamName() + " : " + team2.getTeamName());
-					
 					boolean no1find = false;
 					boolean no2find = false;
 					if (group.getTeam().size() != 0) {
@@ -686,8 +683,12 @@ public class DatabaseManagement {
 								teamItem.setRedCards(teamItem.getRedCards() + team1.getRedCards());
 								if (team1.getGoals() > team2.getGoals()) {
 									teamItem.setPoints(teamItem.getPoints() + 3);
+									teamItem.setWins(teamItem.getWins() + 1);
 								} else if  (team1.getGoals() == team2.getGoals()) {
 									teamItem.setPoints(teamItem.getPoints() + 1);
+									teamItem.setDraw(teamItem.getDraw() + 1);
+								} else {
+									teamItem.setFails(teamItem.getFails() + 1);
 								}
 								no1find = true;
 							}
@@ -698,8 +699,12 @@ public class DatabaseManagement {
 								teamItem.setRedCards(teamItem.getRedCards() + team2.getRedCards());
 								if (team2.getGoals() > team1.getGoals()) {
 									teamItem.setPoints(teamItem.getPoints() + 3);
+									teamItem.setWins(teamItem.getWins() + 1);
 								} else if  (team2.getGoals() == team1.getGoals()) {
 									teamItem.setPoints(teamItem.getPoints() + 1);
+									teamItem.setDraw(teamItem.getDraw() + 1);
+								} else {
+									teamItem.setFails(teamItem.getFails() + 1);
 								}
 								no2find = true;
 							}
@@ -710,7 +715,6 @@ public class DatabaseManagement {
 						newTeam1.setPf(group);
 						group.includesTeam(newTeam1);
 						newTeam1.setTeamName(team1.getTeamName());
-						System.out.println("1_INSERT: " + team1.getTeamName());
 						newTeam1.setGoals(team1.getGoals());
 						newTeam1.setGoalsAgainst(team2.getGoals());
 						newTeam1.setYellowCards(team1.getYellowCards());
@@ -718,8 +722,12 @@ public class DatabaseManagement {
 						
 						if (team1.getGoals() > team2.getGoals()) {
 							newTeam1.setPoints(newTeam1.getPoints() + 3);
+							newTeam1.setWins(1);
 						} else if  (team1.getGoals() == team2.getGoals()) {
 							newTeam1.setPoints(newTeam1.getPoints() + 1);
+							newTeam1.setDraw(1);
+						} else {
+							newTeam1.setFails(1);
 						}
 						teams.add(newTeam1);
 					}
@@ -728,7 +736,6 @@ public class DatabaseManagement {
 						newTeam2.setPf(group);
 						group.includesTeam(newTeam2);
 						newTeam2.setTeamName(team2.getTeamName());
-						System.out.println("2_INSERT: " + team2.getTeamName());
 						newTeam2.setGoals(team2.getGoals());
 						newTeam2.setGoalsAgainst(team1.getGoals());
 						newTeam2.setYellowCards(team2.getYellowCards());
@@ -736,8 +743,12 @@ public class DatabaseManagement {
 						
 						if (team1.getGoals() > team2.getGoals()) {
 							newTeam2.setPoints(newTeam2.getPoints() + 3);
+							newTeam2.setWins(1);
 						} else if  (team1.getGoals() == team2.getGoals()) {
 							newTeam2.setPoints(newTeam2.getPoints() + 1);
+							newTeam2.setDraw(1);
+						} else {
+							newTeam2.setFails(1);
 						}
 						teams.add(newTeam2);
 					}
@@ -745,14 +756,13 @@ public class DatabaseManagement {
 				// INNERE GRUPPE VERGLEICHEN
 				Object[] myTeams = teams.toArray();
 				Arrays.sort(myTeams);
-				System.out.println(myTeams.length + "\n");
 				for (Object team : myTeams) {
 					Team myTeam = (Team)team;
 					obj[0] = myTeam.getTeamName();
-					obj[1] = "-";
-					obj[2] = "-";
-					obj[3] = "-";
-					obj[4] = "-";
+					obj[1] = (myTeam.getWins() + myTeam.getDraw() + myTeam.getFails());
+					obj[2] = myTeam.getWins();
+					obj[3] = myTeam.getDraw();
+					obj[4] = myTeam.getFails();
 					obj[5] = myTeam.getGoals();
 					obj[6] = myTeam.getGoalsAgainst();
 					obj[7] = (myTeam.getGoals() - myTeam.getGoalsAgainst());
@@ -763,8 +773,6 @@ public class DatabaseManagement {
 
 			/* 
 			 * Mannschaft | Spiele | Siege | Unentschieden | Niederlagen | Erzielte Tore | Gegentore | Tordifferenz | Punkte
-			 * Last thing to do!
-			 * dtm.addRow(obj);
 			 */
 
 		} catch (SQLException e) {
