@@ -7,8 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -337,8 +335,6 @@ public class DatabaseManagement {
 		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
-		Object[] defaultObj = { "", "", "", "", "" };
-
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs = statement
@@ -369,8 +365,6 @@ public class DatabaseManagement {
 
 		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
-
-		Object[] defaultObj = { "", "", "", "", "" };
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
@@ -405,8 +399,6 @@ public class DatabaseManagement {
 
 		String col[] = { "Spiel-ID", "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
-
-		Object[] defaultObj = { "", "", "", "", "", "" };
 
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
@@ -609,7 +601,6 @@ public class DatabaseManagement {
 		return dtm;
 	}
 
-	// In arbeit die ich noch nicht verstehe
 	public static DefaultTableModel groupRanking(String grp) {
 
 		String col[] = { "Mannschaft", "Spiele", "Siege", "Unentschieden", "Niederlagen", "Erzielte Tore", "Gegentore",
