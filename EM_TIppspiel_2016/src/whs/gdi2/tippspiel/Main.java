@@ -73,8 +73,8 @@ public class Main {
 			}
 			else {
 				SplashFrame.setWorkOnIt("Database settings are incorrect. Show DBConfig...");
-				SplashFrame.finish();
 				mainFrame = new MainFrame(false);
+				SplashFrame.finish();
 				
 				Log.info("Database settings are incorrect. Check DBConfigFrame.");
 			}		
