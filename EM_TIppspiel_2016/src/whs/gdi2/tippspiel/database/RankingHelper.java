@@ -19,7 +19,7 @@ import whs.gdi2.tippspiel.log.Log;
  */
 public class RankingHelper {
 	// not finished jet
-	 public static boolean calculateRanking(MySQLConnection con) {
+	 public static void calculateRanking(MySQLConnection con) throws Exception {
 		 Log.info("Start Ranking calculation");
 		 try {
 			 Statement stmt = con.getConnection().createStatement();
@@ -65,15 +65,15 @@ public class RankingHelper {
 				 insert.executeUpdate(insertsql);
 				 Log.debug("SQL Query for rankinginsert + " + insertsql);
 			 }
-			 return true;
 			 
 		} catch (SQLException e) {
 			Log.mysqlError(e.getMessage());
+			throw e;
 		}
 		 catch(Exception e) {
 			 Log.error(e.getMessage());
+			 throw e;
 		 }
-		 return false;
 	 }
 	 
 	 
