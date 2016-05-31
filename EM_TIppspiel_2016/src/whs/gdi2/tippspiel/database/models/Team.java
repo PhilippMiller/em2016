@@ -112,9 +112,9 @@ public class Team implements Comparable<Team> {
 					return -1;
 				} else {
 					// FAIRPLAY
-					if (this.getRedCards() + this.getYellowCards() > o2.getRedCards() + o2.getYellowCards()) {
+					if ((this.getRedCards() * 3) + this.getYellowCards() > (o2.getRedCards() * 3) + o2.getYellowCards()) {
 						return 1;
-					} else if (this.getRedCards() + this.getYellowCards() < o2.getRedCards() + o2.getYellowCards()) {
+					} else if ((this.getRedCards() * 3) + this.getYellowCards() < (o2.getRedCards() * 3) + o2.getYellowCards()) {
 						return -1;
 					} else {
 						// KOEFFIZIENT
