@@ -327,11 +327,11 @@ public class MainFrame extends JFrame {
 
 				Log.info("Menue item 'Ranking berechnen' clicked.");
 				
-				if(RankingHelper.calculateRanking(Main.mainConnection)) {
-					JOptionPane.showMessageDialog(classContext, "Ranking konnte nicht berechnet werden.\nFehler: ");				
-				}
-				else {
-					JOptionPane.showMessageDialog(classContext, "Ranking konnte nicht berechnet werden.\nFehler: ");
+				try {
+					RankingHelper.calculateRanking(Main.mainConnection);
+					JOptionPane.showMessageDialog(classContext, "Ranking erfolgreich berechnet.");				
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(classContext, "Ranking konnte nicht berechnet werden.\nFehler: " + e.getMessage());
 				}
 			}
 		});
