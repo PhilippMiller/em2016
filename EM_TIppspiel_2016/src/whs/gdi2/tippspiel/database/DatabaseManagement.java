@@ -601,7 +601,7 @@ public class DatabaseManagement {
 		return dtm;
 	}
 
-	public static DefaultTableModel groupRanking(String grp) {
+	public static TableRankingObject groupRanking(String grp) {
 
 		String col[] = { "Mannschaft", "Spiele", "Siege", "Unentschieden", "Niederlagen", "Erzielte Tore", "Gegentore",
 				"Tordifferenz", "Punkte" };
@@ -611,7 +611,8 @@ public class DatabaseManagement {
 			}
 		};
 		Object[] obj = new Object[9];
-
+		TableRankingObject tro = new TableRankingObject();
+		
 		try {
 			ParticipantsField pf = new ParticipantsField();
 			Group group;
@@ -747,6 +748,7 @@ public class DatabaseManagement {
 				// INNERE GRUPPE VERGLEICHEN
 				Object[] myTeams = teams.toArray();
 				Arrays.sort(myTeams);
+				tro.setTeams(teams);
 				for (Object team : myTeams) {
 					Team myTeam = (Team)team;
 					obj[0] = myTeam.getTeamName();
@@ -773,7 +775,8 @@ public class DatabaseManagement {
 			e.printStackTrace();
 		}
 
-		return dtm;
+		tro.setDtm(dtm);
+		return tro;
 	}
 
 	public static DefaultTableModel getGameTableModel(int spielId) {
