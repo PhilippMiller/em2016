@@ -195,6 +195,8 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		allTros.add(tro_grpE);
 		allTros.add(tro_grpF);
 		KnockOutStageCalculator.RoundOfSixteen(allTros);
+		DatabaseManagement.knockOutStages();
+		
 
 	}
 }

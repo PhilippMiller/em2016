@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -777,6 +778,85 @@ public class DatabaseManagement {
 
 		tro.setDtm(dtm);
 		return tro;
+	}
+	
+	public static boolean knockOutStages() {
+		try {
+		Statement statement = Main.mainConnection.getConnection().createStatement();
+		
+		
+		// Alle Achtelffinalisten Laden
+		String sqlLoadAll = "SELECT * FROM spiele WHERE spielbezeichnung='Achtelfinale'";
+		ResultSet rs = statement.executeQuery(sqlLoadAll);
+		if (rs != null) {
+			KnockOutStageCalculator.RoundOfEight(rs);
+		} else {
+			Log.error("No available data found. ['Achtelfinale' in database 'em2016->spiele'. Error: rs eq null");
+			return false;
+		}
+		
+		// Alle Viertelffinalisten Laden
+		sqlLoadAll = "SELECT * FROM spiele WHERE spielbezeichnung='Viertelfinale'";
+		rs = statement.executeQuery(sqlLoadAll);
+		if (rs != null) {
+			KnockOutStageCalculator.RoundOfFour(rs);
+		} else {
+			Log.error("No available data found. ['Viertelfinale' in database 'em2016->spiele'. Error: rs eq null");
+			return false;
+		}
+		
+		// Alle Finalisten Laden
+		sqlLoadAll = "SELECT * FROM spiele WHERE spielbezeichnung='Finale'";
+		rs = statement.executeQuery(sqlLoadAll);
+		if (rs != null) {
+			KnockOutStageCalculator.RoundOfTwo(rs);
+		} else {
+			Log.error("No available data found. ['Finale' in database 'em2016->spiele'. Error: rs eq null");
+			return false;
+		}
+		
+		
+		
+		
+		return true;
+		} catch (SQLException e) {
+			Log.mysqlError("SQL error while calculate the round of eight. Error: " + e.getMessage());
+			return false;
+		}
+	}
+
+	public static ArrayList<Integer> groupGameIds(String spielbezeichnung) {
+		try {
+			Statement statement = Main.mainConnection.getConnection().createStatement();
+			
+			ArrayList<Integer> gameIDs = new ArrayList<Integer>();
+			
+			String sql = "SELECT spieleid FROM `spiele` WHERE spielbezeichnung LIKE '" + spielbezeichnung + "'";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				gameIDs.add(rs.getInt("spieleid"));
+			}
+			
+			return gameIDs;
+		} catch (Exception e) {
+			Log.error("No available data found. ['" + spielbezeichnung + "' in database 'em2016->spiele'. Error: " + e.getMessage());
+			return null;
+		}
+			
+	}
+	
+	public static boolean updateRow(String sql) {
+		try {
+		Statement statemant = Main.mainConnection.getConnection().createStatement();
+		
+		statemant.executeUpdate(sql);
+		
+		return true;
+		} catch (SQLException e) {
+			Log.mysqlError("Error while updating a row. [SQL Statement: '" + sql + "'] Error: " + e.getMessage());
+			return false;
+		}
+		
 	}
 
 	public static DefaultTableModel getGameTableModel(int spielId) {
