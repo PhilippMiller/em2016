@@ -194,7 +194,7 @@ public class DBToolDialog extends JDialog {
 	public void InitializeEvents() {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				reload();
 				Log.info("Menue item 'Testdaten Einfügen' clicked.");
 				
 				if(DatabaseManagement.addTestData(Main.mainConnection)) {
@@ -208,7 +208,9 @@ public class DBToolDialog extends JDialog {
 		
 		btnDatenbankNeuAnlegen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				DatabaseManagement.createDB(Main.mainConnection);
+				reload();
 			}
 		});
 		
@@ -220,7 +222,6 @@ public class DBToolDialog extends JDialog {
 		
 		btnDeleteTables.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				Log.info("Menue item 'Lösche Tabellen' clicked.");
 				if(DatabaseManagement.dropTables(Main.mainConnection)) {
 					JOptionPane.showMessageDialog(classContext,"Tabellen wurden gelöscht.", "Tabellen löschen", JOptionPane.PLAIN_MESSAGE);
@@ -229,6 +230,7 @@ public class DBToolDialog extends JDialog {
 					JOptionPane.showMessageDialog(classContext,"Tabellen konnten nicht gelöscht werden.", "Tabellen löschen", JOptionPane.WARNING_MESSAGE);
 					
 				}
+				reload();
 			}
 		});
 		
@@ -243,6 +245,7 @@ public class DBToolDialog extends JDialog {
 
 					JOptionPane.showMessageDialog(classContext, "Tabellen konnten erstellt werden.", "Tabellen erstellen", JOptionPane.PLAIN_MESSAGE);
 				}
+				reload();
 			}
 		});
 	}
@@ -263,7 +266,7 @@ public class DBToolDialog extends JDialog {
 					Statement stmt = Main.mainConnection.getConnection().createStatement();
 					stmt.executeQuery("SELECT * FROM spiele LIMIT 1");
 					lblDatenbankExistiert.setText("ja");
-					
+					lblTableplaceholder.setText("ja");
 				}
 				catch(Exception e) {
 					// tables doesnt exists;

@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
+import whs.gdi2.tippspiel.database.models.SpieleStatic;
 import whs.gdi2.tippspiel.log.Log;
 
 import java.awt.Color;
@@ -27,12 +28,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ItemEvent;
 
-public class ErgebnisFrame extends JDialog {
+public class ErgebnisFrame_3 extends JDialog {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JButton button;
-	private JButton button_1;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -46,18 +45,17 @@ public class ErgebnisFrame extends JDialog {
 	private JTextField textField_4;
 	private JTextField textField_5;
 
-	public ErgebnisFrame(JFrame parent) {
+	public ErgebnisFrame_3(JFrame parent) {
 
 		super(parent);
+		setResizable(false);
+		setModal(true);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				DatabaseManagement.setOffset(0);
-				System.out.println(DatabaseManagement.getOffset());
 			}
 		});
-		setResizable(false);
-		setModal(true);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
 		setTitle("Tippspiel Admin - Tool | Ergebnis - Eingabe");
@@ -80,53 +78,11 @@ public class ErgebnisFrame extends JDialog {
 		table.setRowSelectionAllowed(false);
 		table.setShowGrid(false);
 		table.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		table.setModel(DatabaseManagement.getGamesWithNoInfoData());
+		table.setModel(DatabaseManagement.getGamesWithInfoData());
 		scrollPane.setViewportView(table);
 
-		button = new JButton("<<<");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DatabaseManagement.setOffset(DatabaseManagement.getOffset() - 1);
-				System.out.println(DatabaseManagement.getOffset());
-				ErgebnisFrame.this.dispose();
-				if (DatabaseManagement.getOffset() < 0) {
-					ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
-					ef_2.setVisible(true);
-				} else {
-					ErgebnisFrame ef = new ErgebnisFrame(parent);
-					ef.setVisible(true);
-				}
-				Log.info("Button '<<<' clicked.");
-			}
-		});
-		button.setFont(new Font(Config.getFont(), Font.PLAIN, 11));
-		button.setBounds(50, 73, 89, 23);
-		button.setBackground(Config.getGuiColor());
-		contentPane.add(button);
-
-		button_1 = new JButton(">>>");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DatabaseManagement.setOffset(DatabaseManagement.getOffset() + 1);
-				System.out.println(DatabaseManagement.getOffset());
-				ErgebnisFrame.this.dispose();
-				if (DatabaseManagement.getOffset() < 0) {
-					ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
-					ef_2.setVisible(true);
-				} else {
-					ErgebnisFrame ef = new ErgebnisFrame(parent);
-					ef.setVisible(true);
-				}
-				Log.info("Button '>>>' clicked.");
-			}
-		});
-		button_1.setFont(new Font(Config.getFont(), Font.PLAIN, 11));
-		button_1.setBounds(311, 73, 89, 23);
-		button_1.setBackground(Config.getGuiColor());
-		contentPane.add(button_1);
-
 		textField = new JTextField();
-		textField.setText("0");
+		textField.setText(SpieleStatic.getHeimmannschafthz());
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField.setBounds(50, 140, 86, 20);
@@ -134,7 +90,7 @@ public class ErgebnisFrame extends JDialog {
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
-		textField_1.setText("0");
+		textField_1.setText(SpieleStatic.getGastmannschafthz());
 		textField_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_1.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_1.setColumns(10);
@@ -142,7 +98,7 @@ public class ErgebnisFrame extends JDialog {
 		contentPane.add(textField_1);
 
 		textField_2 = new JTextField();
-		textField_2.setText("0");
+		textField_2.setText(SpieleStatic.getHeimmannschaftende());
 		textField_2.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_2.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_2.setColumns(10);
@@ -150,7 +106,7 @@ public class ErgebnisFrame extends JDialog {
 		contentPane.add(textField_2);
 
 		textField_3 = new JTextField();
-		textField_3.setText("0");
+		textField_3.setText(SpieleStatic.getGastmannschaftende());
 		textField_3.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_3.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_3.setColumns(10);
@@ -161,7 +117,7 @@ public class ErgebnisFrame extends JDialog {
 		lblGabEsEine.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		lblGabEsEine.setBounds(50, 202, 184, 23);
 		contentPane.add(lblGabEsEine);
-		
+
 		JCheckBox checkBox_1 = new JCheckBox("");
 		checkBox_1.setEnabled(false);
 		checkBox_1.addItemListener(new ItemListener() {
@@ -181,7 +137,7 @@ public class ErgebnisFrame extends JDialog {
 				textField_6.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
 				textField_7.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
 				checkBox_1.setEnabled(e.getStateChange() == ItemEvent.SELECTED);
-				
+
 			}
 		});
 		checkBox.setBounds(240, 205, 21, 23);
@@ -190,6 +146,9 @@ public class ErgebnisFrame extends JDialog {
 
 		textField_6 = new JTextField();
 		textField_6.setText("0");
+		if (SpieleStatic.getHeimmannschaftverl() != null) {
+			textField_6.setText(SpieleStatic.getHeimmannschaftverl());
+		}
 		textField_6.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_6.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_6.setEnabled(false);
@@ -199,6 +158,9 @@ public class ErgebnisFrame extends JDialog {
 
 		textField_7 = new JTextField();
 		textField_7.setText("0");
+		if (SpieleStatic.getGastmannschaftverl() != null) {
+			textField_7.setText(SpieleStatic.getGastmannschaftverl());
+		}
 		textField_7.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_7.setEnabled(false);
 		textField_7.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
@@ -208,6 +170,9 @@ public class ErgebnisFrame extends JDialog {
 
 		textField_8 = new JTextField();
 		textField_8.setText("0");
+		if (SpieleStatic.getHeimmannschaftelf() != null) {
+			textField_8.setText(SpieleStatic.getHeimmannschaftelf());
+		}
 		textField_8.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_8.setEnabled(false);
 		textField_8.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
@@ -217,6 +182,9 @@ public class ErgebnisFrame extends JDialog {
 
 		textField_9 = new JTextField();
 		textField_9.setText("0");
+		if (SpieleStatic.getGastmannschaftelf() != null) {
+			textField_9.setText(SpieleStatic.getGastmannschaftelf());
+		}
 		textField_9.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_9.setEnabled(false);
 		textField_9.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
@@ -230,7 +198,7 @@ public class ErgebnisFrame extends JDialog {
 		contentPane.add(lblGabEsElfmeterschieen);
 
 		textField_10 = new JTextField();
-		textField_10.setText("0");
+		textField_10.setText(SpieleStatic.getGelbekartenheim());
 		textField_10.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_10.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_10.setColumns(10);
@@ -238,7 +206,7 @@ public class ErgebnisFrame extends JDialog {
 		contentPane.add(textField_10);
 
 		textField_11 = new JTextField();
-		textField_11.setText("0");
+		textField_11.setText(SpieleStatic.getGelbekartengast());
 		textField_11.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_11.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_11.setColumns(10);
@@ -246,7 +214,7 @@ public class ErgebnisFrame extends JDialog {
 		contentPane.add(textField_11);
 
 		textField_4 = new JTextField();
-		textField_4.setText("0");
+		textField_4.setText(SpieleStatic.getRotekartenheim());
 		textField_4.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_4.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_4.setColumns(10);
@@ -254,7 +222,7 @@ public class ErgebnisFrame extends JDialog {
 		contentPane.add(textField_4);
 
 		textField_5 = new JTextField();
-		textField_5.setText("0");
+		textField_5.setText(SpieleStatic.getRotekartengast());
 		textField_5.setHorizontalAlignment(SwingConstants.CENTER);
 		textField_5.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		textField_5.setColumns(10);
@@ -281,13 +249,13 @@ public class ErgebnisFrame extends JDialog {
 				int redCardsHomeInt = Integer.parseInt(redCardsHome);
 				String yellowCardsHome = textField_10.getText();
 				int yellowCardsHomeInt = Integer.parseInt(yellowCardsHome);
-			String goalsGuestAfterPenalty = textField_9.getText();
-			int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
-			String goalsHomeAfterPenalty = textField_8.getText();
-			int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
-			String goalsGuestAfterOvertime = textField_7.getText();
-			int goalsGuestAfterOvertimeInt = Integer.parseInt(goalsGuestAfterOvertime);
-			String goalsHomeAfterOvertime = textField_6.getText();
+				String goalsGuestAfterPenalty = textField_9.getText();
+				int goalsGuestAfterPenaltyInt = Integer.parseInt(goalsGuestAfterPenalty);
+				String goalsHomeAfterPenalty = textField_8.getText();
+				int goalsHomeAfterPenaltyInt = Integer.parseInt(goalsHomeAfterPenalty);
+				String goalsGuestAfterOvertime = textField_7.getText();
+				int goalsGuestAfterOvertimeInt = Integer.parseInt(goalsGuestAfterOvertime);
+				String goalsHomeAfterOvertime = textField_6.getText();
 				int goalsHomeAfterOvertimeInt = Integer.parseInt(goalsHomeAfterOvertime);
 				String goalsGuestAfterSecondHalf = textField_3.getText();
 				int goalsGuestAfterSecondHalfInt = Integer.parseInt(goalsGuestAfterSecondHalf);
@@ -344,9 +312,7 @@ public class ErgebnisFrame extends JDialog {
 								+ ", rotekartengast=" + redCardsGuestInt + " ";
 					}
 					DatabaseManagement.addGameData(sqlCommand);
-					ErgebnisFrame.this.dispose();
-					ErgebnisFrame ef = new ErgebnisFrame(parent);
-					ef.setVisible(true);
+					ErgebnisFrame_3.this.dispose();
 				}
 			}
 		});

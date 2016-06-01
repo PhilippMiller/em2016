@@ -25,6 +25,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Color;
 
 public class ErgebnisFrame_2 extends JDialog {
 
@@ -52,6 +53,7 @@ public class ErgebnisFrame_2 extends JDialog {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				DatabaseManagement.setOffset(0);
+				System.out.println(DatabaseManagement.getOffset());
 			}
 		});
 		setResizable(false);
@@ -85,6 +87,7 @@ public class ErgebnisFrame_2 extends JDialog {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DatabaseManagement.setOffset(DatabaseManagement.getOffset() - 1);
+				System.out.println(DatabaseManagement.getOffset());
 				ErgebnisFrame_2.this.dispose();
 				if (DatabaseManagement.getOffset() < 0) {
 					ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
@@ -105,6 +108,7 @@ public class ErgebnisFrame_2 extends JDialog {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DatabaseManagement.setOffset(DatabaseManagement.getOffset() + 1);
+				System.out.println(DatabaseManagement.getOffset());
 				ErgebnisFrame_2.this.dispose();
 				if (DatabaseManagement.getOffset() < 0) {
 					ErgebnisFrame_2 ef_2 = new ErgebnisFrame_2(parent);
@@ -325,5 +329,25 @@ public class ErgebnisFrame_2 extends JDialog {
 		lblGast.setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		lblGast.setBounds(311, 115, 89, 14);
 		contentPane.add(lblGast);
+		
+		
+
+		JButton btnErgebnisseBearbeiten = new JButton("Ergebnisse Bearbeiten");
+		if (!DatabaseManagement.isGroupPhase()) {
+			btnErgebnisseBearbeiten.setEnabled(false);
+		} else {
+			btnErgebnisseBearbeiten.setEnabled(true);
+		}
+		btnErgebnisseBearbeiten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ErgebnisFrame_2.this.dispose();
+				ErgebnisFrame_3 ef_3 = new ErgebnisFrame_3(parent);
+				ef_3.setVisible(true);
+			}
+		});
+		btnErgebnisseBearbeiten.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		btnErgebnisseBearbeiten.setBackground(Color.WHITE);
+		btnErgebnisseBearbeiten.setBounds(50, 407, 184, 23);
+		contentPane.add(btnErgebnisseBearbeiten);
 	}
 }
