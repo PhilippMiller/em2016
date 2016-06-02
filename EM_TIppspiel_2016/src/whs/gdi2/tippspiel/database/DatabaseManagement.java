@@ -97,7 +97,7 @@ public class DatabaseManagement {
 		}
 	}
 
-	/**
+/**
 	 * Method for reading and adding all the 'benutzer' and 'tipps' test datas
 	 * to the database
 	 */
@@ -159,10 +159,23 @@ public class DatabaseManagement {
 			statement.executeUpdate(sql);
 
 			Log.info("'" + Config.getTableBets() + "' inserted into database.");
-			BufferedReader br3 = new BufferedReader(new InputStreamReader(
-					DatabaseManagement.class.getResourceAsStream("/whs/gdi2/tippspiel/data/spiele_test.txt")));
 
-			while ((readline = br3.readLine()) != null) {
+			statement.close();
+			return true;
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+			return false;
+		}
+	}
+
+	public static boolean importGameData(MySQLConnection connection, InputStreamReader importStream) {
+		try {
+			Statement statement = connection.getConnection().createStatement();
+			String readline = null;
+			String sql = "";
+			BufferedReader br = new BufferedReader(importStream);
+
+			while ((readline = br.readLine()) != null) {
 				String[] str = readline.replaceAll("endOfLine", "").split(";");
 				str = Arrays.copyOfRange(str, 1, str.length);
 				if (str.length == 5) {
@@ -193,17 +206,21 @@ public class DatabaseManagement {
 				sql += "(";
 				sql += String.join(",", str);
 				sql += ")";
-
+				
+				Log.debug(sql);
 				statement.executeUpdate(sql);
+				
+				return true;
 			}
 
 			Log.info("'" + Config.getTableGames() + "' inserted into database.");
-			statement.close();
-			return true;
-		} catch (Exception e) {
-			Log.error(e.getMessage());
-			return false;
 		}
+		catch(Exception e) {
+			Log.mysqlError(e.getMessage());
+			Log.mysqlError(e.toString());
+		}
+		
+		return false;
 	}
 
 	/**

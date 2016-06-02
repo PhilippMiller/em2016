@@ -1,10 +1,13 @@
 package whs.gdi2.tippspiel.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +23,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.sql.Statement;
 
 import javax.swing.JLabel;
@@ -63,6 +70,7 @@ public class DBToolDialog extends JDialog {
 	private JLabel lblTableplaceholder;
 	private JLabel lblTabellenExistieren;
 	private JLabel lblDatenbankExistiert;
+	private JFileChooser fc;
 	
 	/**
 	 * Create the dialog.
@@ -75,14 +83,16 @@ public class DBToolDialog extends JDialog {
 		setTitle("Tippspiel Admin - Tool | Verwaltung der Testdatenbank");
 		setBackground(Config.getGuiColor());
 		setModal(true);
-
-		setBounds(100, 100, 450, 300);
-
+		setSize(450, 300);
+		
+        Dimension windowSize = this.getSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(screenSize.width/2 - windowSize.width/2, screenSize.height/2 - windowSize.height/2);
+		
 		InitializeGui();
 		InitializeEvents();
 		
 		reload();
-		
 	}
 
 	public void InitializeGui() {
@@ -91,6 +101,8 @@ public class DBToolDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		
+		fc = new JFileChooser();
 		
 		panel_1 = new JPanel();
 		panel_1.setBounds(5, 5, 168, 215);
@@ -194,15 +206,45 @@ public class DBToolDialog extends JDialog {
 	public void InitializeEvents() {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reload();
-				Log.info("Menue item 'Testdaten Einfügen' clicked.");
+Log.info("Menue item 'Testdaten Einfügen' clicked.");
 				
 				if(DatabaseManagement.addTestData(Main.mainConnection)) {
+					int answer = JOptionPane.showConfirmDialog(
+						    classContext,
+						    "Möchten Sie für die Tabelle Spiele Testdaten einlesen?",
+						    "Testdaten benutzen",
+						    JOptionPane.YES_NO_OPTION);
+					
+					if(answer == JOptionPane.YES_OPTION) {
+						DatabaseManagement.importGameData(Main.mainConnection, new InputStreamReader(DBToolDialog.class.getResourceAsStream("/whs/gdi2/tippspiel/data/tipps.txt")));
+					}
+					else {
+
+				        int returnVal = fc.showOpenDialog(classContext);
+				        
+				        if (returnVal == JFileChooser.APPROVE_OPTION) {
+				            File file = fc.getSelectedFile();
+
+							try {
+								DatabaseManagement.importGameData(Main.mainConnection, new InputStreamReader(new FileInputStream(file)));
+							} catch (FileNotFoundException e1) {
+								Log.error("Cannot open " + file.getAbsolutePath());
+								JOptionPane.showMessageDialog(classContext, "Spiele wurden nicht importiert");
+					         
+							}
+						
+				        } else {
+				        	JOptionPane.showMessageDialog(classContext, "Spiele wurden nicht importiert");
+				            Log.info("Spiele wurden nicht importiert");
+				        }
+					}
 					JOptionPane.showMessageDialog(classContext, "Testdaten wurden in Datenbank geschrieben.", "Testdaten importieren", JOptionPane.PLAIN_MESSAGE);
 				}
 				else {
 					JOptionPane.showMessageDialog(classContext, "Testdaten konnten nicht importiert werden.", "Testdaten importieren", JOptionPane.WARNING_MESSAGE);
 				}
+
+				reload();
 			}
 		});
 		
@@ -243,7 +285,7 @@ public class DBToolDialog extends JDialog {
 				}
 				else {
 
-					JOptionPane.showMessageDialog(classContext, "Tabellen konnten erstellt werden.", "Tabellen erstellen", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(classContext, "Tabellen wurden erfolgreich angelegt.", "Tabellen erstellen", JOptionPane.PLAIN_MESSAGE);
 				}
 				reload();
 			}

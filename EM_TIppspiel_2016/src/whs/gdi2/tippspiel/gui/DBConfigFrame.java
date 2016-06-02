@@ -2,6 +2,7 @@ package whs.gdi2.tippspiel.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JFrame;
@@ -85,7 +86,14 @@ public class DBConfigFrame extends JDialog {
 		setBackground(Color.WHITE);
 		setTitle("Tippspiel Admin - Tool | DB Einstellungen");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 450, 274);
+		
+		setSize(450, 274);
+		
+        Dimension windowSize = this.getSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(screenSize.width/2 - windowSize.width/2, screenSize.height/2 - windowSize.height/2);
+
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
