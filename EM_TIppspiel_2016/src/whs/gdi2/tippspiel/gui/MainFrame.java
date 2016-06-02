@@ -226,6 +226,11 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnHilfe);
 
 		mntmEinstellungen = new JMenuItem("\u00DCber Tippspiel Admin - Tool");
+		mntmEinstellungen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(classContext, "Created by\nJan-Markus Momper\nMario Kellner\nPhilipp Miller\n\n\u00a9 Copyright 2016", "Über", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		mntmEinstellungen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnHilfe.add(mntmEinstellungen);
 
