@@ -359,8 +359,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				System.out.println(currentMatch);
+				Log.debug("Selected game ID: " + currentMatch.getGameId());
 			}
 		});
 		
@@ -431,6 +430,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 				matches = new ArrayList<Match>();
 				while(rs.next()) {
 					Match match = new Match();
+					match.setGameType(rs.getString("spielbezeichnung"));
 					match.setGameId(rs.getInt("spieleid"));
 					match.setHometeam(rs.getString("heimmannschaft"));
 					match.setGuestteam(rs.getString("gastmannschaft"));
@@ -541,8 +541,10 @@ public class ErgebnisEingabeFrame extends JDialog {
 		textField_9.setEnabled(true);
 		textField_10.setEnabled(true);
 		textField_11.setEnabled(true);
-		checkBox.setEnabled(true);
-		checkBox_1.setEnabled(true);
+		
+		if (!selectedMatch.getGameType().contains("Gruppe")) {
+			checkBox.setEnabled(true);
+		}
 	}
 	
 	public void clear() {

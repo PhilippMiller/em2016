@@ -19,6 +19,8 @@ public class Match {
 	private int guestExtendEnd, homeExtendEnd;
 	private boolean penalty;
 	private int homeElevenEnd, guestElevenEnd;
+	
+	private String gameType;
 
 	public Match() {
 		team = new LinkedList<Team>();
@@ -182,5 +184,13 @@ public class Match {
 
 	public void setGameDate(Date gameDate) {
 		this.gameDate = gameDate;
+	}
+
+	public String getGameType() {
+		return gameType;
+	}
+
+	public void setGameType(String gameType) {
+		this.gameType = gameType;
 	}
 }
