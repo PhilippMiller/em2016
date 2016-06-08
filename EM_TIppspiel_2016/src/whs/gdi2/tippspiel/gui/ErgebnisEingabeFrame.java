@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 	private JButton button;
 	private JCheckBox checkBox_1;
 	protected JCheckBox checkBox;
+	private JLabel lblGametimelabel;
 
 	/**
 	 * Create the dialog.
@@ -144,7 +146,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		panelContent.add(contentPanelTop, BorderLayout.NORTH);
 		contentPanelTop.setBackground(Config.getGuiColor());
 		
-		JLabel lblGametimelabel = new JLabel("gameTimeLabel");
+		lblGametimelabel = new JLabel("gameTimeLabel");
 		contentPanelTop.add(lblGametimelabel);
 
 		JPanel contentPanelCenter = new JPanel();
@@ -422,7 +424,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 					match.setGameId(rs.getInt("spieleid"));
 					match.setHometeam(rs.getString("heimmannschaft"));
 					match.setGuestteam(rs.getString("gastmannschaft"));
-					match.setGameTimeAndDate(rs.getDate("datumuhrzeit"));
+					match.setGameTime(rs.getTime("datumuhrzeit"));
+					match.setGameDate(rs.getDate("datumuhrzeit"));
 					if (!ohneErgebnis){
 						match.setHomeTeamHt(rs.getInt("heimmannschafthz"));
 						match.setGuestTeamHt(rs.getInt("gastmannschafthz"));
@@ -480,11 +483,16 @@ public class ErgebnisEingabeFrame extends JDialog {
 		if(selectedMatch == null) {
 			throw new NullPointerException("Cannot edit a null-match");
 		}
+		
+		SimpleDateFormat sdf_date = new SimpleDateFormat("dd.MM.YYYY");
+		SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+		lblGametimelabel.setText(sdf_date.format(selectedMatch.getGameDate()) + " " + sdf_time.format(selectedMatch.getGameTime()));
 
 		textField_1.setText(selectedMatch.getHomeTeamHt() + "");
 		textField_2.setText(selectedMatch.getGuestTeamHt() + "");
 		textField_3.setText(selectedMatch.getHomeTeamEnd() + "");
 		textField_4.setText(selectedMatch.getGuestTeamEnd() + "");
+		
 		textField_5.setText(selectedMatch.getHomeExtendEnd() + "");
 		textField_6.setText(selectedMatch.getGuestExtendEnd() + "");
 

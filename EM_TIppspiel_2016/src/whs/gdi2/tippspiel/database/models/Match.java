@@ -1,7 +1,8 @@
 package whs.gdi2.tippspiel.database.models;
 
 import java.util.List;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.LinkedList;
 
 public class Match {
@@ -12,7 +13,8 @@ public class Match {
 	
 	private String hometeam;
 	private String guestteam;
-	private Date gameTimeAndDate;
+	private Time gameTime;
+	private Date gameDate;
 	private boolean extension;
 	private int guestExtendEnd, homeExtendEnd;
 	private boolean penalty;
@@ -110,14 +112,6 @@ public class Match {
 		this.guestteam = guestteam;
 	}
 
-	public Date getGameTimeAndDate() {
-		return gameTimeAndDate;
-	}
-
-	public void setGameTimeAndDate(Date gameTimeAndDate) {
-		this.gameTimeAndDate = gameTimeAndDate;
-	}
-
 	public int getGuestExtendEnd() {
 		return guestExtendEnd;
 	}
@@ -172,5 +166,21 @@ public class Match {
 	
 	public String toString() {
 		return this.getHometeam() + " - " + this.getGuestteam() + " (GameID: " + this.getGameId() + ")"; 
+	}
+
+	public Time getGameTime() {
+		return gameTime;
+	}
+
+	public void setGameTime(Time gameTime) {
+		this.gameTime = gameTime;
+	}
+
+	public Date getGameDate() {
+		return gameDate;
+	}
+
+	public void setGameDate(Date gameDate) {
+		this.gameDate = gameDate;
 	}
 }
