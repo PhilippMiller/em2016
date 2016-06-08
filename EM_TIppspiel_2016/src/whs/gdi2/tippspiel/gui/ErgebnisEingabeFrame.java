@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -17,14 +16,11 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.AbstractButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JSplitPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -35,19 +31,12 @@ import javax.swing.JCheckBox;
 
 import java.awt.Color;
 
-import javax.swing.event.ChangeListener;
-
-import com.mysql.jdbc.SQLError;
-
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
-import whs.gdi2.tippspiel.database.DatabaseManagement;
 import whs.gdi2.tippspiel.database.models.Match;
-import whs.gdi2.tippspiel.database.models.Team;
 import whs.gdi2.tippspiel.log.Log;
 
-import javax.swing.event.ChangeEvent;
-
+@SuppressWarnings("serial")
 public class ErgebnisEingabeFrame extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;

@@ -23,6 +23,7 @@ import javax.swing.JLabel;
  * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
  *
  */
+@SuppressWarnings("serial")
 public class SplashFrame extends JFrame {
 
 	private JPanel contentPane;

@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import whs.gdi2.tippspiel.database.models.*;
-import whs.gdi2.tippspiel.gui.SpielerRankingFrame;
 import whs.gdi2.tippspiel.log.Log;
 
 public class RankingHelper {

@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.ScrollPaneConstants;
 
+@SuppressWarnings("serial")
 public class GruppenRankingFrame extends JDialog {
 
 	private JPanel contentPane;

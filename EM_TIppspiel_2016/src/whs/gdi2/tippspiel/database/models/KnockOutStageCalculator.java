@@ -1,15 +1,9 @@
 package whs.gdi2.tippspiel.database.models;
 
-import java.security.AllPermission;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.swing.table.DefaultTableModel;
-
-import com.mysql.fabric.xmlrpc.base.Array;
 
 import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.DatabaseManagement;

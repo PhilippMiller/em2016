@@ -38,6 +38,7 @@ import java.util.HashMap;
  * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
  * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
  */
+@SuppressWarnings("serial")
 public class DBConfigFrame extends JDialog {
 
 	private JPanel contentPane;

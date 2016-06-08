@@ -333,7 +333,6 @@ public class DatabaseManagement {
 				while (rs.next()) {
 					int ranking = rs.getInt("platz");
 					String punkte = rs.getString("punkte");
-					String benutzerid = rs.getString("benutzerid");
 					nickname = rs.getString("nickname");
 					gruppe = rs.getString("gruppenname");
 
@@ -584,8 +583,6 @@ public class DatabaseManagement {
 		String col[] = { "Platz", "Nickname", "Punkte", "Tipprunde" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 
-		Object[] defaultObj = { "", "", "", "" };
-
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
 			Statement statement1 = Main.mainConnection.getConnection().createStatement();
@@ -600,7 +597,6 @@ public class DatabaseManagement {
 				while (rs.next()) {
 					int ranking = rs.getInt("platz");
 					String punkte = rs.getString("punkte");
-					String benutzerid = rs.getString("benutzerid");
 					String nickname = rs.getString("nickname");
 					String gruppe = rs.getString("gruppenname");
 
@@ -625,6 +621,8 @@ public class DatabaseManagement {
 
 		String col[] = { "Mannschaft", "Spiele", "Siege", "Unentschieden", "Niederlagen", "Erzielte Tore", "Gegentore",
 				"Tordifferenz", "Punkte" };
+		
+		@SuppressWarnings("serial")
 		DefaultTableModel dtm = new DefaultTableModel(col, 0) {
 			public boolean isCellEditable(int row, int column) {
 				return false;

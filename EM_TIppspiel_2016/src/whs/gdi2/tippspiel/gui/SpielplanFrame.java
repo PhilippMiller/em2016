@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 
+@SuppressWarnings("serial")
 public class SpielplanFrame extends JDialog {
 
 	private JPanel contentPane;

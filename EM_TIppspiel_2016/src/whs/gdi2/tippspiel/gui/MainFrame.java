@@ -41,6 +41,7 @@ import java.awt.FlowLayout;
  *
  */
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 	protected DBConfigFrame dbConfigFrame;
 	protected MainFrame classContext;

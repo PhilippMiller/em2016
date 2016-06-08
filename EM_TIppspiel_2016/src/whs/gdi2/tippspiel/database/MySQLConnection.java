@@ -110,12 +110,10 @@ public class MySQLConnection {
 	
 	public boolean createOrRecreateDatabase() {
 		Statement stmt;
-		boolean recreate = false;
 		
 		try {
 			stmt = this.getConnection().createStatement();
 			stmt.execute("DROP DATABASE " + this.getDatabase());
-			recreate = true;
 		}
 		catch(SQLException err) {
 			Log.error(err.getMessage());

@@ -47,6 +47,7 @@ import javax.swing.UIManager;
  * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
  *
  */
+@SuppressWarnings("serial")
 public class DBToolDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

@@ -14,12 +14,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JTextField;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 
 import javax.swing.JLabel;
@@ -28,22 +23,11 @@ import java.awt.FlowLayout;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+@SuppressWarnings("serial")
 public class SpielerRankingFrame extends JDialog {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	private JPanel panel;
 	private JLabel lblTipperRanglisteStand;
 	private JLabel lblDatum;
