@@ -339,20 +339,4 @@ public class Config {
 	public static Map<String, Float> getKoeffizienten() {
 		return koeffizienten;
 	}
-
-	/*
-	 * pt.setProperty("DBType", "false");
-	 * 
-	 * pt.setProperty("DBIP_online", getDBIp_online());
-	 * pt.setProperty("DBUser_online", getDBUser_online());
-	 * pt.setProperty("DBPass_online", getDBPass_online());
-	 * pt.setProperty("DB_online", getDB_online());
-	 * 
-	 * pt.setProperty("DBIP_offline", getDBIp_offline());
-	 * pt.setProperty("DBUser_offline", getDBUser_offline());
-	 * pt.setProperty("DBPass_offline", getDBPass_offline());
-	 * pt.setProperty("DB_offline", getDB_offline());
-	 * 
-	 */
-
 }

@@ -7,8 +7,11 @@ import java.awt.Toolkit;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -21,10 +24,14 @@ import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
+
 import java.awt.Color;
+
 import javax.swing.event.ChangeListener;
 
 import com.mysql.jdbc.SQLError;
@@ -32,6 +39,7 @@ import com.mysql.jdbc.SQLError;
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
+import whs.gdi2.tippspiel.database.models.Match;
 import whs.gdi2.tippspiel.log.Log;
 
 import javax.swing.event.ChangeEvent;
@@ -81,6 +89,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 					selectTheRightList(true);
 			}
 		});
+		rdbtnGelaufeneSpieleOhne.setSelected(true);
+		
 		panel_1.add(rdbtnGelaufeneSpieleOhne);
 		rdbtGroup.add(rdbtnGelaufeneSpieleOhne);
 
@@ -299,10 +309,32 @@ public class ErgebnisEingabeFrame extends JDialog {
 		Dimension windowSize = this.getSize();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2);
-
+		
+		reload();
 	}
 	
 	private void selectTheRightList(Boolean ohneErgebnis) {
+		/// the sql strings :D
+		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL ORDER BY datumuhrzeit";
+		String sqlright ="SELECT * FROM Spiele ORDER BY datumuhrzeit";
+
+		List<Match> matchright = new ArrayList<Match>();
+		List<Match> matchleft = new ArrayList<Match>();
+		try {
+			Statement stmt1 = Main.mainConnection.getConnection().createStatement();
+			
+			ResultSet rs = stmt1.executeQuery(sqlleft);
+			
+			while(rs.next()) {
+				
+			}
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	
+	public void reload() {
 		
 	}
 }
