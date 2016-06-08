@@ -62,6 +62,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 	protected JRadioButton rdbtnGelaufeneSpieleOhne;
 	protected JRadioButton rdbtnErfassteSpieleBearbeiten;
 	private JComboBox<Match> comboBox;
+	private JCheckBox checkBox_1;
+	private JCheckBox checkBox;
 
 	/**
 	 * Create the dialog.

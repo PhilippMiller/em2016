@@ -173,5 +173,4 @@ public class Match {
 	public String toString() {
 		return this.getHometeam() + " - " + this.getGuestteam() + " (GameID: " + this.getGameId() + ")"; 
 	}
-
 }
