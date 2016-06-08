@@ -315,15 +315,21 @@ public class ErgebnisEingabeFrame extends JDialog {
 	
 	private void selectTheRightList(Boolean ohneErgebnis) {
 		/// the sql strings :D
-		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL ORDER BY datumuhrzeit";
-		String sqlright ="SELECT * FROM Spiele ORDER BY datumuhrzeit";
+		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL AND datumuhrzeit < DATE_SUB(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit";
+		String sqlright ="SELECT * FROM spiele WHERE spielbezeichnung NOT LIKE '%Gruppe%' AND heimmannschafthz IS NOT NULL ORDER BY datumuhrzeit";
 
 		List<Match> matchright = new ArrayList<Match>();
 		List<Match> matchleft = new ArrayList<Match>();
 		try {
-			Statement stmt1 = Main.mainConnection.getConnection().createStatement();
+			Statement stmt = Main.mainConnection.getConnection().createStatement();
+			ResultSet rs;
 			
-			ResultSet rs = stmt1.executeQuery(sqlleft);
+			if (ohneErgebnis == true) {
+				rs = stmt.executeQuery(sqlleft);
+			} else {
+				rs = stmt.executeQuery(sqlright);
+				
+			}
 			
 			while(rs.next()) {
 				
