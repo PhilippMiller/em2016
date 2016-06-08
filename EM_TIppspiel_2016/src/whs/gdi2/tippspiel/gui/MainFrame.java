@@ -316,7 +316,8 @@ public class MainFrame extends JFrame {
 				
 				try {
 					RankingHelper.calculateRanking(Main.mainConnection);
-					JOptionPane.showMessageDialog(classContext, "Ranking erfolgreich berechnet.");				
+					JOptionPane.showMessageDialog(classContext, "Ranking erfolgreich berechnet.");
+					reload();
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(classContext, "Ranking konnte nicht berechnet werden.\nFehler: " + e.getMessage());
 				}
