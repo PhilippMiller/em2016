@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -57,6 +58,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 	private JTextField textField_9;
 	private JTextField textField_10;
 	private JTextField textField_11;
+	private JRadioButton rdbtnGelaufeneSpieleOhne;
+	private JRadioButton rdbtnErfassteSpieleBearbeiten;
 
 	/**
 	 * Create the dialog.
@@ -82,7 +85,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 
 		ButtonGroup rdbtGroup = new ButtonGroup();
 
-		JRadioButton rdbtnGelaufeneSpieleOhne = new JRadioButton("Gelaufene Spiele ohne Ergebnis eintragen");
+		rdbtnGelaufeneSpieleOhne = new JRadioButton("Gelaufene Spiele ohne Ergebnis eintragen");
 		rdbtnGelaufeneSpieleOhne.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (rdbtnGelaufeneSpieleOhne.isSelected())
@@ -94,7 +97,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		panel_1.add(rdbtnGelaufeneSpieleOhne);
 		rdbtGroup.add(rdbtnGelaufeneSpieleOhne);
 
-		JRadioButton rdbtnErfassteSpieleBearbeiten = new JRadioButton("Erfasste Spiele bearbeiten");
+		rdbtnErfassteSpieleBearbeiten = new JRadioButton("Erfasste Spiele bearbeiten");
 		rdbtnErfassteSpieleBearbeiten.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (rdbtnErfassteSpieleBearbeiten.isSelected())
@@ -313,7 +316,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		reload();
 	}
 	
-	private void selectTheRightList(Boolean ohneErgebnis) {
+	private boolean selectTheRightList(Boolean ohneErgebnis) {
 		/// the sql strings :D
 		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL AND datumuhrzeit < DATE_SUB(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit";
 		String sqlright ="SELECT * FROM spiele WHERE spielbezeichnung NOT LIKE '%Gruppe%' AND heimmannschafthz IS NOT NULL ORDER BY datumuhrzeit";
@@ -328,16 +331,23 @@ public class ErgebnisEingabeFrame extends JDialog {
 				rs = stmt.executeQuery(sqlleft);
 			} else {
 				rs = stmt.executeQuery(sqlright);
-				
+				if (rs == null) {
+					rdbtnGelaufeneSpieleOhne.setSelected(true);
+					return false;
+				}
 			}
 			
-			while(rs.next()) {
-				
+			if (rs != null) {
+				while(rs.next()) {
+					
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Kein Spiel bedarf einer Eingabe.", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
+		} catch(Exception e) {
+			return false;
 		}
-		catch(Exception e) {
-			
-		}
+		return true;
 	}
 	
 	public void reload() {
