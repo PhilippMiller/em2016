@@ -17,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.AbstractButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -63,6 +64,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 	protected JRadioButton rdbtnErfassteSpieleBearbeiten;
 	private JComboBox<Match> comboBox;
 	private JButton button;
+	private JCheckBox checkBox_1;
+	protected JCheckBox checkBox;
 
 	/**
 	 * Create the dialog.
@@ -493,6 +496,19 @@ public class ErgebnisEingabeFrame extends JDialog {
 		
 		textField_10.setText(selectedMatch.getRedCardsHome() + "");
 		textField_11.setText(selectedMatch.getRedCardsGuest() + "");
+		textField.setEnabled(true);
+		textField_1.setEnabled(true);
+		textField_2.setEnabled(true);
+		textField_3.setEnabled(true);
+		textField_4.setEnabled(true);
+		textField_5.setEnabled(true);
+		textField_7.setEnabled(true);
+		textField_8.setEnabled(true);
+		textField_9.setEnabled(true);
+		textField_10.setEnabled(true);
+		textField_11.setEnabled(true);
+		checkBox.setEnabled(true);
+		checkBox_1.setEnabled(true);
 	}
 	
 	public void clear() {
