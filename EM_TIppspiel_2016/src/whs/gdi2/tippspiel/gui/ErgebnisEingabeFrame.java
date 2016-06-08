@@ -392,12 +392,13 @@ public class ErgebnisEingabeFrame extends JDialog {
 								+ textField_11.getText()
 								+ " WHERE  spieleid=" + currentMatch.getGameId();
 						stmt.executeUpdate(sql);
-						
+						JOptionPane.showMessageDialog(null, "Ergebnis erfolgreich gespeichert.", "Information", JOptionPane.INFORMATION_MESSAGE);
 						reload();
 					} catch(NumberFormatException ex) {
 						JOptionPane.showMessageDialog(null, "Bitte nur Zahlen eingeben!", "Error", JOptionPane.ERROR_MESSAGE);
-						Log.error("Insert wrong data value! [@ErgebnisEingabe->saveData] Error: " + ex.getMessage());
+						Log.error("Insert wrong data value! [@ErgebnisEingabe_save] Error: " + ex.getMessage());
 					} catch(SQLException e) {
+						JOptionPane.showMessageDialog(null, "Beim Eintragen ist ein Fehler aufgetreten.\nBitte versuchen sie es später erneut.", "Error", JOptionPane.ERROR_MESSAGE);
 						Log.mysqlError("An error occured. [@ErgebnisEingabe_save] Error: " + e.getMessage());
 					}
 				}
