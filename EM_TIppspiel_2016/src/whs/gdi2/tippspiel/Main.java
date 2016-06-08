@@ -160,10 +160,10 @@ public class Main {
 				
 				if(!connectionObject.connectToDatabase()) {
 					int selectedOption = JOptionPane.showConfirmDialog(null, "Datenbank '" + connectionObject.getDatabase() + "' existiert nicht auf dem Testserver.\n" 
-							+ "Möchten Sie diese anlegen und das Verwaltungstool öffnen?\n","Datenbank anlegen?", JOptionPane.YES_NO_OPTION);
+							+ "Möchten Sie diese anlegen?","Datenbank anlegen?", JOptionPane.YES_NO_OPTION);
 					if (selectedOption == JOptionPane.YES_OPTION) {
 						DatabaseManagement.createDB(connectionObject);
-
+						JOptionPane.showMessageDialog(null, "Bitte öffnen sie anschliessend die Datenbank Verwaltung.", "Information", JOptionPane.INFORMATION_MESSAGE);
 						Log.error("Create Database");
 					}
 					else {
