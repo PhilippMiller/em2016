@@ -537,7 +537,6 @@ public class ErgebnisEingabeFrame extends JDialog {
 		textField_1.setEnabled(true);
 		textField_2.setEnabled(true);
 		textField_3.setEnabled(true);
-		textField_4.setEnabled(true);
 		textField_8.setEnabled(true);
 		textField_9.setEnabled(true);
 		textField_10.setEnabled(true);
