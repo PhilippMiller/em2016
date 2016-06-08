@@ -80,7 +80,7 @@ public class MainFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPane_1;
 	private JMenuItem mntmRankingBerechnen;
-	private JMenuItem menuItem_1;
+	private JMenuItem mntmErgebnisEingabe;
 
 	public MainFrame(boolean showDBSettings) {
 		classContext = this;
@@ -128,7 +128,7 @@ public class MainFrame extends JFrame {
 		mntmEm.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnSpielplan.add(mntmEm);
 
-		mntmErgebnisseEingeben = new JMenuItem("Ergebnis Eingabe");
+		mntmErgebnisseEingeben = new JMenuItem("Spielpaarungen aktualisieren");
 		mntmErgebnisseEingeben.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnMen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 
@@ -161,10 +161,10 @@ public class MainFrame extends JFrame {
 		mnMen.add(separator_1);
 		mnMen.add(mntmErgebnisseEingeben);
 		
-		menuItem_1 = new JMenuItem("Ergebnis Eingabe (neu)");
+		mntmErgebnisEingabe = new JMenuItem("Ergebnis Eingabe");
 
-		menuItem_1.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-		mnMen.add(menuItem_1);
+		mntmErgebnisEingabe.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnMen.add(mntmErgebnisEingabe);
 		
 		mntmRankingBerechnen = new JMenuItem("Ranking berechnen");
 		mntmRankingBerechnen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
@@ -296,7 +296,7 @@ public class MainFrame extends JFrame {
 				reload();
 			}
 		});
-		menuItem_1.addActionListener(new ActionListener() {
+		mntmErgebnisEingabe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				ErgebnisEingabeFrame ergebnisFrame = new ErgebnisEingabeFrame(classContext);
@@ -306,6 +306,19 @@ public class MainFrame extends JFrame {
 				Log.info("Menue item 'Ergebnis Eingabe' clicked.");
 			}
 		});
+		
+
+		mntmErgebnisseEingeben.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				KOEditorFrame koeditor = new KOEditorFrame(classContext);
+				koeditor.setVisible(true);
+				koeditor.setModal(true);
+
+				Log.info("Menue item 'Spielpaarungen aktualisieren' clicked.");
+			}
+		});
+		
 		mntmEm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SpielplanFrame spielplanFrame = new SpielplanFrame(classContext);
