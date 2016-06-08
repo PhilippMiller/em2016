@@ -9,6 +9,7 @@ import whs.gdi2.tippspiel.database.DatabaseManagement;
 import whs.gdi2.tippspiel.database.models.KnockOutStageCalculator;
 import whs.gdi2.tippspiel.database.models.TableRankingObject;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -16,25 +17,12 @@ import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JDialog;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ScrollPaneConstants;
 
 public class GruppenRankingEM2016Frame extends JDialog {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	
 	private JScrollPane scrollPane_grpA;
 	private JLabel lblGruppeA;
@@ -66,7 +54,13 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SpielplanEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 737, 765);
+		setSize(737, 765);
+
+		Dimension windowSize = this.getSize();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2);
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
