@@ -345,6 +345,22 @@ public class ErgebnisEingabeFrame extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if(currentMatch != null) {
 					try {
+						
+						Integer.parseInt(textField.getText());
+						Integer.parseInt(textField_1.getText());
+						Integer.parseInt(textField_2.getText());
+						Integer.parseInt(textField_3.getText());
+						
+						if (checkBox.isSelected()) Integer.parseInt(textField_4.getText());
+						if (checkBox.isSelected()) Integer.parseInt(textField_5.getText());
+						if (checkBox_1.isSelected()) Integer.parseInt(textField_6.getText());
+						if (checkBox_1.isSelected()) Integer.parseInt(textField_7.getText());
+						
+						Integer.parseInt(textField_8.getText());
+						Integer.parseInt(textField_9.getText());
+						Integer.parseInt(textField_10.getText());
+						Integer.parseInt(textField_11.getText());
+						
 						Statement stmt = Main.mainConnection.getConnection().createStatement();
 						
 						String sql = "UPDATE spiele SET heimmannschafthz="
@@ -355,13 +371,13 @@ public class ErgebnisEingabeFrame extends JDialog {
 									+ textField_2.getText()
 									+ ", gastmannschaftende="
 									+ textField_3.getText();
-						if (currentMatch.isExtension()) {
+						if (checkBox.isSelected()) {
 							sql += ", verlaengerung=1"
 									+ ", heimmannschaftverl="
 									+ textField_4.getText()
 									+ ", gastmannschaftverl="
 									+ textField_5.getText();
-							if (currentMatch.isPenalty()) {
+							if (checkBox_1.isSelected()) {
 								sql += ", elfmeter=1"
 										+ ", heimmannschaftelf="
 										+ textField_6.getText()
@@ -380,9 +396,13 @@ public class ErgebnisEingabeFrame extends JDialog {
 								+ textField_11.getText()
 								+ " WHERE  spieleid=" + currentMatch.getGameId();
 						stmt.executeUpdate(sql);
-						
+						JOptionPane.showMessageDialog(null, "Ergebnis erfolgreich gespeichert.", "Information", JOptionPane.INFORMATION_MESSAGE);
 						reload();
+					} catch(NumberFormatException ex) {
+						JOptionPane.showMessageDialog(null, "Bitte nur Zahlen eingeben!", "Error", JOptionPane.ERROR_MESSAGE);
+						Log.error("Insert wrong data value! [@ErgebnisEingabe_save] Error: " + ex.getMessage());
 					} catch(SQLException e) {
+						JOptionPane.showMessageDialog(null, "Beim Eintragen ist ein Fehler aufgetreten.\nBitte versuchen sie es später erneut.", "Error", JOptionPane.ERROR_MESSAGE);
 						Log.mysqlError("An error occured. [@ErgebnisEingabe_save] Error: " + e.getMessage());
 					}
 				}
@@ -399,7 +419,6 @@ public class ErgebnisEingabeFrame extends JDialog {
 				try {
 					setFields(currentMatch);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				Log.debug("Selected game ID: " + currentMatch.getGameId());
