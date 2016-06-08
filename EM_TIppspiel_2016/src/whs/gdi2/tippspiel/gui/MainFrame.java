@@ -52,14 +52,12 @@ public class MainFrame extends JFrame {
 	private JMenuItem mntmEm;
 	private JMenu mnErgebnisse;
 	private JMenuItem menuItem;
-	private JMenuItem menuItem_1;
 	private JMenu mnSpielerranking;
 	private JMenu mnEm;
 	private JMenuItem mntmSpielerRanking;
 	private JMenuItem mntmGruppenRanking;
 	private JTable tableTopTenBetters;
 	private JTable tableNextGames;
-	private JMenu mnBundesliga;
 	private JMenuItem mntmSchlieen;
 	private JMenu mnEinstellungen;
 	private JMenuItem mntmDbEinstellungen;
@@ -72,7 +70,6 @@ public class MainFrame extends JFrame {
 	private JLabel lblTop;
 	private JLabel lblDieNchsten;
 	private JButton btnAktualisieren;
-	private JMenuItem mntmBundesliga;
 	private JMenuItem mntmErgebnisseEingeben;
 	private JMenu mnMen;
 	private JSeparator separator_1;
@@ -129,11 +126,6 @@ public class MainFrame extends JFrame {
 		mntmEm.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnSpielplan.add(mntmEm);
 
-		mntmBundesliga = new JMenuItem("Bundesliga 16/17");
-		mntmBundesliga.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
-		mntmBundesliga.setEnabled(false);
-		mnSpielplan.add(mntmBundesliga);
-
 		mntmErgebnisseEingeben = new JMenuItem("Ergebnis Eingabe");
 		mntmErgebnisseEingeben.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		mnMen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
@@ -145,11 +137,6 @@ public class MainFrame extends JFrame {
 		menuItem = new JMenuItem("EM 2016");
 		menuItem.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnErgebnisse.add(menuItem);
-
-		menuItem_1 = new JMenuItem("Bundesliga 16/17");
-		menuItem_1.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-		menuItem_1.setEnabled(false);
-		mnErgebnisse.add(menuItem_1);
 
 		mnSpielerranking = new JMenu("Ranking");
 		mnSpielerranking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
@@ -167,11 +154,6 @@ public class MainFrame extends JFrame {
 		mntmGruppenRanking = new JMenuItem("Gruppen Ranking");
 		mntmGruppenRanking.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		mnEm.add(mntmGruppenRanking);
-
-		mnBundesliga = new JMenu("Bundesliga 16 / 17");
-		mnBundesliga.setEnabled(false);
-		mnBundesliga.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-		mnSpielerranking.add(mnBundesliga);
 
 		separator_1 = new JSeparator();
 		mnMen.add(separator_1);
