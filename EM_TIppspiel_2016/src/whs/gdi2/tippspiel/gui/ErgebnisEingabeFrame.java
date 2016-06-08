@@ -59,8 +59,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 	private JTextField textField_9;
 	private JTextField textField_10;
 	private JTextField textField_11;
-	private JRadioButton rdbtnGelaufeneSpieleOhne;
-	private JRadioButton rdbtnErfassteSpieleBearbeiten;
+	protected JRadioButton rdbtnGelaufeneSpieleOhne;
+	protected JRadioButton rdbtnErfassteSpieleBearbeiten;
 
 	/**
 	 * Create the dialog.
@@ -90,12 +90,12 @@ public class ErgebnisEingabeFrame extends JDialog {
 		JRadioButton rdbtnGelaufeneSpieleOhne = new JRadioButton("Ergebnisse eintragen");
 		rdbtnGelaufeneSpieleOhne.setBackground(Config.getGuiColor());
 		
-		JRadioButton rdbtnGelaufeneSpieleOhne = new JRadioButton("Ergebnisse eintragen");
+		rdbtnGelaufeneSpieleOhne = new JRadioButton("Ergebnisse eintragen");
 		rdbtnGelaufeneSpieleOhne.setBackground(Config.getGuiColor());
 		
 		rdbtnGelaufeneSpieleOhne.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				if (rdbtnGelaufeneSpieleOhne.isSelected())
+				if (ErgebnisEingabeFrame.this.rdbtnGelaufeneSpieleOhne.isSelected())
 					selectTheRightList(true);
 			}
 		});
@@ -383,7 +383,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 						if (!rs.getString("spielbezeichnung").contains("Gruppe")) {
 							match.setExtension(rs.getBoolean("verlaengerung"));
 							if (match.isExtension()) {
-								match.setHomeExtendEnd(rs.getInt(columnLabel));
+								//match.setHomeExtendEnd(rs.getInt(""));
 							}
 							match.setElevenmeters(rs.getBoolean("elfmeter"));
 						}
