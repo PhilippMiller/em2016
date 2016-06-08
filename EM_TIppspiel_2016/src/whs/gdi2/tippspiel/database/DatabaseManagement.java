@@ -453,7 +453,6 @@ public class DatabaseManagement {
 	}
 
 	public static DefaultTableModel getGamesWithInfoData() {
-
 		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
 		DefaultTableModel dtm = new DefaultTableModel(col, 0);
 		int i = 0;
