@@ -550,7 +550,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 	public void clear() {
 		currentMatch = null;
 		
-		lblGametimelabel.setText("");
+		lblGametimelabel.setText(" ");
 		textField.setText("0");
 		textField_1.setText("0");
 		textField_2.setText("0");
