@@ -57,6 +57,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 	private JTextField textField_9;
 	private JTextField textField_10;
 	private JTextField textField_11;
+	private List<Match> matchright;
+	private List<Match> matchleft;
 
 	/**
 	 * Create the dialog.
@@ -318,8 +320,9 @@ public class ErgebnisEingabeFrame extends JDialog {
 		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL AND datumuhrzeit < DATE_SUB(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit";
 		String sqlright ="SELECT * FROM spiele WHERE spielbezeichnung NOT LIKE '%Gruppe%' AND heimmannschafthz IS NOT NULL ORDER BY datumuhrzeit";
 
-		List<Match> matchright = new ArrayList<Match>();
-		List<Match> matchleft = new ArrayList<Match>();
+		matchright = new ArrayList<Match>();
+		matchleft = new ArrayList<Match>();
+		
 		try {
 			Statement stmt = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs;
