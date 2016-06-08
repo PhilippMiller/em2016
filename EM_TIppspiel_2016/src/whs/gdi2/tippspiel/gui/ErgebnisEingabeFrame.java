@@ -498,34 +498,46 @@ public class ErgebnisEingabeFrame extends JDialog {
 		SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
 		lblGametimelabel.setText(sdf_date.format(selectedMatch.getGameDate()) + " " + sdf_time.format(selectedMatch.getGameTime()));
 
-		textField_1.setText(selectedMatch.getHomeTeamHt() + "");
-		textField_2.setText(selectedMatch.getGuestTeamHt() + "");
-		textField_3.setText(selectedMatch.getHomeTeamEnd() + "");
-		textField_4.setText(selectedMatch.getGuestTeamEnd() + "");
+		textField.setText(selectedMatch.getHomeTeamHt() + "");
+		textField_1.setText(selectedMatch.getGuestTeamHt() + "");
+		textField_2.setText(selectedMatch.getHomeTeamEnd() + "");
+		textField_3.setText(selectedMatch.getGuestTeamEnd() + "");
+		
 		if (selectedMatch.isExtension()) {
-			textField_5.setText(selectedMatch.getHomeExtendEnd() + "");
-			textField_6.setText(selectedMatch.getGuestExtendEnd() + "");
+			textField_4.setText(selectedMatch.getHomeExtendEnd() + "");
+			textField_5.setText(selectedMatch.getGuestExtendEnd() + "");
+			textField_4.setEnabled(true);
+			textField_5.setEnabled(true);
+		}
+		else {
+			textField_4.setEnabled(false);
+			textField_5.setEnabled(false);
 		}
 		if (selectedMatch.isPenalty()) {
-			textField_5.setText(selectedMatch.getHomePenaltyEnd() + "");
-			textField_6.setText(selectedMatch.getGuestPenaltyEnd() + "");
+			textField_6.setText(selectedMatch.getHomePenaltyEnd() + "");
+			textField_7.setText(selectedMatch.getGuestPenaltyEnd() + "");
+			textField_6.setEnabled(true);
+			textField_7.setEnabled(true);
+		}
+		else {
+			textField_6.setEnabled(false);
+			textField_7.setEnabled(false);
 		}
 
 		checkBox_1.setSelected(selectedMatch.isPenalty());
 		checkBox.setSelected(selectedMatch.isExtension());
 
-		textField_9.setText(selectedMatch.getYellowCardsHome() + "");
+		textField_8.setText(selectedMatch.getYellowCardsHome() + "");
 		textField_9.setText(selectedMatch.getYellowCardsGuest() + "");
 		
 		textField_10.setText(selectedMatch.getRedCardsHome() + "");
 		textField_11.setText(selectedMatch.getRedCardsGuest() + "");
+		
 		textField.setEnabled(true);
 		textField_1.setEnabled(true);
 		textField_2.setEnabled(true);
 		textField_3.setEnabled(true);
 		textField_4.setEnabled(true);
-		textField_5.setEnabled(true);
-		textField_7.setEnabled(true);
 		textField_8.setEnabled(true);
 		textField_9.setEnabled(true);
 		textField_10.setEnabled(true);
