@@ -471,10 +471,18 @@ public class ErgebnisEingabeFrame extends JDialog {
 		textField_10.setText("0");
 		textField_11.setText("0");
 		
+		textField.setEnabled(false);
+		textField_1.setEnabled(false);
+		textField_2.setEnabled(false);
+		textField_3.setEnabled(false);
 		textField_4.setEnabled(false);
 		textField_5.setEnabled(false);
 		textField_6.setEnabled(false);
 		textField_7.setEnabled(false);
+		textField_8.setEnabled(false);
+		textField_9.setEnabled(false);
+		textField_10.setEnabled(false);
+		textField_11.setEnabled(false);
 		checkBox.setSelected(false);
 		checkBox.setEnabled(false);
 		checkBox_1.setSelected(false);
