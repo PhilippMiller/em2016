@@ -388,9 +388,13 @@ public class MainFrame extends JFrame {
 		
 		ActionListener databaseSwitcher = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean dbtype = false;	
+				if(rdbtnmntmLiveDatenbank.isSelected()) {
+					dbtype = true;
+				}
 				try {
 					Log.info("Action [" + e.getActionCommand() + "] performed!");
-					if(Main.switchDatabaseConnection(!Config.isDBType())) {
+					if(Main.switchDatabaseConnection(dbtype)) {
 						JOptionPane.showMessageDialog(classContext, "Datenbankverbindung erfolgreich geändert.", "Datenbank Switcher", JOptionPane.PLAIN_MESSAGE);
 					}
 					else {
