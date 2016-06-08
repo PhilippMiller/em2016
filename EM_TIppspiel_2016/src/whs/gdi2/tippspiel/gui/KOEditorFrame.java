@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JDialog;
@@ -16,17 +17,24 @@ import javax.swing.JPanel;
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.models.Match;
+import whs.gdi2.tippspiel.log.Log;
+
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class KOEditorFrame extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JComboBox<Match> comboBox;
+	private JLabel lblGameid;
+	private JLabel lblTime;
+	protected Match currentMatch;
 
 	/**
 	 * Create the dialog.
@@ -77,11 +85,11 @@ public class KOEditorFrame extends JDialog {
 		panel_2.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel lblGameid = new JLabel("GameID:");
+		lblGameid = new JLabel("GameID:");
 		lblGameid.setBounds(10, 42, 100, 14);
 		panel_2.add(lblGameid);
 		
-		JLabel lblTime = new JLabel("");
+		lblTime = new JLabel("");
 		lblTime.setBounds(230, 39, 46, 14);
 		panel_2.add(lblTime);
 		
@@ -89,6 +97,30 @@ public class KOEditorFrame extends JDialog {
 		panel.add(btnSpeichern, BorderLayout.SOUTH);
 		
 		
+		/*
+		 *  LISTER
+		 */
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentMatch = (Match) comboBox.getSelectedItem();
+				try {
+					setFields(currentMatch);
+				} catch (Exception ex) {
+					Log.error("An error occured. [@KOEditor_selectMatch] Error: " + ex.getMessage());
+				}
+				Log.debug("Selected game ID: " + currentMatch.getGameId());
+			}
+		});
+		
+	}
+	
+	public void setFields(Match currentMatch) {
+		lblGameid.setText(lblGameid.getText() + currentMatch.getGameId());
+		SimpleDateFormat sdf_date = new SimpleDateFormat("dd.MM.YYYY");
+		SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
+		lblTime.setText(sdf_date.format(currentMatch.getGameDate()) + " " + sdf_time.format(currentMatch.getGameTime()));
+		textField.setText(currentMatch.getHometeam());
+		textField_1.setText(currentMatch.getGuestteam());
 	}
 
 	public List<Match> getKnockOutGames() {
@@ -141,6 +173,8 @@ public class KOEditorFrame extends JDialog {
 	public void clear() {
 		textField.setText("");
 		textField_1.setText("");
+		lblGameid.setText("GameID: ");
+		lblTime.setText("");
 	}
 
 }
