@@ -344,12 +344,11 @@ public class ErgebnisEingabeFrame extends JDialog {
 		reload();
 	}
 	
-	private boolean selectTheRightList(Boolean ohneErgebnis) {
-		/// the sql strings :D
+	private List selectTheRightList(Boolean ohneErgebnis) {
 		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL AND datumuhrzeit < DATE_SUB(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit";
 		String sqlright ="SELECT * FROM spiele WHERE spielbezeichnung NOT LIKE '%Gruppe%' AND heimmannschafthz IS NOT NULL ORDER BY datumuhrzeit";
 
-		List<Match> matches = new ArrayList<Match>();
+		List<Match> matches = null;
 		try {
 			Statement stmt = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs;
@@ -360,11 +359,12 @@ public class ErgebnisEingabeFrame extends JDialog {
 				rs = stmt.executeQuery(sqlright);
 				if (rs == null) {
 					rdbtnGelaufeneSpieleOhne.setSelected(true);
-					return false;
+					return null;
 				}
 			}
 			
 			if (rs != null) {
+				matches = new ArrayList<Match>();
 				while(rs.next()) {
 					Match match = new Match();
 					match.setGameId(rs.getInt("spieleid"));
@@ -398,10 +398,11 @@ public class ErgebnisEingabeFrame extends JDialog {
 			} else {
 				JOptionPane.showMessageDialog(null, "Kein Spiel bedarf einer Eingabe.", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
+			
+			return matches;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
-		return true;
 	}
 	
 	public void reload() {
