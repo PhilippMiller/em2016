@@ -363,13 +363,13 @@ public class ErgebnisEingabeFrame extends JDialog {
 			}
 		});
 		
-		rdbtnGelaufeneSpieleOhne.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
+		rdbtnGelaufeneSpieleOhne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				ErgebnisEingabeFrame.this.reload();
 			}
 		});
-		rdbtnErfassteSpieleBearbeiten.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
+		rdbtnErfassteSpieleBearbeiten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				ErgebnisEingabeFrame.this.reload();
 			}
 		});
