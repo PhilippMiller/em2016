@@ -292,7 +292,7 @@ public class MainFrame extends JFrame {
 		
 		mntmEm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SpielplanEM2016Frame spielplanFrame = new SpielplanEM2016Frame(classContext);
+				SpielplanFrame spielplanFrame = new SpielplanFrame(classContext);
 				spielplanFrame.setVisible(true);
 				spielplanFrame.setModal(true);
 				Log.info("Menue item 'EM 2016' clicked.");
@@ -327,7 +327,7 @@ public class MainFrame extends JFrame {
 		
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ErgebnisseEM2016Frame ergebnisseFrame = new ErgebnisseEM2016Frame(classContext);
+				ErgebnisAnzeigeFrame ergebnisseFrame = new ErgebnisAnzeigeFrame(classContext);
 				ergebnisseFrame.setVisible(true);
 				ergebnisseFrame.setModal(true);
 				Log.info("Menue item 'Ergebnisse > EM2016' clicked.");
@@ -336,7 +336,7 @@ public class MainFrame extends JFrame {
 		
 		mntmSpielerRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SpielerRankingEM2016Frame srkemframe = new SpielerRankingEM2016Frame(classContext);
+				SpielerRankingFrame srkemframe = new SpielerRankingFrame(classContext);
 				srkemframe.setVisible(true);
 				srkemframe.setModal(true);
 				Log.info("Menue item 'Ranking > EM2016 > Spieler Ranking' clicked.");
@@ -345,7 +345,7 @@ public class MainFrame extends JFrame {
 		
 		mntmGruppenRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GruppenRankingEM2016Frame grura = new GruppenRankingEM2016Frame(classContext);
+				GruppenRankingFrame grura = new GruppenRankingFrame(classContext);
 				grura.setVisible(true);
 				grura.setModal(true);
 				Log.info("Menue item 'Ranking > EM2016 > Gruppen Ranking' clicked.");

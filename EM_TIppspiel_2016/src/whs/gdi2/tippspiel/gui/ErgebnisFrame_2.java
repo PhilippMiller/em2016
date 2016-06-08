@@ -62,7 +62,7 @@ public class ErgebnisFrame_2 extends JDialog {
 		setType(Type.NORMAL);
 		setTitle("Tippspiel Admin - Tool | Ergebnis - Ansicht");
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(SpielplanEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
+				.getImage(SpielplanFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 470);

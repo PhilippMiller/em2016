@@ -1,5 +1,7 @@
 package whs.gdi2.tippspiel.gui;
 
+import java.awt.EventQueue;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,22 +16,44 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 
-public class ErgebnisseEM2016Frame extends JDialog {
+public class SpielplanFrame extends JDialog {
 
 	private JPanel contentPane;
 	private JTable table;
 
-	public ErgebnisseEM2016Frame(JFrame parent) {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SpielplanFrame frame = new SpielplanFrame(new MainFrame(false));
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public SpielplanFrame(JFrame parent) {
 		super(parent);
+		
 		setModal(true);
+		setResizable(false);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
-		setTitle("Tippspiel Admin - Tool | Ergebnisse EM2016");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ErgebnisseEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
+		setTitle("Tippspiel Admin - Tool | Spielplan EM2016");
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SpielplanFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1024, 450);
-		setResizable(false);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(Config.getGuiColor());
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,7 +66,7 @@ public class ErgebnisseEM2016Frame extends JDialog {
 		table = new JTable();
 		table.setShowGrid(false);
 		table.setFont(new Font(Config.getFont(), Font.PLAIN, 13));
-		table.setModel(DatabaseManagement.implementMatchScheduleWithScores());	
+		table.setModel(DatabaseManagement.implementMatchSchedule());	
 		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
 	}

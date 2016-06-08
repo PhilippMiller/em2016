@@ -28,7 +28,7 @@ import java.awt.FlowLayout;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class SpielerRankingEM2016Frame extends JDialog {
+public class SpielerRankingFrame extends JDialog {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -48,7 +48,7 @@ public class SpielerRankingEM2016Frame extends JDialog {
 	private JLabel lblTipperRanglisteStand;
 	private JLabel lblDatum;
 
-	public SpielerRankingEM2016Frame(JFrame parent) {
+	public SpielerRankingFrame(JFrame parent) {
 
 		super(parent);
 		setResizable(false);
@@ -57,7 +57,7 @@ public class SpielerRankingEM2016Frame extends JDialog {
 		setType(Type.NORMAL);
 		setTitle("Tippspiel Admin - Tool | EM2016 Spieler - Ranking");
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(SpielplanEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
+				.getImage(SpielplanFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 470);

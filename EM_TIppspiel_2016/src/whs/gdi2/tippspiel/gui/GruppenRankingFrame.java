@@ -20,7 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.ScrollPaneConstants;
 
-public class GruppenRankingEM2016Frame extends JDialog {
+public class GruppenRankingFrame extends JDialog {
 
 	private JPanel contentPane;
 	
@@ -43,7 +43,7 @@ public class GruppenRankingEM2016Frame extends JDialog {
 	private JLabel lblGruppeF;
 	private JTable table_F;
 
-	public GruppenRankingEM2016Frame(JFrame parent) {
+	public GruppenRankingFrame(JFrame parent) {
 
 		super(parent);
 		setResizable(false);
@@ -51,7 +51,7 @@ public class GruppenRankingEM2016Frame extends JDialog {
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
 		setTitle("Tippspiel Admin - Tool | EM2016 Spieler - Ranking");
-		setIconImage(Toolkit.getDefaultToolkit().getImage(SpielplanEM2016Frame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SpielplanFrame.class.getResource("/whs/gdi2/tippspiel/data/em_Logo.png")));
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(737, 765);

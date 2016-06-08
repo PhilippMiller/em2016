@@ -580,8 +580,6 @@ public class DatabaseManagement {
 		}
 	}
 
-	// ACHTUNG, NUR DIE PROVISORISCHE METHODE, MUSS NOCH KORREKT ANGELEGT
-	// WERDEN, PLATZHALTER!!!
 	public static DefaultTableModel playerRanking()  {
 
 		String col[] = { "Platz", "Nickname", "Punkte", "Tipprunde" };
