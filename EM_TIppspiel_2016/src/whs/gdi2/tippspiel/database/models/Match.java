@@ -15,7 +15,7 @@ public class Match {
 	private Date gameTimeAndDate;
 	private boolean extension;
 	private int guestExtendEnd, homeExtendEnd;
-	private boolean elevenmeters;
+	private boolean penalty;
 	private int homeElevenEnd, guestElevenEnd;
 
 	public Match() {
@@ -158,12 +158,12 @@ public class Match {
 		this.extension = extension;
 	}
 
-	public boolean isElevenmeters() {
-		return elevenmeters;
+	public boolean isPenalty() {
+		return penalty;
 	}
 
-	public void setElevenmeters(boolean elevenmeters) {
-		this.elevenmeters = elevenmeters;
+	public void setPenalty(boolean elevenmeters) {
+		this.penalty = elevenmeters;
 	}
 
 	public List<Team> getTeam() {

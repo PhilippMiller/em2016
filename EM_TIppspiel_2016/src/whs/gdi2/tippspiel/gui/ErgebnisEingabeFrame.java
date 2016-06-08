@@ -383,9 +383,10 @@ public class ErgebnisEingabeFrame extends JDialog {
 						if (!rs.getString("spielbezeichnung").contains("Gruppe")) {
 							match.setExtension(rs.getBoolean("verlaengerung"));
 							if (match.isExtension()) {
-								//match.setHomeExtendEnd(rs.getInt(""));
+								match.setHomeExtendEnd(rs.getInt("heimmannschaftverl"));
+								match.setGuestExtendEnd(rs.getInt("gastmannschaftverl"));
 							}
-							match.setElevenmeters(rs.getBoolean("elfmeter"));
+							match.setPenalty(rs.getBoolean("elfmeter"));
 						}
 					}
 					matches.add(match);
