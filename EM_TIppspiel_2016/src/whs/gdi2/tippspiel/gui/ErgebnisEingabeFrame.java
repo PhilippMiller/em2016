@@ -210,7 +210,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		label_5.setBounds(50, 97, 184, 23);
 		contentPanelCenter.add(label_5);
 
-		JCheckBox checkBox = new JCheckBox("");
+		checkBox = new JCheckBox("");
 		checkBox.setEnabled(true);
 		checkBox.setBackground(Color.WHITE);
 		checkBox.setBounds(240, 100, 21, 23);
@@ -260,7 +260,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		label_8.setBounds(146, 199, 158, 14);
 		contentPanelCenter.add(label_8);
 
-		JCheckBox checkBox_1 = new JCheckBox("");
+		checkBox_1 = new JCheckBox("");
 		checkBox_1.setEnabled(false);
 		checkBox_1.setBackground(Color.WHITE);
 		checkBox_1.setBounds(240, 165, 21, 23);
@@ -352,15 +352,16 @@ public class ErgebnisEingabeFrame extends JDialog {
 		checkBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBox.isSelected()) {
-					textField_4.setVisible(true);
 					textField_4.setEnabled(true);
-					textField_5.setVisible(true);
 					textField_5.setEnabled(true);
+					checkBox_1.setEnabled(true);
 				} else {
-					textField_4.setVisible(false);
 					textField_4.setEnabled(false);
-					textField_5.setVisible(false);
 					textField_5.setEnabled(false);
+					textField_6.setEnabled(false);
+					textField_7.setEnabled(false);
+					checkBox_1.setSelected(false);
+					checkBox_1.setEnabled(false);
 				}
 			}
 		});
@@ -369,23 +370,10 @@ public class ErgebnisEingabeFrame extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (checkBox_1.isSelected()) {
 					checkBox.setSelected(true);
-					textField_4.setVisible(true);
-					textField_4.setEnabled(true);
-					textField_5.setVisible(true);
-					textField_5.setEnabled(true);
-					textField_6.setVisible(true);
 					textField_6.setEnabled(true);
-					textField_7.setVisible(true);
 					textField_7.setEnabled(true);
 				} else {
-					checkBox.setSelected(false);
-					textField_4.setVisible(false);
-					textField_4.setEnabled(false);
-					textField_5.setVisible(false);
-					textField_5.setEnabled(false);
-					textField_6.setVisible(false);
 					textField_6.setEnabled(false);
-					textField_7.setVisible(false);
 					textField_7.setEnabled(false);
 				}
 			}
@@ -520,5 +508,22 @@ public class ErgebnisEingabeFrame extends JDialog {
 		textField_9.setText("0");
 		textField_10.setText("0");
 		textField_11.setText("0");
+		
+		textField.setEnabled(false);
+		textField_1.setEnabled(false);
+		textField_2.setEnabled(false);
+		textField_3.setEnabled(false);
+		textField_4.setEnabled(false);
+		textField_5.setEnabled(false);
+		textField_6.setEnabled(false);
+		textField_7.setEnabled(false);
+		textField_8.setEnabled(false);
+		textField_9.setEnabled(false);
+		textField_10.setEnabled(false);
+		textField_11.setEnabled(false);
+		checkBox.setSelected(false);
+		checkBox.setEnabled(false);
+		checkBox_1.setSelected(false);
+		checkBox_1.setEnabled(false);
 	}
 }
