@@ -1,10 +1,15 @@
 package whs.gdi2.tippspiel.database.models;
 
+import java.util.List;
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Match {
 	
 	protected int gameId, homeTeamHt, guestTeamHt, homeTeamEnd, guestTeamEnd, yellowCardsHome, yellowCardsGuest, redCardsHome, redCardsGuest;
+	
+	protected List<Team> team;
+	
 	private String hometeam;
 	private String guestteam;
 	private Date gameTimeAndDate;
@@ -13,6 +18,10 @@ public class Match {
 	private boolean elevenmeters;
 	private int homeElevenEnd, guestElevenEnd;
 
+	public Match() {
+		team = new LinkedList<Team>();
+	}
+	
 	public int getGameId() {
 		return gameId;
 	}
@@ -155,6 +164,10 @@ public class Match {
 
 	public void setElevenmeters(boolean elevenmeters) {
 		this.elevenmeters = elevenmeters;
+	}
+
+	public List<Team> getTeam() {
+		return team;
 	}
 
 }
