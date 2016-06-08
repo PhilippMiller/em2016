@@ -387,6 +387,10 @@ public class ErgebnisEingabeFrame extends JDialog {
 								match.setGuestExtendEnd(rs.getInt("gastmannschaftverl"));
 							}
 							match.setPenalty(rs.getBoolean("elfmeter"));
+							if (match.isPenalty()){
+								match.setHomePenaltyEnd(rs.getInt("heimmannschaftelf"));
+								match.setGuestPenaltyEnd(rs.getInt("gastmannschaftelf"));
+							}
 						}
 					}
 					matches.add(match);

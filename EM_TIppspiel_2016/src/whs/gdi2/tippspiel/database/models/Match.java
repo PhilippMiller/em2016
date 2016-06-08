@@ -134,19 +134,19 @@ public class Match {
 		this.homeExtendEnd = homeExtendEnd;
 	}
 
-	public int getHomeElevenEnd() {
+	public int getHomePenaltyEnd() {
 		return homeElevenEnd;
 	}
 
-	public void setHomeElevenEnd(int homeElevenEnd) {
+	public void setHomePenaltyEnd(int homeElevenEnd) {
 		this.homeElevenEnd = homeElevenEnd;
 	}
 
-	public int getGuestElevenEnd() {
+	public int getGuestPenaltyEnd() {
 		return guestElevenEnd;
 	}
 
-	public void setGuestElevenEnd(int guestElevenEnd) {
+	public void setGuestPenaltyEnd(int guestElevenEnd) {
 		this.guestElevenEnd = guestElevenEnd;
 	}
 
