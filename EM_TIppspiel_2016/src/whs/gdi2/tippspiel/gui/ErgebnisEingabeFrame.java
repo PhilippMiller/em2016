@@ -41,6 +41,7 @@ import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.DatabaseManagement;
 import whs.gdi2.tippspiel.database.models.Match;
+import whs.gdi2.tippspiel.database.models.Team;
 import whs.gdi2.tippspiel.log.Log;
 
 import javax.swing.event.ChangeEvent;
@@ -321,8 +322,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL AND datumuhrzeit < DATE_SUB(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit";
 		String sqlright ="SELECT * FROM spiele WHERE spielbezeichnung NOT LIKE '%Gruppe%' AND heimmannschafthz IS NOT NULL ORDER BY datumuhrzeit";
 
-		List<Match> matchright = new ArrayList<Match>();
-		List<Match> matchleft = new ArrayList<Match>();
+		List<Match> matches = new ArrayList<Match>();
 		try {
 			Statement stmt = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs;
@@ -339,7 +339,29 @@ public class ErgebnisEingabeFrame extends JDialog {
 			
 			if (rs != null) {
 				while(rs.next()) {
-					
+					Match match = new Match();
+					match.setGameId(rs.getInt("spieleid"));
+					match.setHometeam(rs.getString("heimmannschaft"));
+					match.setGuestteam(rs.getString("gastmannschaft"));
+					match.setGameTimeAndDate(rs.getDate("datumuhrzeit"));
+					if (!ohneErgebnis){
+						match.setHomeTeamHt(rs.getInt("heimmannschafthz"));
+						match.setGuestTeamHt(rs.getInt("gastmannschafthz"));
+						match.setHomeTeamEnd(rs.getInt("heimmannschaftende"));
+						match.setGuestTeamEnd(rs.getInt("gastmannschaftende"));
+						match.setYellowCardsHome(rs.getInt("gelbekartenheim"));
+						match.setYellowCardsGuest(rs.getInt("gelbekartengast"));
+						match.setRedCardsHome(rs.getInt("rotekartenheim"));
+						match.setRedCardsGuest(rs.getInt("rotekartenheim"));
+						if (!rs.getString("spielbezeichnung").contains("Gruppe")) {
+							match.setExtension(rs.getBoolean("verlaengerung"));
+							if (match.isExtension()) {
+								match.setHomeExtendEnd(rs.getInt(columnLabel));
+							}
+							match.setElevenmeters(rs.getBoolean("elfmeter"));
+						}
+					}
+					matches.add(match);
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Kein Spiel bedarf einer Eingabe.", "Information", JOptionPane.INFORMATION_MESSAGE);

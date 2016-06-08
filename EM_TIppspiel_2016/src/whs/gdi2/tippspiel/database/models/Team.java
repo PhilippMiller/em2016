@@ -18,7 +18,7 @@ public class Team implements Comparable<Team> {
 	
 	public void playedMatch (Match match) {
 		this.match.add(match);
-		match.team.add(this);
+		match.getTeam().add(this);
 	}
 	
 	public void isPartOf (Group pf) {
