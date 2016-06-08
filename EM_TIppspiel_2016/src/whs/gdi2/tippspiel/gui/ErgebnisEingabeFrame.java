@@ -415,9 +415,25 @@ public class ErgebnisEingabeFrame extends JDialog {
 			if (comboBox.getItemCount() != 0) {
 				comboBox.removeAllItems();
 			}
+			clear();
 			for (Match item : matches) {
 				comboBox.addItem(item);
 			}
 		}
+	}
+	
+	public void clear() {
+		textField.setText("0");
+		textField_1.setText("0");
+		textField_2.setText("0");
+		textField_3.setText("0");
+		textField_4.setText("0");
+		textField_5.setText("0");
+		textField_6.setText("0");
+		textField_7.setText("0");
+		textField_8.setText("0");
+		textField_9.setText("0");
+		textField_10.setText("0");
+		textField_11.setText("0");
 	}
 }
