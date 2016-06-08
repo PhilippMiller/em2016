@@ -13,12 +13,7 @@ import whs.gdi2.tippspiel.database.models.*;
 import whs.gdi2.tippspiel.gui.SpielerRankingEM2016Frame;
 import whs.gdi2.tippspiel.log.Log;
 
-/**
- * @author Mario
- *
- */
 public class RankingHelper {
-	// not finished jet
 	 public static void calculateRanking(MySQLConnection con) throws Exception {
 		 Log.info("Start Ranking calculation");
 		 try {

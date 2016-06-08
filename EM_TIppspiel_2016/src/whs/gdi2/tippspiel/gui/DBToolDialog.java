@@ -217,7 +217,7 @@ public class DBToolDialog extends JDialog {
 
 					if (answer == JOptionPane.YES_OPTION) {
 						DatabaseManagement.importGameData(Main.mainConnection, new InputStreamReader(
-								DBToolDialog.class.getResourceAsStream("/whs/gdi2/tippspiel/data/tipps.txt")));
+								DBToolDialog.class.getResourceAsStream("/whs/gdi2/tippspiel/data/spiele_test.txt")));
 					} else {
 
 						int returnVal = fc.showOpenDialog(classContext);

@@ -103,6 +103,10 @@ public class DatabaseManagement {
 	public static boolean addTestData(MySQLConnection connection) {
 
 		try {
+			Statement  truncateStatement = connection.getConnection().createStatement();
+			truncateStatement.execute("TRUNCATE TABLE benutzer");
+			truncateStatement.execute("TRUNCATE TABLE tipps");
+			
 			Statement statement = connection.getConnection().createStatement();
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					DatabaseManagement.class.getResourceAsStream("/whs/gdi2/tippspiel/data/benutzer.txt")));
@@ -169,6 +173,9 @@ public class DatabaseManagement {
 
 	public static boolean importGameData(MySQLConnection connection, InputStreamReader importStream) {
 		try {
+			Statement  truncateStatement = connection.getConnection().createStatement();
+			truncateStatement.execute("TRUNCATE TABLE spiele");
+			
 			Statement statement = connection.getConnection().createStatement();
 			String readline = null;
 			String sql = "";
@@ -206,13 +213,12 @@ public class DatabaseManagement {
 				sql += String.join(",", str);
 				sql += ")";
 				
-				Log.debug(sql);
 				statement.executeUpdate(sql);
 				
-				return true;
 			}
 
 			Log.info("'" + Config.getTableGames() + "' inserted into database.");
+			return true;
 		}
 		catch(Exception e) {
 			Log.mysqlError(e.getMessage());
