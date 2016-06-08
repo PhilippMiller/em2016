@@ -20,19 +20,18 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
 import javax.swing.JTextField;
-import javax.swing.JSplitPane;
 
 @SuppressWarnings("serial")
 public class KOEditorFrame extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
+	private JComboBox<Match> comboBox;
 
 	/**
 	 * Create the dialog.
 	 */
-	public KOEditorFrame() {
+	public KOEditorFrame(JFrame parent) {
 		setResizable(false);
 		setFont(new Font(Config.getFont(), Font.PLAIN, 12));
 		setType(Type.NORMAL);
@@ -54,7 +53,7 @@ public class KOEditorFrame extends JDialog {
 		panel.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox<Match>();
 		panel_1.add(comboBox, BorderLayout.CENTER);
 		
 		JButton btnNewButton = new JButton("Spiel ausw\u00E4hlen");
@@ -77,6 +76,14 @@ public class KOEditorFrame extends JDialog {
 		textField_1.setBounds(230, 11, 200, 20);
 		panel_2.add(textField_1);
 		textField_1.setColumns(10);
+		
+		JLabel lblGameid = new JLabel("GameID:");
+		lblGameid.setBounds(10, 42, 100, 14);
+		panel_2.add(lblGameid);
+		
+		JLabel lblTime = new JLabel("");
+		lblTime.setBounds(230, 39, 46, 14);
+		panel_2.add(lblTime);
 		
 		JButton btnSpeichern = new JButton("Speichern");
 		panel.add(btnSpeichern, BorderLayout.SOUTH);
@@ -115,7 +122,25 @@ public class KOEditorFrame extends JDialog {
 
 		}
 		return null;
-		
+	}
+	
+	
+	public void reload() {
+		List<Match> matches = getKnockOutGames();
+		if (matches != null) {
+			if (comboBox.getItemCount() != 0) {
+				comboBox.removeAllItems();
+			}
+			clear();
+			for (Match item : matches) {
+				comboBox.addItem(item);
+			}
+		}
+	}
+	
+	public void clear() {
+		textField.setText("");
+		textField_1.setText("");
 	}
 
 }
