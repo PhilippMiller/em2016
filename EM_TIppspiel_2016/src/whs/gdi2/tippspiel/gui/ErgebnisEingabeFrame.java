@@ -61,7 +61,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 	private JTextField textField_11;
 	protected JRadioButton rdbtnGelaufeneSpieleOhne;
 	protected JRadioButton rdbtnErfassteSpieleBearbeiten;
-	private JComboBox comboBox;
+	private JComboBox<Match> comboBox;
 
 	/**
 	 * Create the dialog.
