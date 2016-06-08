@@ -409,6 +409,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 	public void reload(boolean ohneErgebnis) {
 		List<Match> matches = selectTheRightList(ohneErgebnis);
 		if (matches != null) {
+			comboBox.removeAllItems();
 			for (Match item : matches) {
 				comboBox.addItem(item);
 			}
