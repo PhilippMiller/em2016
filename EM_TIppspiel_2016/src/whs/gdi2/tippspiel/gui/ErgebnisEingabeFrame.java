@@ -340,8 +340,47 @@ public class ErgebnisEingabeFrame extends JDialog {
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(currentMatch != null) {
-					System.out.println("works");
-					reload();
+					try {
+						Statement stmt = Main.mainConnection.getConnection().createStatement();
+						
+						String sql = "UPDATE spiele SET heimmannschafthz="
+									+ textField.getText()
+									+ ", gastmannschafthz="
+									+ textField_1.getText()
+									+ ", heimmannschaftende="
+									+ textField_2.getText()
+									+ ", gastmannschaftende="
+									+ textField_3.getText();
+						if (currentMatch.isExtension()) {
+							sql += ", verlaengerung=1"
+									+ ", heimmannschaftverl="
+									+ textField_4.getText()
+									+ ", gastmannschaftverl="
+									+ textField_5.getText();
+							if (currentMatch.isPenalty()) {
+								sql += ", elfmeter=1"
+										+ ", heimmannschaftelf="
+										+ textField_6.getText()
+										+ ", gastmannschaftelf="
+										+ textField_7.getText();
+							}
+						}
+									
+						sql += ", gelbekartenheim="
+								+ textField_8.getText()
+								+ ", gelbekartengast="
+								+ textField_9.getText()
+								+ ", rotekartenheim="
+								+ textField_10.getText()
+								+ ", rotekartengast="
+								+ textField_11.getText()
+								+ " WHERE  spieleid=" + currentMatch.getGameId();
+						stmt.executeUpdate(sql);
+						
+						reload();
+					} catch(SQLException e) {
+						Log.mysqlError("An error occured. [@ErgebnisEingabe_save] Error: " + e.getMessage());
+					}
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Du bearbeitest kein Spiel. Bitte wähle zuerst ein Spiel aus.", "Information", JOptionPane.INFORMATION_MESSAGE);
