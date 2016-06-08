@@ -25,11 +25,6 @@ import whs.gdi2.tippspiel.log.Log;
  */
 
 public class DatabaseManagement {
-
-	static int offset = 0;
-	static int spieleIDinErgebnisFrame = 0;
-	static SpieleStatic spiele = null;
-
 	/** Creates necessary db */
 	public static String createDB(MySQLConnection connection) {
 
@@ -383,150 +378,6 @@ public class DatabaseManagement {
 		return dtm;
 	}
 
-	public static DefaultTableModel getGamesWithNoInfoData() {
-
-		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
-		DefaultTableModel dtm = new DefaultTableModel(col, 0);
-
-		try {
-			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NULL ORDER BY datumuhrzeit LIMIT 1 OFFSET "
-							+ getOffset());
-			while (rs.next()) {
-				Object[] objs = new Object[5];
-
-				spieleIDinErgebnisFrame = rs.getInt("spieleid");
-
-				Date datumSQL = rs.getDate("datumuhrzeit");
-				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
-
-				objs[0] = rs.getString("spielbezeichnung");
-				objs[1] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
-				objs[2] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
-				objs[4] = rs.getString("gastmannschaft");
-				objs[3] = rs.getString("heimmannschaft");
-
-				dtm.addRow(objs);
-			}
-		} catch (Exception e) {
-			Log.error(e.getMessage());
-
-		}
-
-		return dtm;
-	}
-
-	public static DefaultTableModel getGameIncompleteGamesModel() {
-
-		String col[] = { "Spiel-ID", "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
-		DefaultTableModel dtm = new DefaultTableModel(col, 0);
-
-		try {
-			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery(
-					"SELECT spiele.spieleid, spiele.spielbezeichnung,spiele.spielort, spiele.gastmannschaft,	spiele.heimmannschaft, spiele.datumuhrzeit FROM spiele WHERE (gelbekartenheim IS NULL OR gelbekartengast IS NULL OR rotekartenheim IS NULL OR rotekartengast IS NULL OR gastmannschafthz IS NULL OR heimmannschafthz IS NULL OR gastmannschaftende IS NULL OR heimmannschaftende IS NULL OR heimmannschaftende IS NULL) AND datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit");
-			while (rs.next()) {
-				Object[] objs = new Object[6];
-
-				spieleIDinErgebnisFrame = rs.getInt("spieleid");
-
-				Date datumSQL = rs.getDate("datumuhrzeit");
-				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
-
-				objs[0] = rs.getString("spieleid");
-				objs[1] = rs.getString("spielbezeichnung");
-				objs[2] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
-				objs[3] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
-				objs[4] = rs.getString("gastmannschaft");
-				objs[5] = rs.getString("heimmannschaft");
-
-				dtm.addRow(objs);
-			}
-		} catch (Exception e) {
-			Log.error(e.getMessage());
-			e.printStackTrace();
-		}
-
-		return dtm;
-	}
-
-	public static DefaultTableModel getGamesWithInfoData() {
-		String col[] = { "Spielmodus", "Datum", "Anstoﬂ", "Heimmannschaft", "Gastmannschaft" };
-		DefaultTableModel dtm = new DefaultTableModel(col, 0);
-		int i = 0;
-
-		int tempInt = getOffset() * (-1);
-
-		try {
-			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery(
-					"SELECT * FROM spiele WHERE datumuhrzeit < DATE_ADD(NOW(), INTERVAL 3 HOUR) AND gelbekartenheim IS NOT NULL ORDER BY datumuhrzeit DESC LIMIT 1 OFFSET "
-							+ tempInt);
-			while (rs.next()) {
-				SpieleStatic.setVerlaengerung(rs.getBoolean("verlaengerung"));
-				SpieleStatic.setElfmeter(rs.getBoolean("elfmeter"));
-				SpieleStatic.setHeimmannschafthz(rs.getString("heimmannschafthz"));
-				SpieleStatic.setGastmannschafthz(rs.getString("gastmannschafthz"));
-				SpieleStatic.setHeimmannschaftende(rs.getString("heimmannschaftende"));
-				SpieleStatic.setGastmannschaftende(rs.getString("gastmannschaftende"));
-				SpieleStatic.setHeimmannschaftverl(rs.getString("heimmannschaftverl"));
-				SpieleStatic.setGastmannschaftverl(rs.getString("gastmannschaftverl"));
-				SpieleStatic.setHeimmannschaftelf(rs.getString("heimmannschaftelf"));
-				SpieleStatic.setGastmannschaftelf(rs.getString("gastmannschaftelf"));
-				SpieleStatic.setGelbekartenheim(rs.getString("gelbekartenheim"));
-				SpieleStatic.setGelbekartengast(rs.getString("gelbekartengast"));
-				SpieleStatic.setRotekartenheim(rs.getString("rotekartenheim"));
-				SpieleStatic.setRotekartengast(rs.getString("rotekartengast"));
-
-				Object[] objs = new Object[5];
-
-				spieleIDinErgebnisFrame = rs.getInt("spieleid");
-
-				Date datumSQL = rs.getDate("datumuhrzeit");
-				Date uhrzeitSQL = rs.getTime("datumuhrzeit");
-
-				objs[0] = rs.getString("spielbezeichnung");
-				objs[1] = new SimpleDateFormat("dd.MM.yyyy").format(datumSQL);
-				objs[2] = new SimpleDateFormat("HH:mm").format(uhrzeitSQL);
-				objs[4] = rs.getString("gastmannschaft");
-				objs[3] = rs.getString("heimmannschaft");
-
-				dtm.addRow(objs);
-				i++;
-			}
-			if (i == 0) {
-				Object[] dobjs = { "", "", "", "", "" };
-				SpieleStatic.setVerlaengerung(false);
-				SpieleStatic.setElfmeter(false);
-				SpieleStatic.setHeimmannschafthz("");
-				SpieleStatic.setGastmannschafthz("");
-				SpieleStatic.setHeimmannschaftende("");
-				SpieleStatic.setGastmannschaftende("");
-				SpieleStatic.setHeimmannschaftverl("");
-				SpieleStatic.setGastmannschaftverl("");
-				SpieleStatic.setHeimmannschaftelf("");
-				SpieleStatic.setGastmannschaftelf("");
-				SpieleStatic.setGelbekartenheim("");
-				SpieleStatic.setGelbekartengast("");
-				SpieleStatic.setRotekartenheim("");
-				SpieleStatic.setRotekartengast("");
-				dtm.addRow(dobjs);
-			}
-		} catch (Exception e) {
-			Log.error(e.getMessage());
-		}
-		return dtm;
-	}
-
-	public static int getOffset() {
-		return offset;
-	}
-
-	public static void setOffset(int offset) {
-		DatabaseManagement.offset = offset;
-	}
-
 	public static void sendTextToDB(String text) {
 		try {
 			Statement statement = Main.mainConnection.getConnection().createStatement();
@@ -540,41 +391,6 @@ public class DatabaseManagement {
 			}
 		} catch (SQLException e) {
 			Log.error(e.getMessage());
-		}
-	}
-
-	/**
-	 * Note: Warum wird die SpieleID nicht als Parameter ¸bergeben? Das w¸rde
-	 * n‰mlich part die statische Variable und ist sauberer vom code her.
-	 * 
-	 * TODO: refactoring der funktion
-	 * 
-	 * @return
-	 */
-	public static boolean isGroupPhase() {
-		String tempString = null;
-		try {
-			Statement statement = Main.mainConnection.getConnection().createStatement();
-			ResultSet rs = statement.executeQuery("SELECT * FROM spiele WHERE spieleid = " + spieleIDinErgebnisFrame);
-			while (rs.next()) {
-				tempString = rs.getString("spielbezeichnung");
-				if (tempString.contains("ruppe")) {
-					return false;
-				}
-			}
-			return true;
-		} catch (Exception e) {
-			Log.error(e.getMessage());
-		}
-		return true;
-	}
-
-	public static void addGameData(String data) {
-		try {
-			Statement statement = Main.mainConnection.getConnection().createStatement();
-			statement.executeUpdate(data + " WHERE spieleid = " + spieleIDinErgebnisFrame);
-		} catch (Exception e) {
-			Log.mysqlError(e.getMessage());
 		}
 	}
 

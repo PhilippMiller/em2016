@@ -37,6 +37,12 @@ import whs.gdi2.tippspiel.database.models.Match;
 import whs.gdi2.tippspiel.log.Log;
 
 @SuppressWarnings("serial")
+import javax.swing.event.ChangeEvent;
+/**
+ * 
+ * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
+ * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
+ */
 public class ErgebnisEingabeFrame extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
