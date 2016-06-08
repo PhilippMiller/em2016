@@ -57,7 +57,6 @@ public class DBToolDialog extends JDialog {
 	private JLabel lblDatabase;
 	private JLabel lblDBExistiert;
 	private JPanel panel;
-	private JButton btnDeleteTables;
 	private JButton btnCreateTables;
 	private JButton btnDatenbankNeuAnlegen;
 	private JButton button;
@@ -162,28 +161,21 @@ public class DBToolDialog extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
-		btnDeleteTables = new JButton("Lösche Tabellen");
-		btnDeleteTables.setBounds(10, 87, 236, 27);
-		panel.add(btnDeleteTables);
-
-		btnDeleteTables.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
-		btnDeleteTables.setBackground(Config.getGuiColor());
-
-		btnCreateTables = new JButton("Erstelle Tabellen");
-		btnCreateTables.setBounds(10, 125, 236, 27);
+		btnCreateTables = new JButton("L\u00F6sche und Erstelle Tabellen");
+		btnCreateTables.setBounds(10, 101, 236, 27);
 		panel.add(btnCreateTables);
 		btnCreateTables.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
 		btnCreateTables.setBackground(Config.getGuiColor());
 
 		button = new JButton("Testdaten Einfügen");
-		button.setBounds(10, 163, 236, 27);
+		button.setBounds(10, 139, 236, 27);
 		panel.add(button);
 
 		button.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		button.setBackground(Color.WHITE);
 
 		btnDatenbankNeuAnlegen = new JButton("Datenbank neu anlegen");
-		btnDatenbankNeuAnlegen.setBounds(10, 49, 236, 27);
+		btnDatenbankNeuAnlegen.setBounds(10, 63, 236, 27);
 
 		btnDatenbankNeuAnlegen.setFont(new Font("Calibri Light", Font.PLAIN, 15));
 		btnDatenbankNeuAnlegen.setBackground(Color.WHITE);
@@ -264,25 +256,12 @@ public class DBToolDialog extends JDialog {
 			}
 		});
 
-		btnDeleteTables.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Log.info("Menue item 'Lösche Tabellen' clicked.");
-				if (DatabaseManagement.dropTables(Main.mainConnection)) {
-					JOptionPane.showMessageDialog(classContext, "Tabellen wurden gelöscht.", "Tabellen löschen",
-							JOptionPane.PLAIN_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(classContext, "Tabellen konnten nicht gelöscht werden.",
-							"Tabellen löschen", JOptionPane.WARNING_MESSAGE);
-
-				}
-				reload();
-			}
-		});
-
 		btnCreateTables.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				Log.info("Menue item 'Erstelle Tabellen' clicked.");
+				DatabaseManagement.dropTables(Main.mainConnection);
+				
 				if (!DatabaseManagement.createTables(Main.mainConnection)) {
 					JOptionPane.showMessageDialog(classContext, "Tabellen konnten nicht erstellt werden.",
 							"Tabellen erstellen", JOptionPane.WARNING_MESSAGE);
