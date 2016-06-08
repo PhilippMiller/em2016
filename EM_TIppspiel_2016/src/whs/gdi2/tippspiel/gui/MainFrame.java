@@ -313,17 +313,7 @@ public class MainFrame extends JFrame {
 				Log.info("Menue item 'EM 2016' clicked.");
 			}
 		});
-		
-		mntmErgebnisseEingeben.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ErgebnisFrame ergebnisFrame = new ErgebnisFrame(classContext);
-				ergebnisFrame.setVisible(true);
-				ergebnisFrame.setModal(true);
-
-				Log.info("Menue item 'Ergebnis Eingabe' clicked.");
-			}
-		});
-		
+				
 		mntmRankingBerechnen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 

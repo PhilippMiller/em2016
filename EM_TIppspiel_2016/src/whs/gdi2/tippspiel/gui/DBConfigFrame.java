@@ -33,7 +33,7 @@ import java.util.HashMap;
 
 
 /**
- * Einstellungen für die D.atenbank
+ * Einstellungen für die Datenbank
  * 
  * @author Mario Kellner <mario.kellner@studmail.w-hs.de>
  * @author Philipp Miller <philipp.miller@studmail.w-hs.de>
