@@ -79,6 +79,7 @@ public class MainFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPane_1;
 	private JMenuItem mntmRankingBerechnen;
+	private JMenuItem menuItem_1;
 
 	public MainFrame(boolean showDBSettings) {
 		classContext = this;
@@ -158,6 +159,11 @@ public class MainFrame extends JFrame {
 		separator_1 = new JSeparator();
 		mnMen.add(separator_1);
 		mnMen.add(mntmErgebnisseEingeben);
+		
+		menuItem_1 = new JMenuItem("Ergebnis Eingabe (neu)");
+
+		menuItem_1.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+		mnMen.add(menuItem_1);
 		
 		mntmRankingBerechnen = new JMenuItem("Ranking berechnen");
 		mntmRankingBerechnen.setFont(new Font(Config.getFont(), Font.PLAIN, 15));
@@ -289,7 +295,16 @@ public class MainFrame extends JFrame {
 				reload();
 			}
 		});
-		
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				ErgebnisEingabeFrame ergebnisFrame = new ErgebnisEingabeFrame(classContext);
+				ergebnisFrame.setVisible(true);
+				ergebnisFrame.setModal(true);
+
+				Log.info("Menue item 'Ergebnis Eingabe' clicked.");
+			}
+		});
 		mntmEm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SpielplanFrame spielplanFrame = new SpielplanFrame(classContext);
