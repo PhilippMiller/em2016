@@ -1,5 +1,6 @@
 package whs.gdi2.tippspiel.gui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
 import java.awt.Toolkit;
@@ -16,8 +17,11 @@ import javax.swing.JPanel;
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.models.Match;
+
 import javax.swing.JLabel;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -41,6 +45,12 @@ public class KOEditorFrame extends JDialog {
 		setBackground(Config.getGuiColor());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setModal(true);
+		setSize(450, 160);
+
+		Dimension windowSize = this.getSize();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2);
+		
 		
 		JLabel lblSpieleAuswahl = new JLabel("Spiele Auswahl");
 		getContentPane().add(lblSpieleAuswahl, BorderLayout.NORTH);
