@@ -61,6 +61,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 	private JTextField textField_11;
 	protected JRadioButton rdbtnGelaufeneSpieleOhne;
 	protected JRadioButton rdbtnErfassteSpieleBearbeiten;
+	private JComboBox comboBox;
 
 	/**
 	 * Create the dialog.
@@ -96,7 +97,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		rdbtnGelaufeneSpieleOhne.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (ErgebnisEingabeFrame.this.rdbtnGelaufeneSpieleOhne.isSelected())
-					selectTheRightList(true);
+					reload(true);
 			}
 		});
 		rdbtnGelaufeneSpieleOhne.setSelected(true);
@@ -108,7 +109,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		rdbtnErfassteSpieleBearbeiten.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (rdbtnErfassteSpieleBearbeiten.isSelected())
-					selectTheRightList(false);
+					reload(false);
 			}
 		});
 		
@@ -137,7 +138,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		panel_3.setLayout(new BorderLayout(0, 0));
 		panel_3.setBackground(Config.getGuiColor());
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setBackground(Config.getGuiColor());
 		panel_3.add(comboBox, BorderLayout.CENTER);
 		
@@ -341,10 +342,10 @@ public class ErgebnisEingabeFrame extends JDialog {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2);
 		
-		reload();
+		reload(true);
 	}
 	
-	private List selectTheRightList(Boolean ohneErgebnis) {
+	private List<Match> selectTheRightList(Boolean ohneErgebnis) {
 		String sqlleft = "SELECT * FROM spiele WHERE heimmannschafthz IS NULL AND datumuhrzeit < DATE_SUB(NOW(), INTERVAL 3 HOUR) ORDER BY datumuhrzeit";
 		String sqlright ="SELECT * FROM spiele WHERE spielbezeichnung NOT LIKE '%Gruppe%' AND heimmannschafthz IS NOT NULL ORDER BY datumuhrzeit";
 
@@ -405,7 +406,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 		}
 	}
 	
-	public void reload() {
-		
+	public void reload(boolean ohneErgebnis) {
+		for (Match item : selectTheRightList(ohneErgebnis))
+			comboBox.addItem(item);
 	}
 }
