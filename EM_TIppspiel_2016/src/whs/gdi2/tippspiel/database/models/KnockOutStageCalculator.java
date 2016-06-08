@@ -96,7 +96,7 @@ public class KnockOutStageCalculator {
 			
 			return true;
 		} catch (Exception e) {
-			Log.mysqlError("Beim erstellen der KO-Phase ist ein Fehler aufgetreten. Error: " + e.getMessage());
+			Log.mysqlError("Beim erstellen der KO-Phase ist ein Fehler aufgetreten. [@Achtelfinale] Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return false;
@@ -150,7 +150,7 @@ public class KnockOutStageCalculator {
 			
 			return true;
 		} catch (Exception e) {
-			Log.error("While reading data from resultSet a error occured. Error: " + e.getMessage());
+			Log.error("While reading data from resultSet a error occured. [@Viertelfinale] Error: " + e.getMessage());
 			return false;
 		}
 	}
@@ -181,7 +181,7 @@ public class KnockOutStageCalculator {
 			
 			return true;
 		} catch (Exception e) {
-			Log.error("While reading data from resultSet a error occured. Error: " + e.getMessage());
+			Log.error("While reading data from resultSet a error occured. [@Halbfinale] Error: " + e.getMessage());
 			return false;
 		}
 	}
@@ -205,7 +205,7 @@ public class KnockOutStageCalculator {
 			
 			return true;
 		} catch (Exception e) {
-			Log.error("While reading data from resultSet a error occured. Error: " + e.getMessage());
+			Log.error("While reading data from resultSet a error occured. [@Finale] Error: " + e.getMessage());
 			return false;
 		}
 	}
@@ -220,12 +220,10 @@ public class KnockOutStageCalculator {
 			Team teamHeim = new Team();
 			teamHeim.setTeamName(rs.getString("heimmannschaft"));
 			teamHeim.setGoals(rs.getInt("heimmannschaftende"));
-			System.out.println(">" + teamHeim.getTeamName() + "< hat >" + teamHeim.getGoals() + "< Tore.");
 			
 			Team teamGast = new Team();
 			teamGast.setTeamName(rs.getString("gastmannschaft"));
 			teamGast.setGoals(rs.getInt("gastmannschaftende"));
-			System.out.println(">" + teamGast.getTeamName() + "< hat >" + teamGast.getGoals() + "< Tore.");
 			
 			// Tor Sieger
 			if (teamHeim.getGoals() > teamGast.getGoals()) {
