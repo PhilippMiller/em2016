@@ -62,6 +62,8 @@ public class ErgebnisEingabeFrame extends JDialog {
 	protected JRadioButton rdbtnGelaufeneSpieleOhne;
 	protected JRadioButton rdbtnErfassteSpieleBearbeiten;
 	private JComboBox<Match> comboBox;
+	private JCheckBox checkBox_1;
+	private JCheckBox checkBox;
 
 	/**
 	 * Create the dialog.
@@ -223,7 +225,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		label_5.setBounds(50, 97, 184, 23);
 		contentPanelCenter.add(label_5);
 
-		JCheckBox checkBox = new JCheckBox("");
+		checkBox = new JCheckBox("");
 		checkBox.setEnabled(true);
 		checkBox.setBackground(Color.WHITE);
 		checkBox.setBounds(240, 100, 21, 23);
@@ -273,7 +275,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		label_8.setBounds(146, 199, 158, 14);
 		contentPanelCenter.add(label_8);
 
-		JCheckBox checkBox_1 = new JCheckBox("");
+		checkBox_1 = new JCheckBox("");
 		checkBox_1.setEnabled(false);
 		checkBox_1.setBackground(Color.WHITE);
 		checkBox_1.setBounds(240, 165, 21, 23);
@@ -414,5 +416,27 @@ public class ErgebnisEingabeFrame extends JDialog {
 				comboBox.addItem(item);
 			}
 		}
+	}
+	
+	public void setFields(Match selectedMatch) throws Exception {
+		if(selectedMatch == null) {
+			throw new NullPointerException("Cannot edit a null-match");
+		}
+
+		textField_1.setText(selectedMatch.getHomeTeamHt() + "");
+		textField_2.setText(selectedMatch.getGuestTeamHt() + "");
+		textField_3.setText(selectedMatch.getHomeTeamEnd() + "");
+		textField_4.setText(selectedMatch.getGuestTeamEnd() + "");
+		textField_5.setText(selectedMatch.getHomeExtendEnd() + "");
+		textField_6.setText(selectedMatch.getGuestExtendEnd() + "");
+
+		checkBox_1.setSelected(selectedMatch.isPenalty());
+		checkBox.setSelected(selectedMatch.isExtension());
+
+		textField_9.setText(selectedMatch.getYellowCardsHome() + "");
+		textField_9.setText(selectedMatch.getYellowCardsGuest() + "");
+		
+		textField_10.setText(selectedMatch.getRedCardsHome() + "");
+		textField_11.setText(selectedMatch.getRedCardsGuest() + "");
 	}
 }
