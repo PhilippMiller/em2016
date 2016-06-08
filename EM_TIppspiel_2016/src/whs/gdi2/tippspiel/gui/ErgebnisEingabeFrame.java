@@ -328,6 +328,51 @@ public class ErgebnisEingabeFrame extends JDialog {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2);
 		
+		/*
+		 * LISTENER
+		 */
+		checkBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (checkBox.isSelected()) {
+					textField_4.setVisible(true);
+					textField_4.setEnabled(true);
+					textField_5.setVisible(true);
+					textField_5.setEnabled(true);
+				} else {
+					textField_4.setVisible(false);
+					textField_4.setEnabled(false);
+					textField_5.setVisible(false);
+					textField_5.setEnabled(false);
+				}
+			}
+		});
+		
+		checkBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (checkBox_1.isSelected()) {
+					checkBox.setSelected(true);
+					textField_4.setVisible(true);
+					textField_4.setEnabled(true);
+					textField_5.setVisible(true);
+					textField_5.setEnabled(true);
+					textField_6.setVisible(true);
+					textField_6.setEnabled(true);
+					textField_7.setVisible(true);
+					textField_7.setEnabled(true);
+				} else {
+					checkBox.setSelected(false);
+					textField_4.setVisible(false);
+					textField_4.setEnabled(false);
+					textField_5.setVisible(false);
+					textField_5.setEnabled(false);
+					textField_6.setVisible(false);
+					textField_6.setEnabled(false);
+					textField_7.setVisible(false);
+					textField_7.setEnabled(false);
+				}
+			}
+		});
+		
 		rdbtnGelaufeneSpieleOhne.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				ErgebnisEingabeFrame.this.reload();
