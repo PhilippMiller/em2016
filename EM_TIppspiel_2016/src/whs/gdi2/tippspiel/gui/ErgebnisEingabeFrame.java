@@ -65,10 +65,10 @@ public class ErgebnisEingabeFrame extends JDialog {
 	protected JRadioButton rdbtnErfassteSpieleBearbeiten;
 	private JComboBox<Match> comboBox;
 	private JButton button;
-	private JCheckBox checkBox_1;
+	protected JCheckBox checkBox_1;
 	protected JCheckBox checkBox;
 	private JLabel lblGametimelabel;
-
+	protected Match currentMatch;
 	/**
 	 * Create the dialog.
 	 */
@@ -337,9 +337,19 @@ public class ErgebnisEingabeFrame extends JDialog {
 		/*
 		 * LISTENER
 		 */
+		btnSpeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(currentMatch != null) {
+					System.out.println("works");
+					reload();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Du bearbeitest kein Spiel. Bitte wähle zuerst ein Spiel aus.", "Information", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		
 		button.addActionListener(new ActionListener() {
-			private Match currentMatch;
 
 			public void actionPerformed(ActionEvent arg0) {
 				currentMatch = (Match) comboBox.getSelectedItem();
@@ -525,6 +535,9 @@ public class ErgebnisEingabeFrame extends JDialog {
 	}
 	
 	public void clear() {
+		currentMatch = null;
+		
+		lblGametimelabel.setText("");
 		textField.setText("0");
 		textField_1.setText("0");
 		textField_2.setText("0");
