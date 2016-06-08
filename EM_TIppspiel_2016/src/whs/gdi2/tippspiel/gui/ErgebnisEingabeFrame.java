@@ -492,9 +492,14 @@ public class ErgebnisEingabeFrame extends JDialog {
 		textField_2.setText(selectedMatch.getGuestTeamHt() + "");
 		textField_3.setText(selectedMatch.getHomeTeamEnd() + "");
 		textField_4.setText(selectedMatch.getGuestTeamEnd() + "");
-		
-		textField_5.setText(selectedMatch.getHomeExtendEnd() + "");
-		textField_6.setText(selectedMatch.getGuestExtendEnd() + "");
+		if (selectedMatch.isExtension()) {
+			textField_5.setText(selectedMatch.getHomeExtendEnd() + "");
+			textField_6.setText(selectedMatch.getGuestExtendEnd() + "");
+		}
+		if (selectedMatch.isPenalty()) {
+			textField_5.setText(selectedMatch.getHomePenaltyEnd() + "");
+			textField_6.setText(selectedMatch.getGuestPenaltyEnd() + "");
+		}
 
 		checkBox_1.setSelected(selectedMatch.isPenalty());
 		checkBox.setSelected(selectedMatch.isExtension());
