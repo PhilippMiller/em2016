@@ -1,16 +1,17 @@
 package whs.gdi2.tippspiel.database.models;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Date;
 
 public class Match {
 	
 	protected int gameId, homeTeamHt, guestTeamHt, homeTeamEnd, guestTeamEnd, yellowCardsHome, yellowCardsGuest, redCardsHome, redCardsGuest;
-	protected List<Team> team;
-	
-	public Match() {
-		team = new LinkedList<Team>();
-	}
+	private String hometeam;
+	private String guestteam;
+	private Date gameTimeAndDate;
+	private boolean extension;
+	private int guestExtendEnd, homeExtendEnd;
+	private boolean elevenmeters;
+	private int homeElevenEnd, guestElevenEnd;
 
 	public int getGameId() {
 		return gameId;
@@ -82,6 +83,78 @@ public class Match {
 
 	public void setRedCardsGuest(int redCardsGuest) {
 		this.redCardsGuest = redCardsGuest;
+	}
+
+	public String getHometeam() {
+		return hometeam;
+	}
+
+	public void setHometeam(String hometeam) {
+		this.hometeam = hometeam;
+	}
+
+	public String getGuestteam() {
+		return guestteam;
+	}
+
+	public void setGuestteam(String guestteam) {
+		this.guestteam = guestteam;
+	}
+
+	public Date getGameTimeAndDate() {
+		return gameTimeAndDate;
+	}
+
+	public void setGameTimeAndDate(Date gameTimeAndDate) {
+		this.gameTimeAndDate = gameTimeAndDate;
+	}
+
+	public int getGuestExtendEnd() {
+		return guestExtendEnd;
+	}
+
+	public void setGuestExtendEnd(int guestExtendEnd) {
+		this.guestExtendEnd = guestExtendEnd;
+	}
+
+	public int getHomeExtendEnd() {
+		return homeExtendEnd;
+	}
+
+	public void setHomeExtendEnd(int homeExtendEnd) {
+		this.homeExtendEnd = homeExtendEnd;
+	}
+
+	public int getHomeElevenEnd() {
+		return homeElevenEnd;
+	}
+
+	public void setHomeElevenEnd(int homeElevenEnd) {
+		this.homeElevenEnd = homeElevenEnd;
+	}
+
+	public int getGuestElevenEnd() {
+		return guestElevenEnd;
+	}
+
+	public void setGuestElevenEnd(int guestElevenEnd) {
+		this.guestElevenEnd = guestElevenEnd;
+	}
+
+	public boolean isExtension() {
+		return extension;
+	}
+
+	public void setExtension(boolean extension) {
+		this.extension = extension;
+	}
+
+	public boolean isElevenmeters() {
+		return elevenmeters;
+	}
+
+	public void setElevenmeters(boolean elevenmeters) {
+		this.elevenmeters = elevenmeters;
 	}
 
 }
