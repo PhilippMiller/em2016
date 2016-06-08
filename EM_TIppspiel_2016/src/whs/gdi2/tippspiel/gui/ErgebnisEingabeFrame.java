@@ -93,26 +93,12 @@ public class ErgebnisEingabeFrame extends JDialog {
 		
 		rdbtnGelaufeneSpieleOhne = new JRadioButton("Ergebnisse eintragen");
 		rdbtnGelaufeneSpieleOhne.setBackground(Config.getGuiColor());
-		
-		rdbtnGelaufeneSpieleOhne.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if (ErgebnisEingabeFrame.this.rdbtnGelaufeneSpieleOhne.isSelected())
-					reload(true);
-			}
-		});
 		rdbtnGelaufeneSpieleOhne.setSelected(true);
 		
 		panel_1.add(rdbtnGelaufeneSpieleOhne);
 		rdbtGroup.add(rdbtnGelaufeneSpieleOhne);
 
-		rdbtnErfassteSpieleBearbeiten = new JRadioButton("Erfasste Spiele bearbeiten");
-		rdbtnErfassteSpieleBearbeiten.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if (rdbtnErfassteSpieleBearbeiten.isSelected())
-					reload(false);
-			}
-		});
-		
+		rdbtnErfassteSpieleBearbeiten = new JRadioButton("Erfasste Spiele bearbeiten");		
 		rdbtnErfassteSpieleBearbeiten.setBackground(Config.getGuiColor());
 		
 		panel_1.add(rdbtnErfassteSpieleBearbeiten);
@@ -342,7 +328,18 @@ public class ErgebnisEingabeFrame extends JDialog {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2);
 		
-		reload(true);
+		rdbtnGelaufeneSpieleOhne.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				ErgebnisEingabeFrame.this.reload();
+			}
+		});
+		rdbtnErfassteSpieleBearbeiten.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				ErgebnisEingabeFrame.this.reload();
+			}
+		});
+		
+		reload();
 	}
 	
 	private List<Match> selectTheRightList(Boolean ohneErgebnis) {
@@ -406,10 +403,18 @@ public class ErgebnisEingabeFrame extends JDialog {
 		}
 	}
 	
-	public void reload(boolean ohneErgebnis) {
+	public void reload() {
+		boolean ohneErgebnis = true;
+		if (rdbtnErfassteSpieleBearbeiten.isSelected()) {
+			ohneErgebnis = false;
+		} else if (rdbtnGelaufeneSpieleOhne.isSelected()){
+			ohneErgebnis = true;
+		}
 		List<Match> matches = selectTheRightList(ohneErgebnis);
 		if (matches != null) {
-			comboBox.removeAllItems();
+			if (comboBox.getItemCount() != 0) {
+				comboBox.removeAllItems();
+			}
 			for (Match item : matches) {
 				comboBox.addItem(item);
 			}
