@@ -18,10 +18,7 @@ import javax.swing.JPanel;
 import whs.gdi2.tippspiel.Config;
 import whs.gdi2.tippspiel.Main;
 import whs.gdi2.tippspiel.database.models.Match;
-<<<<<<< HEAD
 import whs.gdi2.tippspiel.log.Log;
-=======
->>>>>>> branch 'master' of https://github.com/PhilippMiller/em2016
 
 import javax.swing.JLabel;
 
@@ -117,10 +114,10 @@ public class KOEditorFrame extends JDialog {
 				currentMatch = (Match) comboBox.getSelectedItem();
 				try {
 					setFields(currentMatch);
+					Log.debug("Selected game ID: " + currentMatch.getGameId());
 				} catch (Exception ex) {
 					Log.error("An error occured. [@KOEditor_selectMatch] Error: " + ex.getMessage());
 				}
-				Log.debug("Selected game ID: " + currentMatch.getGameId());
 			}
 		});
 		
