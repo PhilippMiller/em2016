@@ -119,6 +119,7 @@ public class Log {
 		return df.format(date);
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	private static void exit(LogLevel level) {
 		switch (level) {
 		case CRITICAL:

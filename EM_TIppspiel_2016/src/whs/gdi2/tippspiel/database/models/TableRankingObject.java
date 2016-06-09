@@ -7,14 +7,7 @@ import javax.swing.table.DefaultTableModel;
 public class TableRankingObject {
 	
 	private DefaultTableModel dtm;
-	private ArrayList<Team> teams;
-	
-	public TableRankingObject() {
-		this.dtm = dtm;
-		this.teams = teams;
-	}
-	
-	
+	private ArrayList<Team> teams;	
 
 	public DefaultTableModel getDtm() {
 		return dtm;

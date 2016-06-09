@@ -38,6 +38,7 @@ public class KOEditorFrame extends JDialog {
 	private JLabel lblGameid;
 	private JLabel lblTime;
 	protected Match currentMatch;
+	private JButton btnSpeichern;
 
 	/**
 	 * Create the dialog.
@@ -57,57 +58,54 @@ public class KOEditorFrame extends JDialog {
 		Dimension windowSize = this.getSize();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(screenSize.width / 2 - windowSize.width / 2, screenSize.height / 2 - windowSize.height / 2);
-		
-		
+
 		JLabel lblSpieleAuswahl = new JLabel("Spiele Auswahl");
 		getContentPane().add(lblSpieleAuswahl, BorderLayout.NORTH);
-		
+
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1, BorderLayout.NORTH);
 		panel_1.setLayout(new BorderLayout(0, 0));
-		
+
 		comboBox = new JComboBox<Match>();
 		panel_1.add(comboBox, BorderLayout.CENTER);
-		
+
 		JButton btnNewButton = new JButton("Spiel ausw\u00E4hlen");
 		panel_1.add(btnNewButton, BorderLayout.EAST);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(null);
-		
+
 		textField = new JTextField();
 		textField.setBounds(10, 11, 200, 20);
 		panel_2.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel label = new JLabel(":");
 		label.setBounds(220, 14, 10, 14);
 		panel_2.add(label);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setBounds(230, 11, 200, 20);
 		panel_2.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		lblGameid = new JLabel("GameID:");
 		lblGameid.setBounds(10, 42, 100, 14);
 		panel_2.add(lblGameid);
-		
+
 		lblTime = new JLabel("");
-		lblTime.setBounds(230, 39, 46, 14);
+		lblTime.setBounds(230, 39, 200, 14);
 		panel_2.add(lblTime);
-		
-		JButton btnSpeichern = new JButton("Speichern");
-		panel.add(btnSpeichern, BorderLayout.SOUTH);
-		
-		
+
+		btnSpeichern = new JButton("Speichern");
+
 		/*
-		 *  LISTER
+		 * LISTER
 		 */
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,19 +113,51 @@ public class KOEditorFrame extends JDialog {
 				try {
 					setFields(currentMatch);
 					Log.debug("Selected game ID: " + currentMatch.getGameId());
+					btnSpeichern.setEnabled(true);
 				} catch (Exception ex) {
 					Log.error("An error occured. [@KOEditor_selectMatch] Error: " + ex.getMessage());
 				}
 			}
 		});
-		
+
+		btnSpeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currentMatch != null) {
+					saveData();
+				} else {
+					JOptionPane.showMessageDialog(null, "Bitte zuvor ein Spiel wählen.", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		panel.add(btnSpeichern, BorderLayout.SOUTH);
+
+		reload();
+
 	}
-	
+
+	public void saveData() {
+		try {
+			Statement stmt = Main.mainConnection.getConnection().createStatement();
+			String sql = "UPDATE spiele SET heimmannschaft='" + textField.getText() + "', gastmannschaft='"
+					+ textField_1.getText() + "' WHERE spieleid=" + currentMatch.getGameId();
+			Log.debug(sql);
+			stmt.executeUpdate(sql);
+			reload();
+			JOptionPane.showMessageDialog(null, "Eintrag erfolgreich gespeichert.", "Information",
+					JOptionPane.INFORMATION_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+					"Beim Speichern ist ein Fehler aufgetreten.\nBitte versuchen sie es später erneut.", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 	public void setFields(Match currentMatch) {
 		lblGameid.setText(lblGameid.getText() + currentMatch.getGameId());
 		SimpleDateFormat sdf_date = new SimpleDateFormat("dd.MM.YYYY");
 		SimpleDateFormat sdf_time = new SimpleDateFormat("HH:mm");
-		lblTime.setText(sdf_date.format(currentMatch.getGameDate()) + " " + sdf_time.format(currentMatch.getGameTime()));
+		lblTime.setText(
+				sdf_date.format(currentMatch.getGameDate()) + " " + sdf_time.format(currentMatch.getGameTime()));
 		textField.setText(currentMatch.getHometeam());
 		textField_1.setText(currentMatch.getGuestteam());
 	}
@@ -139,7 +169,7 @@ public class KOEditorFrame extends JDialog {
 
 			Statement stmt = Main.mainConnection.getConnection().createStatement();
 			ResultSet rs;
-			
+
 			rs = stmt.executeQuery(sql);
 
 			if (rs != null) {
@@ -154,18 +184,18 @@ public class KOEditorFrame extends JDialog {
 					match.setGameDate(rs.getDate("datumuhrzeit"));
 					matches.add(match);
 				}
+				return matches;
 			} else {
-				JOptionPane.showMessageDialog(null, "Keine passenden KO-Spiele gefunden.\nBitte die Datenbank überprüfen!", "ERROR",
+				JOptionPane.showMessageDialog(null,
+						"Keine passenden KO-Spiele gefunden.\nBitte die Datenbank überprüfen!", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			return matches;
 		} catch (SQLException e) {
 
 		}
 		return null;
 	}
-	
-	
+
 	public void reload() {
 		List<Match> matches = getKnockOutGames();
 		if (matches != null) {
@@ -178,12 +208,13 @@ public class KOEditorFrame extends JDialog {
 			}
 		}
 	}
-	
+
 	public void clear() {
 		textField.setText("");
 		textField_1.setText("");
 		lblGameid.setText("GameID: ");
 		lblTime.setText("");
+		btnSpeichern.setEnabled(false);
 	}
 
 }

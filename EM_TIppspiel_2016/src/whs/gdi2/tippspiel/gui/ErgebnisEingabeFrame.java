@@ -62,6 +62,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 	protected JCheckBox checkBox;
 	private JLabel lblGametimelabel;
 	protected Match currentMatch;
+	private JButton btnSpeichern;
 	/**
 	 * Create the dialog.
 	 */
@@ -317,7 +318,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		textField_11.setBounds(50, 271, 86, 20);
 		contentPanelCenter.add(textField_11);
 
-		JButton btnSpeichern = new JButton("Speichern");
+		btnSpeichern = new JButton("Speichern");
 		btnSpeichern.setBackground(Config.getGuiColor());
 		
 		getContentPane().add(btnSpeichern, BorderLayout.SOUTH);
@@ -407,6 +408,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 				currentMatch = (Match) comboBox.getSelectedItem();
 				try {
 					setFields(currentMatch);
+					btnSpeichern.setEnabled(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -631,5 +633,7 @@ public class ErgebnisEingabeFrame extends JDialog {
 		checkBox.setEnabled(false);
 		checkBox_1.setSelected(false);
 		checkBox_1.setEnabled(false);
+		
+		btnSpeichern.setEnabled(false);
 	}
 }

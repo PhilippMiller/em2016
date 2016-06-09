@@ -283,8 +283,11 @@ public class Config {
 				Log.info("Config file sucessfully loaded.");
 			}
 
+			@SuppressWarnings("rawtypes")
 			Iterator it = map.entrySet().iterator();
 			while (it.hasNext()) {
+				
+				@SuppressWarnings("rawtypes")
 				Map.Entry pair = (Map.Entry) it.next();
 				pt.setProperty((String) pair.getKey(), (String) pair.getValue());
 				if (!pair.getKey().equals("DBType")) {
