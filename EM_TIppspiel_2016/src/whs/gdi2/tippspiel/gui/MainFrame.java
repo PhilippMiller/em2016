@@ -443,7 +443,9 @@ public class MainFrame extends JFrame {
 			rdbtnmntmTestDatenbank.setSelected(true);
 		}
 		tableTopTenBetters.setModel(DatabaseManagement.implementUserTop10Data());
+		tableTopTenBetters.repaint();
 		tableNextGames.setModel(DatabaseManagement.implementNext10Games());
+		tableNextGames.repaint();
 		
 		Log.info("Reload MainFrame data complete.");
 	}
