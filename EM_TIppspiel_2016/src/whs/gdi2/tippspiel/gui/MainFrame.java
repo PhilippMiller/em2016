@@ -409,6 +409,7 @@ public class MainFrame extends JFrame {
 					Log.info("Action [" + e.getActionCommand() + "] performed!");
 					if(Main.switchDatabaseConnection(dbtype)) {
 						JOptionPane.showMessageDialog(classContext, "Datenbankverbindung erfolgreich geändert.", "Datenbank Switcher", JOptionPane.PLAIN_MESSAGE);
+						reload();
 					}
 					else {
 						JOptionPane.showMessageDialog(classContext, "Datenbankverbindung konnte nicht gewechselt werden. Bitte überprüfen Sie ihre Datenbank Einstellungen", "Datenbank Switcher", JOptionPane.WARNING_MESSAGE);
